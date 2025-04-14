@@ -310,6 +310,18 @@ jobs:
           make CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.DEFCONFIG_NAME }}
           make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
 
+          cd out/arch/arm64/boot
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/op_kernel/patch_linux -O patch
+          chmod 777 patch
+          rm -f Image.gz-dtb
+          rm -f Image.gz
+          ./patch
+          rm -f Image
+          mv oImage Image
+          gzip -c Image > Image.gz
+          cat dts/qcom/*.dts > dtb
+          cat Image.gz dtb > Image.gz-dtb
+
       - name: Make Latest Boot Image
         run: |
           IMAGE_DIR="$GITHUB_WORKSPACE/device_kernel/out/arch/arm64/boot"

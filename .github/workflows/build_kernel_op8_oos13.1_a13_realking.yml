@@ -298,7 +298,7 @@ jobs:
             if [ -f "include/linux/set_memory.h" ] && [ "${{ env.KPM_ENABLE }}" == "true" ]; then
                 echo "CONFIG_KPM=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
                 wget "${{ env.KPM_PATCH_SOURCE }}" -o patch
-                chmod a+x patch
+                chmod 777 patch
                 echo "Set KPM successfully !"
             elif [ "$KPM_ENABLE" == "true" ]; then
                 echo "Your kernel doesn't support KPM !"
@@ -601,8 +601,7 @@ jobs:
                   if [ -d "out/arch/arm64/boot/dts" ]; then
                       rm -f "$IMAGE_DIR/Image.gz-dtb" "$IMAGE_DIR/Image.gz"
                       cp patch "$IMAGE_DIR/"
-                      cd "$IMAGE_DIR/" || exit 1
-                      chmod 777 patch
+                      cd "$IMAGE_DIR/"
                       ./patch
                       rm -f Image
                       mv oImage Image
@@ -612,8 +611,7 @@ jobs:
                   elif [ -d "out/arch/arm64/boot/vendor/dts" ]; then
                       rm -f "$IMAGE_DIR/Image.gz-dtb" "$IMAGE_DIR/Image.gz"
                       cp patch "$IMAGE_DIR/"
-                      cd "$IMAGE_DIR/" || exit 1
-                      chmod 777 patch
+                      cd "$IMAGE_DIR/"
                       ./patch
                       rm -f Image
                       mv oImage Image
@@ -630,8 +628,7 @@ jobs:
             gz)
               rm -f "$IMAGE_DIR/Image.gz"
               cp patch "$IMAGE_DIR/"
-              cd "$IMAGE_DIR/" || exit 1
-              chmod 777 patch
+              cd "$IMAGE_DIR/"
               ./patch
               rm -f Image
               mv oImage Image
@@ -640,8 +637,7 @@ jobs:
               ;;
             plain)
               cp patch "$IMAGE_DIR/"
-              cd "$IMAGE_DIR/" || exit 1
-              chmod 777 patch
+              cd "$IMAGE_DIR/"
               ./patch
               mv oImage Image
               echo "Hook Image successfully !"

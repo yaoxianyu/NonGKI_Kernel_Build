@@ -537,7 +537,6 @@ jobs:
                       rm -f "$IMAGE_DIR/Image.gz-dtb" "$IMAGE_DIR/Image.gz"
                       cp patch "$IMAGE_DIR/"
                       cd "$IMAGE_DIR/" || exit 1
-                      chmod 777 patch
                       ./patch
                       rm -f Image
                       mv oImage Image
@@ -548,7 +547,6 @@ jobs:
                       rm -f "$IMAGE_DIR/Image.gz-dtb" "$IMAGE_DIR/Image.gz"
                       cp patch "$IMAGE_DIR/"
                       cd "$IMAGE_DIR/" || exit 1
-                      chmod 777 patch
                       ./patch
                       rm -f Image
                       mv oImage Image
@@ -566,7 +564,6 @@ jobs:
               rm -f "$IMAGE_DIR/Image.gz"
               cp patch "$IMAGE_DIR/"
               cd "$IMAGE_DIR/" || exit 1
-              chmod 777 patch
               ./patch
               rm -f Image
               mv oImage Image
@@ -576,7 +573,6 @@ jobs:
             plain)
               cp patch "$IMAGE_DIR/"
               cd "$IMAGE_DIR/" || exit 1
-              chmod 777 patch
               ./patch
               mv oImage Image
               echo "Hook Image successfully !"

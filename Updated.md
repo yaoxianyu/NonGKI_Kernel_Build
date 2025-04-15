@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 13**
+    - 切换 一加8 OOS13 Kernel分支
+    - 增加 说明文件 对于KPM Patcher部分的说明
+
 - **Ver.1.4 Fixed 12**
     - 修改 示例YAML 中对KPM Hook执行的判定，从IF改为CASE
 

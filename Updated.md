@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 15**
+    - 切换 一加8 Realking KernelSU分支至SukiSU-Ultra
+
 - **Ver.1.4 Fixed 14**
     - 增加 支持列表 部分文本说明
     - 取消 支持列表 中 一加8 Realking 对VFS Hook的支持

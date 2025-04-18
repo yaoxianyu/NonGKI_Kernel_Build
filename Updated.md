@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 16**
+    - 增加 示例YAML文件 对于KernelSU地址的判断
+
 - **Ver.1.4 Fixed 15**
     - 切换 一加8 Realking KernelSU分支至SukiSU-Ultra
 

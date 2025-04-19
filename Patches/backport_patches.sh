@@ -7,10 +7,15 @@ patch_files=(
     fs/namespace.c
     fs/internal.h
     kernel/cred.c
+    kernel/trace/bpf_trace.c
+    kernel/trace/trace_kprobe.c
     include/linux/cred.h
     include/linux/uaccess.h
     mm/maccess.c
 )
+
+KERNEL_VERSION=$(head -n 3 Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')
+SECOND_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $2}')
 
 for i in "${patch_files[@]}"; do
 
@@ -39,9 +44,7 @@ for i in "${patch_files[@]}"; do
         ;;
     ## fs/internal.h
     fs/internal.h)
-        KERNEL_VERSION=$(head -n 3 Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')
-        CHECK_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $2}')
-        if [ "$CHECK_VERSION" -le 9 ]; then
+        if [ "$SECOND_VERSION" -le 9 ]; then
             if grep -q "extern void __mnt_drop_write(struct vfsmount \*)" fs/internal.h; then
                 sed -i '/extern void __mnt_drop_write_file(struct file \*);/a int path_umount(struct path \*path, int flags);' fs/internal.h
             else
@@ -57,6 +60,19 @@ for i in "${patch_files[@]}"; do
             sed -i "s/!atomic_long_inc_not_zero(&((struct cred \*)cred)->usage)/!get_cred_rcu(cred)/g" kernel/cred.c
         else
             sed -i "s/!atomic_inc_not_zero(&((struct cred \*)cred)->usage)/!get_cred_rcu(cred)/g" kernel/cred.c
+        fi
+        ;;
+    ## kernel/trace
+    ### kernel/trace/bpf_trace.c
+    kernel/trace/bpf_trace.c)
+        if [ "$KERNEL_VERSION" == "5.4" ]; then
+            sed -i 's/\bstrncpy_from_unsafe_user\b/strncpy_from_user_nofault/g' kernel/trace/bpf_trace.c
+        fi
+        ;;
+    ### kernel/trace/trace_kprobe.c
+    kernel/trace/trace_kprobe.c)
+        if [ "$KERNEL_VERSION" == "5.4" ]; then
+            sed -i 's/\bstrncpy_from_unsafe_user\b/strncpy_from_user_nofault/g' kernel/trace/trace_kprobe.c
         fi
         ;;
 

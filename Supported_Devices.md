@@ -14,6 +14,7 @@
 | 红米 Note 7 | lavender | 4.4/Stormbreaker/Predator | MIUI 12 | 10 | Boot Image | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 小米 5 | gemini | 4.4/crdroidandroid/crdroid | Crdroid 9 | 13 | Anykernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 谷歌 Pixel 9 Series | zumapro | 6.1/kerneltoast/kerneltoast | Pixel | 15 | Anykernel3 | SukiSU | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 小米 11 Ultra | star | 5.4/EndCredits/Acetaminophen | HyperOS | 14 | Anykernel3 | Magic | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 
 特别说明：
   - 我们提供的KernelSU分支包括：[Next(❌)](https://github.com/KernelSU-Next/KernelSU-Next)、[Magic](https://github.com/backslashxx/KernelSU)、[rsuntk](https://github.com/rsuntk/KernelSU)、[lightsummer233](https://github.com/lightsummer233/KernelSU)、[酷友二创-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra)、[SukiSU](https://github.com/ShirkNeko/KernelSU)
@@ -30,3 +31,4 @@
   - 三星 S20 5G 仅支持**高通版本**，猎户座版本请勿尝试
   - 红米 Note 7 需要在内核刷入后再刷入[Oldcam+WiFi补丁](https://sourceforge.net/projects/syylg/files/MengT/MIUI_Q_PATCH/OldCam%2BWiFi-Patch-v2.zip/download)才能正常使用
   - 谷歌 Pixel 9 Series 指 9代全系列设备，该内核目前尚未经过测试
+  - 小米 11 Ultra 没有进行normal patch，仅仅执行backport patch，因此应该可以在KSU管理器中切换kprobe和模拟手动修补，以及SUS SU应该也能正常工作

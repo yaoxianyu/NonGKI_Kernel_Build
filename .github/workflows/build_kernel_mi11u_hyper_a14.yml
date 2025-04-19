@@ -1,23 +1,22 @@
-name: Build Kernel Template (Cannot be used for compilation directly)
+name: Build Kernel Xiaomi 11 Ultra (HyperOS A14) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:
 env:
   PYTHON_VERSION: "3" # Only 2(Ubuntu 22.04) or 3(Any OS Versions).
   PACK_METHOD: "Anykernel3" # Anykernel3 need SOURCE and BRANCH, MKBOOTIMG needn't it.
-  KERNELSU_METHOD: "shell" # shell, manual and only.
-  PATCHES_SOURCE: "author/source" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
-  PATCHES_BRANCH: "branch" # [your_branch] -> main
+  KERNELSU_METHOD: "only" # shell, manual and only.
+  PATCHES_SOURCE: "JackA1ltman/NonGKI_Kernel_Patches" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
+  PATCHES_BRANCH: "mi_kernel" # [your_branch] -> main
   HOOK_METHOD: "normal" # manual hook method,can choice vfs and normal.
-  PROFILE_NAME: "codename_rom_template.env" # your profile name.
+  PROFILE_NAME: "star_hyper_a14.env" # your profile name.
   KERNELSU_SUS_PATCH: "false" # if u need manual susfs patch to kernelsu.
   KPM_ENABLE: "false" # Only use it for SukiSU-Ultra.
   KPM_PATCH_SOURCE: "" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .
   GENERATE_DTB: "false" # if u kernel need DTB , but cannot auto generate it. (Only Anykernel3).
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
-  BUILD_OTHER_CONFIG: "false" # Merge config files.
-  FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
+  BUILD_OTHER_CONFIG: "true" # Merge config files.
 
 
 jobs:
@@ -29,37 +28,6 @@ jobs:
       CCACHE_NOHASHDIR: "true"
       CCACHE_HARDLINK: "true"
     steps:
-      - name: Free Disk Space (Ubuntu)
-        if: env.FREE_MORE_SPACE == 'true'
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: true
-
-          # all of these default to true, but feel free to set to
-          # "false" if necessary for your workflow
-          android: false
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Remove useless tools
-        run: |
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
-
-      - name: Set up swap
-        if: env.OLDER_UBUNTU != 'true'
-        run: |
-          sudo fallocate -l 8G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
-
       - uses: actions/checkout@v4
       - name: Prepare Configuration
         run: |
@@ -106,6 +74,28 @@ jobs:
 
           # Move patch folder to tmp
           mv $GITHUB_WORKSPACE/Patches /tmp/
+
+      - name: Free Disk Space (Ubuntu)
+        if: env.LXC_ENABLE == 'true'
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: true
+
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: false
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - name: Remove useless tools
+        run: |
+          sudo rm -rf /opt/hostedtoolcache
+          df -h
 
       - name: Install necessary packages
         run: |
@@ -240,6 +230,7 @@ jobs:
           echo "CONFIG_KSU=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           if [[ "${{ env.SUSFS_ENABLE }}" == "true" ]]; then
             echo "CONFIG_KSU_SUSFS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SUS_SU=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
@@ -368,7 +359,8 @@ jobs:
               if [[ -f "/tmp/Patches/normal_patches.sh" ]]; then
                   cp /tmp/Patches/normal_patches.sh device_kernel/
                   cd device_kernel
-                  bash normal_patches.sh
+                  # bash normal_patches.sh
+                  # 5.4 kernel can use susfs patch and use kprobe
                   echo "execuated patch successfully."
                   if [ $KERNEL -lt 5 ] && [ $PATCHLEVEL -lt 14 ]; then
                       cp /tmp/Patches/extra_patches.sh ./
@@ -512,9 +504,9 @@ jobs:
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./
+          cp NonGKI_Kernel_Patches/mi11u_hyperos/hyperos_a14_fixed.patch ./
 
-          patch -p1 < [patch_file].patch || true
+          patch -p1 < hyperos_a14_fixed.patch || true
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -524,7 +516,7 @@ jobs:
 
       - name: Build Kernel
         run: |
-          MERGE_CONFIG_FILES=("vendor/debugfs.config" "vendor/lahaina_QGKI.config")
+          MERGE_CONFIG_FILES=("vendor/xiaomi_QGKI.config" "vendor/star_QGKI.config")
           export PATH=$GITHUB_WORKSPACE/clang-custom/bin:$PATH
           cd $GITHUB_WORKSPACE/device_kernel/
           if [ -z "${{ env.GCC_32 }}" ] && [ -z "${{ env.GCC_64 }}" ]; then
@@ -676,33 +668,6 @@ jobs:
             # cp -fp $IMAGE_DIR/Image.gz tmp
             cp -fp $IMAGE_DIR/Image tmp
             echo "Found Image !"
-          fi
-
-          if [[ -f "$IMAGE_DIR/dtbo.img" ]]; then
-            cp -fp $IMAGE_DIR/dtbo.img tmp
-            echo "Found dtbo.img !"
-          else
-            echo "Doesn't found dtbo.img! Your device maybe needn't the file."
-          fi
-
-          if [ -f "$IMAGE_DIR/dtb" ]; then
-            echo "Found DTB!"
-            cp -fp $IMAGE_DIR/dtb tmp
-          elif [ "${{ env.GENERATE_DTB }}" == "true" ]; then
-            if [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
-                cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
-                cp -fp $IMAGE_DIR/DTB tmp
-                echo "Generated ${{ env.GENERATE_CHIP }} DTB."
-            elif [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
-                cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
-                cp -fp $IMAGE_DIR/DTB tmp
-                echo "Generated ${{ env.GENERATE_CHIP }} DTB."
-            else
-                echo "Missing .dtb file in dts or dts/vendor ! Generate Failed !"
-                false
-            fi
-          else
-            echo "Doesn't found DTB! Your device maybe needn't the file."
           fi
 
           cp -rp ./Anykernel3/* tmp

@@ -2,6 +2,7 @@
 - **Ver.1.4 Fixed 19**
     - 撤回 示例YAML文件 原始默认Free disk space方案
     - 增加 小米11 Ultra Free disk space方案
+    - 完善 说明文件 部分内容的说明
 
 - **Ver.1.4 Fixed 18**
     - 删除 示例YAML文件 原始默认Free disk space方案

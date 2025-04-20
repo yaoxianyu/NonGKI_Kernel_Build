@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 22**
+    - 修改 小米11 Ultra HyperOS A14 KernelSU分支
+
 - **Ver.1.4 Fixed 21**
     - 修改 示例YAML文件 上传部分步骤名称
 

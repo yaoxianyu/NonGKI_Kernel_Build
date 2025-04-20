@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 24**
+    - 切换 小米11 Ultra HyperOS A14 KernelSU分支至rsuntk
+    
+- **Ver.1.4 Fixed 24**
+    - 修正 示例YAML文件 对于Proton Clang的判定
+
 - **Ver.1.4 Fixed 23**
     - 增加 Ubuntu 20.04 示例YAML文件 方案
     - 增加 说明文件 部分内容

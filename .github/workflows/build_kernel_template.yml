@@ -149,7 +149,7 @@ jobs:
           cd $GITHUB_WORKSPACE
 
           # Set GCC Aarch64
-          if [ "${{ env.CLANG_SOURCE }}" == *proton* ]; then
+          if [[ "${{ env.CLANG_SOURCE }}" == *proton* ]]; then
             echo "Detected Proton Clang. Not use GCC Source."
             GCC_64_BIN=aarch64-linux-gnu-
             echo "GCC_64=CROSS_COMPILE=$GCC_64_BIN" >> $GITHUB_ENV
@@ -175,7 +175,7 @@ jobs:
 
 
           # Set GCC ARM32
-          if [ "${{ env.CLANG_SOURCE }}" == *proton* ]; then
+          if [[ "${{ env.CLANG_SOURCE }}" == *proton* ]]; then
             echo "Detected Proton Clang. Not use GCC Source."
             GCC_32_BIN=arm-linux-gnueabi-
             echo "GCC_32=CROSS_COMPILE=$GCC_32_BIN" >> $GITHUB_ENV

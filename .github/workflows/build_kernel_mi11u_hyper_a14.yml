@@ -74,7 +74,7 @@ jobs:
           done
 
           # Move patch folder to tmp
-          mv $GITHUB_WORKSPACE/Patches /tmp/
+          mv $GITHUB_WORKSPACE/Patches /mnt/
 
       - name: Free Disk Space (Ubuntu)
         if: env.FREE_MORE_SPACE == 'true'
@@ -235,6 +235,10 @@ jobs:
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
 
+          #Debugger
+          df -h
+          false
+
       - name: Set KSU and SUSFS for DEFCONFIG
         run: |
           cd $GITHUB_WORKSPACE/device_kernel
@@ -367,21 +371,21 @@ jobs:
             echo "Your kernel source code appears to have been manually patched, so this step is skipped."
           else
             if [[ ${{ env.HOOK_METHOD }} == "normal" ]]; then
-              if [[ -f "/tmp/Patches/normal_patches.sh" ]]; then
-                  cp /tmp/Patches/normal_patches.sh device_kernel/
+              if [[ -f "/mnt/Patches/normal_patches.sh" ]]; then
+                  cp /mnt/Patches/normal_patches.sh device_kernel/
                   cd device_kernel
                   # bash normal_patches.sh
                   # 5.4 kernel can use susfs patch and use kprobe
                   echo "execuated patch successfully."
                   if [ $KERNEL -lt 5 ] && [ $PATCHLEVEL -lt 14 ]; then
-                      cp /tmp/Patches/extra_patches.sh ./
+                      cp /mnt/Patches/extra_patches.sh ./
                       bash extra_patches.sh
                       echo "execuated extra patch successfully."
                   else
                       echo "your kernel needn't the patch."
                   fi
                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
-                      cp /tmp/Patches/backport_patches.sh ./
+                      cp /mnt/Patches/backport_patches.sh ./
                       bash backport_patches.sh
                       echo "execuated backport patch successfully."
                   fi
@@ -390,20 +394,20 @@ jobs:
                   false
               fi
             elif [[ ${{ env.HOOK_METHOD }} == "vfs" ]]; then
-              if [[ -f "/tmp/Patches/vfs_hook_patches.sh" ]]; then
-                  cp /tmp/Patches/vfs_hook_patches.sh device_kernel/
+              if [[ -f "/mnt/Patches/vfs_hook_patches.sh" ]]; then
+                  cp /mnt/Patches/vfs_hook_patches.sh device_kernel/
                   cd device_kernel
                   bash vfs_hook_patches.sh
                   echo "execuated vfs patch successfully."
                   if [ $KERNEL -lt 5 ] && [ $PATCHLEVEL -lt 14 ]; then
-                      cp /tmp/Patches/extra_patches.sh ./
+                      cp /mnt/Patches/extra_patches.sh ./
                       bash extra_patches.sh
                       echo "execuated extra patch successfully."
                   else
                       echo "your kernel needn't extra patch."
                   fi
                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
-                      cp /tmp/Patches/backport_patches.sh ./
+                      cp /mnt/Patches/backport_patches.sh ./
                       bash backport_patches.sh
                       echo "execuated backport patch successfully."
                   fi
@@ -436,7 +440,7 @@ jobs:
           rm -f src.tar.gz
 
           cd $GITHUB_WORKSPACE/device_kernel
-          cp /tmp/Patches/temp_dtbo.patch ./
+          cp /mnt/Patches/temp_dtbo.patch ./
           patch -p1 < temp_dtbo.patch
           sed -i '/targets := Image Image.bz2 Image.gz Image.lz4 Image.lzma Image.lzo/s/$/ dtbo.img/' ./arch/arm64/boot/Makefile
           sed -i '/$(obj)\/Image\.gz-dtb: $(obj)\/Image\.gz $(DTB_OBJS) FORCE/a \#DTBO\n$(obj)\/dtbo.img: $(DTBO_OBJS) FORCE\n\t$(call if_changed,mkdtimg)' ./arch/arm64/boot/Makefile

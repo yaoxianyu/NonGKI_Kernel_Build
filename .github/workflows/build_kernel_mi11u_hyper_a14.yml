@@ -17,6 +17,7 @@ env:
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
   BUILD_OTHER_CONFIG: "true" # Merge config files.
+  FREE_MORE_SPACE: "true"
 
 
 jobs:
@@ -76,7 +77,7 @@ jobs:
           mv $GITHUB_WORKSPACE/Patches /tmp/
 
       - name: Free Disk Space (Ubuntu)
-        if: env.LXC_ENABLE == 'true'
+        if: env.FREE_MORE_SPACE == 'true'
         uses: jlumbroso/free-disk-space@main
         with:
           # this might remove tools that are actually needed,

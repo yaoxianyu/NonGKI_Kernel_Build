@@ -172,6 +172,10 @@ jobs:
             echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-64/bin/$GCC_64_BIN" >> $GITHUB_ENV
           fi
 
+          #Debugger
+          df -h
+          false
+
 
           # Set GCC ARM32
           if [ "${{ env.CLANG_SOURCE }}" == *proton* ]; then

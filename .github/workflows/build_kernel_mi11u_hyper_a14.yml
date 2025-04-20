@@ -172,11 +172,6 @@ jobs:
             echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-64/bin/$GCC_64_BIN" >> $GITHUB_ENV
           fi
 
-          #Debugger
-          df -h
-          false
-
-
           # Set GCC ARM32
           if [ "${{ env.CLANG_SOURCE }}" == *proton* ]; then
             echo "Detected Proton Clang. Not use GCC Source."
@@ -226,6 +221,11 @@ jobs:
           else
             echo "You needn't clang!"
           fi
+
+
+          #Debugger
+          df -h
+          false
 
       - name: Get Kernel Source
         run: |

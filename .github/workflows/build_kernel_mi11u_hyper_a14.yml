@@ -17,7 +17,7 @@ env:
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
   BUILD_OTHER_CONFIG: "true" # Merge config files.
-  FREE_MORE_SPACE: "true"
+  FREE_MORE_SPACE: "false"
 
 
 jobs:
@@ -101,8 +101,8 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
+          root-reserve-mb: 2048
+          temp-reserve-mb: 64
           swap-size-mb: 8192
           remove-dotnet: "true"
           remove-android: "true"
@@ -222,11 +222,6 @@ jobs:
           else
             echo "You needn't clang!"
           fi
-
-
-          #Debugger
-          df -h
-          false
 
       - name: Get Kernel Source
         run: |

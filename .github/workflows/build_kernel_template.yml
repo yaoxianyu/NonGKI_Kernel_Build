@@ -51,15 +51,6 @@ jobs:
           sudo rm -rf /opt/hostedtoolcache
           df -h
 
-      - name: Set up swap
-        if: env.OLDER_UBUNTU != 'true'
-        run: |
-          sudo fallocate -l 8G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
-
       - uses: actions/checkout@v4
       - name: Prepare Configuration
         run: |
@@ -106,6 +97,17 @@ jobs:
 
           # Move patch folder to tmp
           mv $GITHUB_WORKSPACE/Patches /tmp/
+
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 8192
+          temp-reserve-mb: 2048
+          swap-size-mb: 8192
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
 
       - name: Install necessary packages
         run: |

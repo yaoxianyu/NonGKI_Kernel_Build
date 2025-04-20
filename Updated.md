@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 19**
+    - 撤回 示例YAML文件 原始默认Free disk space方案
+    - 增加 小米11 Ultra Free disk space方案
+
 - **Ver.1.4 Fixed 18**
     - 删除 示例YAML文件 原始默认Free disk space方案
     - 增加 示例YAML文件 Remove useless tools方案用于释放空间

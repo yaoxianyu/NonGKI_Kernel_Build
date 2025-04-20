@@ -235,10 +235,6 @@ jobs:
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
 
-          #Debugger
-          df -h
-          false
-
       - name: Set KSU and SUSFS for DEFCONFIG
         run: |
           cd $GITHUB_WORKSPACE/device_kernel

@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 21**
+    - 修改 示例YAML文件 上传部分步骤名称
+
 - **Ver.1.4 Fixed 20**
     - 修改 示例YAML文件 原始默认Free disk space方案使其可以获得更多的空间
 

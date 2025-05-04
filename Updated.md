@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 27**
+    - 修正 发布列表 发布Tag错误
+
 - **Ver.1.4 Fixed 26**
     - 切换 黑鲨4 KernelSU分支切换至magic
 

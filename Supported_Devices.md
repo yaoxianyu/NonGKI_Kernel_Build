@@ -7,7 +7,7 @@
 | 小米 MIX2S  | polaris | 4.9/EvoX/EvoX | Evolution X 10.2.1 | 15 | Boot Image | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Stable |  
 | 红米 K20 Pro  | raphael | 4.14/SOVIET-ANDROID/SOVIET-STAR-OSS | Based-AOSP | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ | ❌ | ❌ | Stable |  
 | 红米 Note 4X  | mido | 4.9/RaidenShogunSeggs/(Nothing) | Based-AOSP | 13 | AnyKernel3 | Next | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 黑鲨 4 | penrose | 4.19/DtHnAme/(Nothing) | MIUI/JoyUI 12 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ✅ | ❌ | ❌ | Stable |  
+| 黑鲨 4 | penrose | 4.19/DtHnAme/(Nothing) | MIUI/JoyUI 12 | 11 | AnyKernel3 | Magic | ❌ | ❌ | ❌ | ❌ | ❌ | Stable |  
 | 小米 10S | thyme | 4.19/TIMISONG-dev/MagicTime | Based-AOSP | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ | ❌ | ❌ | Stable |  
 | 中兴 A201ZT | a201zt | 4.19/官方内核 | 未知 | Null | AnyKernel3 | Next | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 三星 S20 5G | x1q | 4.19/官方内核 | OneUI 5.1/6.1 | 13/14 | Boot Image | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Beta |  

@@ -1,17 +1,17 @@
 ## 项目更新日志
-- **Ver.1.4 Fixed 27**
+- **Ver.1.4 Fixed 28**
     - 修正 发布列表 发布Tag错误
 
-- **Ver.1.4 Fixed 26**
+- **Ver.1.4 Fixed 27**
     - 切换 黑鲨4 KernelSU分支切换至magic
 
-- **Ver.1.4 Fixed 25**
+- **Ver.1.4 Fixed 26**
     - 更新 部分设备 KernelSU分支版本
     - 将 小米平板4(Plus) 加入官方维护
     - 修改 支持列表 中 小米平板4(Plus) 的顺位
     - 修改 发布列表 部分KernelSU分支的获取版本
 
-- **Ver.1.4 Fixed 24**
+- **Ver.1.4 Fixed 25**
     - 切换 小米11 Ultra HyperOS A14 KernelSU分支至rsuntk
     
 - **Ver.1.4 Fixed 24**

@@ -1,5 +1,8 @@
 ## 项目更新日志
 - **Ver.1.4 Fixed 29**
+    - 撤回 一加8 Nameless KernelSU分支至susfs-v1.5.7
+
+- **Ver.1.4 Fixed 29**
     - 增加 支持列表 有关Non-GKI内核使用SUSFS v1.5.7的说明
     - 切换 一加8 Nameless 从Beta状态转入Stable状态
     - 增加 发布列表 有关黑鲨4机型的说明

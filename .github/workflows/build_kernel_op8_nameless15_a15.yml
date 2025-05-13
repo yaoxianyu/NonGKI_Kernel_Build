@@ -405,11 +405,11 @@ jobs:
           patch -p1 < task_mmu_fixed.patch || true
 
           # Upgrade SUSFS Version
-          cp /tmp/Patches/susfs_upgrade_to_157.patch ./
-          cp NonGKI_Kernel_Patches/kona_oos/susfs_upgrade_fixed.patch ./
+          # cp /tmp/Patches/susfs_upgrade_to_157.patch ./
+          # cp NonGKI_Kernel_Patches/kona_oos/susfs_upgrade_fixed.patch ./
 
-          patch -p1 < susfs_upgrade_to_157.patch || true
-          patch -p1 < susfs_upgrade_fixed.patch || true
+          # patch -p1 < susfs_upgrade_to_157.patch || true
+          # patch -p1 < susfs_upgrade_fixed.patch || true
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2

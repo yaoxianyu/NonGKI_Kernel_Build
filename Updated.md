@@ -1,5 +1,5 @@
 ## 项目更新日志
-- **Ver.1.4 Fixed 29**
+- **Ver.1.4 Fixed 30**
     - 撤回 一加8 Nameless KernelSU分支至susfs-v1.5.7
 
 - **Ver.1.4 Fixed 29**

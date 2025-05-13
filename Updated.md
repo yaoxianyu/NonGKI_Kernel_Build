@@ -1,4 +1,15 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 29**
+    - 增加 支持列表 有关Non-GKI内核使用SUSFS v1.5.7的说明
+    - 切换 一加8 Nameless 从Beta状态转入Stable状态
+    - 增加 发布列表 有关黑鲨4机型的说明
+    - 增加 支持列表 有关黑鲨4机型的说明
+    - 增加 补丁 SUSFS更新至v1.5.7补丁
+    - 切换 一加8 Nameless KernelSU分支至susfs-v1.5.7
+    - 更新 一加8 Nameless SUSFS更新至v1.5.7
+    - 更新 红米 K20Pro SUSFS更新至v1.5.7
+    - 更新 小米 10S SUSFS更新至v1.5.7
+
 - **Ver.1.4 Fixed 28**
     - 修正 发布列表 发布Tag错误
 

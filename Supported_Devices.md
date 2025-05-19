@@ -27,7 +27,7 @@
   - LineageOS 内核 需要在repo完整源代码的环境下编译，否则可能会导致无法开机，因此我们不会考虑官方维护LineageOS内核
   - 一加8 OxygenOS/ColorOS 13.1 经测试8、8t、8Pro、9r都可用，且该内核类原生设备同样可用（但会有某些Bugs）
   - 红米 Note 4X 通常仅**高通**可用，联发科设备不支持
-  - 黑鲨4 因机型内核缺陷（缺少ANDROID_KABI）无法修补SuSFS，为了提高隐藏性和安全性，因此是首款将常规手动Hook切换至[VFS Hook](https://github.com/backslashxx/KernelSU/issues/5)的设备
+  - 黑鲨4 因机型内核缺陷（缺少ANDROID_KABI）无法修补SuSFS
     - 黑鲨4 因为无法解决的编译错误因此切换KernelSU分支至Magic
   - 一加8 Nameless 15 ~~存在WiFi失效的问题，请谨慎刷入~~我们更换defconfig文件后解决该问题，但目前仍在测试阶段
   - 中兴 Z201ZT 由于源代码并非Git方式获得，因此修改了yml文件中对应的获取方式，由于存在较多未知信息，因此该内核仅研究学习使用，若有需要可自行Fork编译

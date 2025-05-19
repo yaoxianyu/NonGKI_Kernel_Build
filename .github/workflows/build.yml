@@ -119,10 +119,10 @@ jobs:
         | Xiaomi Pad 4(Plus) | clover | 4.19 | LineageOS 22.1 | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ |
 
         - OnePlus 8 (CN) has been tested and can be used on the OnePlus 9R. Theoretically, it should also work on the OnePlus 8T/8Pro.
-        - The Black Shark 4 cannot patch SuSFS due to a kernel defect (missing ANDROID_KABI). To enhance stealth and security, it is the first device to switch from the regular manual hook to [VFS Hook](https://github.com/backslashxx/KernelSU/issues/5).
+        - The Black Shark 4 cannot patch SuSFS due to a kernel defect (missing ANDROID_KABI)
+            - Due to an unsolvable compilation error, the Black Shark 4 switched its KernelSU branch to Magic.
         - Samsung S20 5G supported **Snapdragon** only，Exynos doesn't try flash it.
         - The KernelSU version is for reference only. It is normal for the KernelSU version embedded in SUSFS to be lower.
-        - Due to an unsolvable compilation error, the Black Shark 4 switched its KernelSU branch to Magic.
 
     steps:
       # Checkout the code

@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 34**
+    - 增加 小米Mix2s 有关手动修补所需config项目的判定
+    - 增加 一加8 Nameless 有关手动修补所需config项目的判定
+    - 切换 一加8 Nameless KernelSU分支至susfs-v1.5.7
+    - 启用 一加8 Nameless SUSFS更新至v1.5.7补丁
+
 - **Ver.1.4 Fixed 33**
     - 增加 示例YAML文件 有关手动修补所需config项目的判定
     - 增加 小米平板4(Plus) 有关手动修补所需config项目的判定

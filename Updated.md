@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 40**
+    - 增加 小米Mix2s KPM Fixed补丁
+
 - **Ver.1.4 Fixed 39**
     - 增加 示例YAML文件 KPM Patch默认链接
     - 修改 说明文件 有关KPM变量的说明

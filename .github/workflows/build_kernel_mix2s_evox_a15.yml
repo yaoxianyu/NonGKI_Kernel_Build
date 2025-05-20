@@ -151,12 +151,6 @@ jobs:
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
 
-          # Backport Testing
-          # cd device_kernel
-          # mv /tmp/Patches/backport_set_memory.patch ./
-          # patch -p1 < backport_set_memory.patch || true
-          # wget https://raw.githubusercontent.com/KanishkTheDerp/msm-4.9/refs/heads/ksu/master/drivers/scsi/ufs/ufshpb.h -o drivers/scsi/ufs/ufshpb.h
-
       - name: Set KSU and SUSFS for DEFCONFIG
         run: |
           cd $GITHUB_WORKSPACE/device_kernel
@@ -320,6 +314,11 @@ jobs:
           patch -p1 < cmdline_fixed.patch || true
           patch -p1 < task_mmu_fixed.patch || true
           patch -p1 < fdinfo_fixed.patch || true
+
+          # Fixed KPM
+          cp NonGKI_Kernel_Patches/mix2s_evox_a15/set_momery_fixed.patch ./
+
+          patch -p1 < set_momery_fixed.patch
 
       - name: Updated SUSFS Version
         if: env.SUSFS_UPDATE == 'true'

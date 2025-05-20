@@ -38,6 +38,7 @@ jobs:
               KERNELSU_NAME
               SUSFS_ENABLE
               SUSFS_FIXED
+              SUSFS_UPDATE
               BOOT_SOURCE
               ROM_TEXT
 

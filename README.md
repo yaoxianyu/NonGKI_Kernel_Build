@@ -79,7 +79,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - **PROFILE_NAME** - 填写成你修改好的env环境变量文件的名称，例如codename_rom_template.env
   - **KERNELSU_SUS_PATCH** - 如果你的KernelSU不属于KernelSU-Next，并且也没有针对SuSFS的修补分支，可以启用该项目（true），但我们不建议这么做，因为分支KernelSU的魔改情况严重，手动修补已经不能顺应现在的时代了
   - **KPM_ENABLE** - (实验性⚠)启用对SukiSU-Ultra的KPM编译支持，该项为实验项，请小心启用
-  - **KPM_PATCH_SOURCE** - (实验性⚠)你需要自行提供patch二进制文件的下载链接
+  - **KPM_PATCH_SOURCE** - (实验性⚠)通常你不需要自行提供patch二进制下载链接，除非你有额外需求
   - **GENERATE_DTB** - 如果你的内核编译后，需要DTB文件（不是.dtb、.dts、.dtsi），则可以开启本项自动执行生成DTB步骤
   - **GENERATE_CHIP** - 生成DTB文件的对应设备CPU，通常支持qcom、mediatek，但我们不确定其他CPU是否支持
   - **BUILD_DEBUGGER** - 若需要提供出错时的报告可使用该选项，目前提供patch错误rej文件的输出，其他功能可期待未来更新

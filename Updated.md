@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 39**
+    - 增加 示例YAML文件 KPM Patch默认链接
+    - 修改 说明文件 有关KPM变量的说明
+    - 移植 小米Mix2s KPM相关功能
+    - 删除 Older YAML 无效变量
+
 - **Ver.1.4 Fixed 38**
     - 修正 示例YAML SUSFS更新无法执行的错误
     - 修正 小米Mix2s SUSFS更新无法执行的错误

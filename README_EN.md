@@ -79,7 +79,7 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - **PROFILE_NAME** - Enter the name of your modified ENV environment variable file, such as codename_rom_template.env.
     - **KERNELSU_SUS_PATCH** - If your KernelSU is not part of KernelSU-Next and does not have a patch branch for SuSFS, you can enable this option (true). However, we do not recommend doing so, as the KernelSU branches have been heavily modified, and manual patching is no longer suitable for the current era.
     - **KPM_ENABLE** - (Experimental ⚠) Enables compilation support for KPM in SukiSU-Ultra. This is an experimental feature, so please enable it with caution.
-    - **KPM_PATCH_SOURCE** - (Experimental ⚠) You need to provide a download link for the patch binary file yourself.
+    - **KPM_PATCH_SOURCE** - (Experimental ⚠) Normally, you don't need to provide the patch binary download link yourself, unless you have additional requirements.
     - **GENERATE_DTB** - If your kernel requires a DTB file after compilation (not .dtb, .dts, or .dtsi), you can enable this option to automatically generate the DTB file. 
     - **GENERATE_CHIP** - Specifies the CPU type for generating the DTB file. Typically supports qcom and mediatek, but compatibility with other CPUs is uncertain.
     - **BUILD_DEBUGGER** - Enables error reporting if needed. Currently, it provides output for patch error .rej files, with more features expected in future updates.

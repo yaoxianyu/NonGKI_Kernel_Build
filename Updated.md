@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 38**
+    - 修正 示例YAML SUSFS更新无法执行的错误
+    - 修正 小米Mix2s SUSFS更新无法执行的错误
+
 - **Ver.1.4 Fixed 37**
     - 修改 支持列表 有关SUSFS更新的说明
     - 增加 示例YAML文件 SUSFS更新步骤

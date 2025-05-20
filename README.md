@@ -42,6 +42,7 @@
 
 **SUSFS_ENABLE** - 是否在编译时启用SUSFS，true或false  
 **SUSFS_FIXED** - 是否启用SUSFS错误修补，一般用于内核修补时产生错误后，二次补充修补。若该项为true，若**PATCHES_SOURCE**和**PATCHES_BRANCH**不正确，则会导致错误  
+**SUSFS_UPDATE** - 是否执行SUSFS更新至v1.5.7的操作，true或false  
 
 **AK3_SOURCE** - Anykernel3所在之处，若需要的话，仅支持git  
 **AK3_BRANCH** - Anykernel3所需分支  
@@ -122,6 +123,12 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - SUSFS修补大概率会产生问题，因此通常情况下需要补充修补
   - 补充修补需要执行你重新制作的patch补丁（步骤为：Fixed Kernel Patch）
   - 切记填写好**PATCHES_SOURCE**和**PATCHES_BRANCH**，否则会导致错误
+  
+- **Update SUSFS Version**
+  - 旨在将停止更新的版本v1.5.5进行更新SUSFS v1.5.7的操作
+  - 该补丁源于KernelSU分支作者rsuntk的Treewide Commit
+  - 修补不能保证一次性通过，可能需要自行制作用于二次修补的补丁
+  - 由变量控制是否执行该步骤
   
 - **KPM Patcher (Experiment)**
   - 为SukiSU-Ultra提供KPM内核Patch功能，该功能目前暂不支持内核版本≤4.9的设备，若你已经反向移植部分功能用于KPM功能，请自行参照修改这个部分，但我们对实验性功能不提供支持

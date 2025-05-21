@@ -81,7 +81,7 @@ jobs:
           cat /etc/os-release
 
           pacman -Syyu
-          pacman -S git base-devel systemd wget rustup curl patch ccache automake flex lzop bison gperf zip curl bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip 7zip zstd binutils gcc python3 wget which --noconfirm
+          pacman -S git base-devel systemd wget rustup curl patch ccache automake flex lzop bison gperf zip curl bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip 7zip zstd binutils gcc python3 wget which lz4 --noconfirm
 
           # Update Rust Toolchain
           rustup default stable
@@ -516,7 +516,6 @@ jobs:
           fi
 
           # Extra
-          pacman -S lz4 --noconfirm
           cd out/arch/arm64/boot/
           lz4 Image
 

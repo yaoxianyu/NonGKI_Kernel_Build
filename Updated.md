@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 44**
+    - 增加 谷歌Pixel 9 Series Image文件lz4压缩方式
+
 - **Ver.1.4 Fixed 43**
     - 增加 示例YAML文件 有关KPM CONFIG项额外需求判定
     - 移植 小米平板4(Plus) YAML 有关KPM CONFIG项额外需求判定

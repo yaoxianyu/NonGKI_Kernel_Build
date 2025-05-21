@@ -515,6 +515,11 @@ jobs:
             fi
           fi
 
+          # Extra
+          pacman -S lz4 --noconfirm
+          cd out/arch/arm64/boot/
+          lz4 Image
+
       - name: KPM Patcher (Experiment)
         if: env.KPM_ENABLE == 'true'
         run: |
@@ -560,6 +565,9 @@ jobs:
           elif [[ -f "$IMAGE_DIR/Image.gz" ]]; then
             cp -fp $IMAGE_DIR/Image.gz tmp
             echo "Found Image.gz !"
+          elif [[ -f "$IMAGE_DIR/Image.lz4" ]]; then
+            cp -fp $IMAGE_DIR/Image.lz4 tmp
+            echo "Found Image.lz4 !"
           elif [[ -f "$IMAGE_DIR/Image" ]]; then
             # gzip -c $IMAGE_DIR/Image > $IMAGE_DIR/Image.gz
             # cp -fp $IMAGE_DIR/Image.gz tmp

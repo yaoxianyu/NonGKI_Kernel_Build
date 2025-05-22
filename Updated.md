@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 45**
+    - 修改 支持列表 部分说明内容并将部分机型从Beta转为Stable维护状态
+
 - **Ver.1.4 Fixed 44**
     - 增加 谷歌Pixel 9 Series Image文件lz4压缩方式
 

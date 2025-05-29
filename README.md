@@ -85,6 +85,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - **BUILD_DEBUGGER** - 若需要提供出错时的报告可使用该选项，目前提供patch错误rej文件的输出，其他功能可期待未来更新
   - **BUILD_OTHER_CONFIG** - 若你需要合并内核源码中自带的其他.config文件，可启用本项，但是需要自行修改”Build Kernel“中数组MERGE_CONFIG_FILES中的内容
   - **FREE_MORE_SPACE** - 若你认为当前的空间不足，则可以启用该项来获得更多空间释放，默认情况下可获得约88GB空间，启用本项可获得102GB空间，但执行时间会增加1-2分钟（仅限默认YAML，Arch Linux或Ubuntu 20.04仅可获得14-20GB空间）
+  - **REKERNEL_ENABLE** - 如果你认为你的设备具备运行[Re:Kernel](https://github.com/Sakion-Team/Re-Kernel)的条件，并且你需要Re:Kernel，则可以启用本项，true或者false
 
 - **runs-on: ubuntu-XX.XX** 
   - 不同内核所需系统不同，默认为22.04，我们预先提供了两套包安装选项（适配22.04和24.04），我们通过检测系统版本进行决定包安装
@@ -118,9 +119,9 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 自动部署LXC，但许多内核并不支持该方式，可用于Fork后自行尝试，在本人的官方编译中应该不会选择支持LXC
   
 - **Patch Kernel**
-  - 分为两个部分，主要的SUSFS修补和补充修补（Patch Kernel of SUSFS 和 Fixed Kernel Patch）
-  - 一切基于env中SUSFS_ENABLE和env.SUSFS_FIXED为true，但不一定都为true
-  - SUSFS修补大概率会产生问题，因此通常情况下需要补充修补
+  - 分为三个部分，SUSFS修补、Re:Kernel修补以及补充修补（Patch Kernel of SUSFS 、Patch Kernel of Re:Kernel 和 Fixed Kernel Patch）
+  - 一切基于env.SUSFS_ENABLE、env.REKERNEL_ENABLE 和 env.SUSFS_FIXED为true，但不一定都为true
+  - SUSFS修补 和 Re:Kernel修补 大概率会产生问题，因此通常情况下需要补充修补
   - 补充修补需要执行你重新制作的patch补丁（步骤为：Fixed Kernel Patch）
   - 切记填写好**PATCHES_SOURCE**和**PATCHES_BRANCH**，否则会导致错误
   

@@ -7,6 +7,7 @@ env:
   KPM_ENABLE: "true" # Only use it for SukiSU-Ultra.
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
+  REKERNEL_ENABLE: "false" # if u need Re:Kernel.
 
 jobs:
   build:
@@ -302,6 +303,20 @@ jobs:
             cp susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ./${{ env.KERNELSU_NAME }}
             cd ${{ env.KERNELSU_NAME }}
             patch -p1 < 10_enable_susfs_for_ksu.patch || true
+          fi
+
+      - name: Patch Kernel of Re:Kernel
+        if: env.REKERNEL_ENABLE == 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel/
+          PATCH_FILE="/tmp/Patches/Rekernel/rekernel-${{ env.KERNEL_VERSION }}.patch"
+
+          if [ -f "$PATCH_FILE" ]; then
+            cp /tmp/Patches/Rekernel/rekernel-${{ env.KERNEL_VERSION }}.patch ./
+            patch -p1 < rekernel-${{ env.KERNEL_VERSION }}.patch || true
+            echo "Re:Kernel Patched."
+          else
+            echo "Your kernel not supported it."
           fi
 
       - name: Fixed Kernel Patch

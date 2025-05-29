@@ -1,7 +1,17 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 47**
+    - 删除 build_checker.sh 脚本
+    - 增加 Rekernel 相关Patch
+    - 增加 示例YAML Rekernel修补步骤
+    - 增加 说明文件 Rekernel相关内容
+    - 增加 支持列表 Rekernel相关内容
+    - 增加 发布列表 Rekernel相关内容
+    - 修改 发布列表 将LXC状态修改为Re:Kernel状态
+    - 移植 小米Mix2s Rekernel修补步骤
+
 - **Ver.1.4 Fixed 46**
     - 增加 支持列表 地区显示
-    - 修改 中兴 AZ201T 设备名称
+    - 修改 中兴 A201ZT 设备名称
 
 - **Ver.1.4 Fixed 45**
     - 修改 支持列表 部分说明内容并将部分机型从Beta转为Stable维护状态

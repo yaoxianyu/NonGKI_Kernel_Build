@@ -107,7 +107,7 @@ jobs:
       RELEASE_NOTES: |
         Below is the codename reference table. Please select the image or archive you need based on this table.
 
-        | Device Name | Codename | Kernel | System | Android | Method | KernelSU | SuSFS | LXC | VFS |
+        | Device Name | Codename | Kernel | System | Android | Method | KernelSU | SuSFS | Re:Kernel | VFS |
         |----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
         | OnePlus 8  | instantnoodle | 4.19 | OxygenOS/ColorOS 13.1 | 13 | AnyKernel3 | Magic | ✅ | ❌ | ❌ |
         | OnePlus 8  | instantnoodle | 4.19 | Nameless 15 | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
@@ -122,6 +122,7 @@ jobs:
         - The Black Shark 4 cannot patch SuSFS due to a kernel defect (missing ANDROID_KABI). To enhance stealth and security, it is the first device to switch from the regular manual hook to [VFS Hook](https://github.com/backslashxx/KernelSU/issues/5).
         - Samsung S20 5G supported **Snapdragon** only，Exynos doesn't try flash it.
         - The KernelSU version is for reference only. It is normal for the KernelSU version embedded in SUSFS to be lower.
+        - [Re:Kernel](https://github.com/Sakion-Team/Re-Kernel) is a module used for quickly executing temporary unfreezing of processes during Binder transactions, but it may not necessarily work on all devices.
 
     steps:
       # Checkout the code

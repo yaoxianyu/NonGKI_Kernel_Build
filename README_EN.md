@@ -85,6 +85,7 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - **BUILD_DEBUGGER** - Enables error reporting if needed. Currently, it provides output for patch error .rej files, with more features expected in future updates.
     - **BUILD_OTHER_CONFIG** - If you need to merge additional .config files included in the kernel source, you can enable this option. However, you must manually modify the MERGE_CONFIG_FILES array in the "Build Kernel" section.
     - **FREE_MORE_SPACE** - If you believe the current available space is insufficient, you can enable this option to free up additional space. By default, approximately 88GB of space is available. Enabling this option can increase the available space to 102GB, but it will add 1–2 minutes to the execution time. (Only applies to the default YAML; Arch Linux or Ubuntu 20.04 can only provide 14–20GB of space.)
+    - **REKERNEL_ENABLE** - If you believe your device meets the requirements to run [Re:Kernel](https://github.com/Sakion-Team/Re-Kernel) and you need Re:Kernel, you can enable this option, true or false.
 
 - **runs-on:** ubuntu-XX.XX 
     - Different kernels may require different Ubuntu versions. The default is 22.04, but support for both 22.04 and 24.04 is available. The system version determines which package installation method is used.
@@ -119,9 +120,10 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - This is mainly for testing and is not used in official builds.
 
 - **Patch Kernel**
-    - Two types of patches are included: SUSFS patches and additional kernel patches.
-    - Whether these patches are applied depends on SUSFS_ENABLE and SUSFS_FIXED settings in the env.
-    - SUSFS patching may cause issues, requiring additional fixes (under Fixed Kernel Patch).
+    - Divided into three sections: SUSFS patching, Re:Kernel patching, and supplementary patching (Patch Kernel of SUSFS, Patch Kernel of Re:Kernel, and Fixed Kernel Patch).
+    - Everything is based on env.SUSFS_ENABLE, env.REKERNEL_ENABLE, and env.SUSFS_FIXED being true, but they are not necessarily all true.
+    - SUSFS patching and Re:Kernel patching are highly likely to cause issues, so supplementary patching is usually required.
+    - SUSFS patching and Re:Kernel patching may cause issues, requiring additional fixes (under Fixed Kernel Patch).
     - Make sure to correctly fill in **PATCHES_SOURCE** and **PATCHES_BRANCH**, otherwise it will result in errors.
 
 - **Update SUSFS Version**

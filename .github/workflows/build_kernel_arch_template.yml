@@ -17,6 +17,7 @@ env:
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
   BUILD_OTHER_CONFIG: "false" # Merge config files.
+  REKERNEL_ENABLE: "false" # if u need Re:Kernel.
 
 
 jobs:
@@ -454,6 +455,20 @@ jobs:
             cp susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ./${{ env.KERNELSU_NAME }}
             cd ${{ env.KERNELSU_NAME }}
             patch -p1 < 10_enable_susfs_for_ksu.patch || true
+          fi
+
+      - name: Patch Kernel of Re:Kernel
+        if: env.REKERNEL_ENABLE == 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel/
+          PATCH_FILE="/tmp/Patches/Rekernel/rekernel-${{ env.KERNEL_VERSION }}.patch"
+
+          if [ -f "$PATCH_FILE" ]; then
+            cp /tmp/Patches/Rekernel/rekernel-${{ env.KERNEL_VERSION }}.patch ./
+            patch -p1 < rekernel-${{ env.KERNEL_VERSION }}.patch || true
+            echo "Re:Kernel Patched."
+          else
+            echo "Your kernel not supported it."
           fi
 
       - name: Patch Debugger

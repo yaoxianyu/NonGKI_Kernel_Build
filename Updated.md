@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 48**
+    - 增加 小米Mix2s Cgroup V2 补丁
+
 - **Ver.1.4 Fixed 47**
     - 删除 build_checker.sh 脚本
     - 增加 Rekernel 相关Patch

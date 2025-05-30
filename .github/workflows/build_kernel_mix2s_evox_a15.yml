@@ -288,7 +288,8 @@ jobs:
       - name: Extra Kernel Options
         run: |
           # Only ${{ env.DEVICE_NAME }} use it.
-          # Nothing happened.
+          echo "CONFIG_BLK_CGROUP=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_CGROUP_FREEZER=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
 
       - name: Patch Kernel of SUSFS
         if: env.SUSFS_ENABLE == 'true'

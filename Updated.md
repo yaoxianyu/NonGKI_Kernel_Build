@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 49**
+    - 增加 支持列表 小米Mix2s 有关Cgroup相关内容
+    - 增加 发布列表 小米Mix2s 有关Cgroup相关内容
+    - 增加 小米Mix2s Binder_Freezer 补丁
+
 - **Ver.1.4 Fixed 48**
     - 增加 小米Mix2s Cgroup V2 补丁
 

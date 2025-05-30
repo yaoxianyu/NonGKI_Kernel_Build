@@ -200,6 +200,8 @@ jobs:
           # Patch Cgroup V2
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_to_49.patch
           patch -p1 < cgroupv2_to_49.patch
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_freezer_to_49.patch
+          patch -p1 < binder_freezer_to_49.patch
 
           # Patch set_memory
           cp /tmp/Patches/backport_set_memory.patch ./

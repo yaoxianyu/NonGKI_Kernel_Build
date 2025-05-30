@@ -36,3 +36,4 @@
   - 谷歌 Pixel 9 Series 指 9代全系列设备，该内核目前尚未经过测试
   - 小米 11 Ultra 没有进行normal patch，仅仅执行backport patch，因此应该可以在KSU管理器中切换kprobe和模拟手动修补，以及SUS SU应该也能正常工作
   - 小米平板 4(Plus) 基于SukiSU Ultra的KPM功能**未经完整测试**（会显示在管理器中，但未刷入内核模块进行测试）
+  - 小米 Mix2s 已移植Cgroup V2，但Cgroup Freezer需要依赖系统额外步骤才能使用且该功能实际执行冻结过程异常，建议使用Cgroup UID

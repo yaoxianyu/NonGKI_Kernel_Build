@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 51**
+    - 增加 说明文件 对于Rekernel的补充说明
+
 - **Ver.1.4 Fixed 50**
     - 增加 Rekernel 4.9内核 经过binder修补后使用补丁
     - 修改 小米Mix2s Rekernel 补丁至binder修补版本

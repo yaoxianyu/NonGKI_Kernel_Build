@@ -1,5 +1,9 @@
 ## 项目更新日志
 - **Ver.1.4 Fixed 51**
+    - 修改 支持列表 小米Mix2s Rekernel状态
+    - 修改 发布列表 小米Mix2s Rekernel状态
+
+- **Ver.1.4 Fixed 51**
     - 增加 说明文件 对于Rekernel的补充说明
 
 - **Ver.1.4 Fixed 50**

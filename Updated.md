@@ -1,5 +1,9 @@
 ## 项目更新日志
-- **Ver.1.4 Fixed 51**
+- **Ver.1.4 Fixed 53**
+    - 修改 支持列表 小米Mix2s 系统版本号
+    - 修改 发布列表 小米Mix2s 系统版本号
+
+- **Ver.1.4 Fixed 52**
     - 修改 支持列表 小米Mix2s Rekernel状态
     - 修改 发布列表 小米Mix2s Rekernel状态
 

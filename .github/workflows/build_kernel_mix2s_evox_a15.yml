@@ -298,6 +298,7 @@ jobs:
           echo "CONFIG_CRYPTO_LZ4HC=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_CRYPTO_LZ4K=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_CRYPTO_LZ4KD=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_TEST_REPORTING_FORCE=n" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
 
       - name: Patch Kernel of SUSFS
         if: env.SUSFS_ENABLE == 'true'

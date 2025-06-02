@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 56**
+    - 撤回 小米Mix2s YAML 合并config功能
+    - 修改 小米Mix2s Defconfig文件指向
+
 - **Ver.1.4 Fixed 55**
     - 修改 小米Mix2s Defconfig文件指向
     - 移植 小米Mix2s YAML 合并config功能

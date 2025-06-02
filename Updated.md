@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 59**
+    - 启用 小米Mix2s LZ4KD 补丁
+
 - **Ver.1.4 Fixed 58**
     - 修复 小米Mix2s 编译问题
 

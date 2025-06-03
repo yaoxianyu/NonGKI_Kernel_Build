@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 64**
+    - 增加 小米Mix2s Defconfig项
+
 - **Ver.1.4 Fixed 63**
     - 增加 支持列表 新机型 OPPO K9 Pro
     - 修正 OPPO K9 Pro YAML文件 和 ENV文件 部分文本

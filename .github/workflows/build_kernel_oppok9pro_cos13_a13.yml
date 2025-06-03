@@ -1,4 +1,4 @@
-name: Build Kernel OPPO K9 PRO (COLOROS 13) with KSU
+name: Build Kernel OPPO K9 Pro (ColorOS 13) with KSU
 on:
   workflow_call:
   workflow_dispatch:
@@ -9,7 +9,7 @@ env:
   PATCHES_SOURCE: "" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
   PATCHES_BRANCH: "" # [your_branch] -> main
   HOOK_METHOD: "normal" # manual hook method,can choice vfs and normal.
-  PROFILE_NAME: "PEYM00_cos_A13.env" # your profile name.
+  PROFILE_NAME: "PEYM00_cos_a13.env" # your profile name.
   KERNELSU_SUS_PATCH: "false" # if u need manual susfs patch to kernelsu.
   KPM_ENABLE: "false" # Only use it for SukiSU-Ultra.
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .

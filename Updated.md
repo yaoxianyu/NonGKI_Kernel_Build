@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 61**
+    - 增加 小米Mix2s Zram Writeback defconfig项
+
 - **Ver.1.4 Fixed 60**
     - 增加 小米Mix2s Simple LMK 补丁
 

@@ -308,7 +308,7 @@ jobs:
           echo "CONFIG_TCP_CONG_WESTWOOD=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_TCP_CONG_BBR=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_DEFAULT_BBR=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          echo "CONFIG_WIREGUARD=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          # echo "CONFIG_WIREGUARD=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           ## File
           echo "CONFIG_EXFAT_FS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_NTFS_FS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}

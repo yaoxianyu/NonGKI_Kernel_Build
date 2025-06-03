@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 65**
+    - 增加 OPPO K9 Pro KPM相关config项
+    - 删除 小米Mix2s wireguard相关config项
+
 - **Ver.1.4 Fixed 64**
     - 增加 小米Mix2s Defconfig项
 

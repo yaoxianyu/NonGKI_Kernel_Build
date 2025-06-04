@@ -136,5 +136,48 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
 - **KPM Patcher (Experiment)**
   - 为SukiSU-Ultra提供KPM内核Patch功能，该功能目前暂不支持内核版本<4.9的设备，4.9内核可执行backport_set_memory.patch移植set_memory后启用KPM
   - 该功能在**Arch Linux**下可以正常执行，在**Ubuntu22.04下异常**，建议使用**最新版Ubuntu或者Arch Linux YAML**
+
+## Patches/补丁介绍.patch
+以下是对Patches目录中包含补丁的介绍  
+
+- **normal_patches.sh**
+  - 变量：HOOK_METHOD -> normal
+  - 用于执行Non-GKI内核的手动修补，也是KernelSU官网Non-GKI内核手动修补部分的内核
+  - 参考：https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+
+- **vfs_hook_patches.sh**
+  - 变量：HOOK_METHOD -> vfs
+  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好
+  - 参考：https://github.com/backslashxx/KernelSU/issues/5
+
+- **extra_patches.sh** 
+  - 自动判断内核版本执行
+  - 用于执行对缺少SELinux相关权限的旧版本内核（内核版本≤4.9）
+  - 参考：https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
+  
+- **backport_patches.sh** 
+  - 自动判断内核版本执行
+  - 用于执行对Non-GKI内核的反向移植，除了KernelSU-Next和SukiSU-Ultra可以实现自动反向移植外，其他的分支均无法实现，因此这时我独立制作用于自动反向移植的脚本
+  - 参考：https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
+  
+- **susfs_upgrade_to_157.patch**
+  - 变量：(env文件)SUSFS_UPDATE -> true
+  - 对停止更新的Non-GKI设备的SuSFS进行更新，从v1.5.5更新至v1.5.7
+  - 参考：https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/compare/c7d82bf8607704c22a8a869c4611c7cf3d22ce31..1ea2cbd7659167e62d2265632710f084c45f3ca1
+  
+- **temp_dtbo.patch**
+  - 变量：(env文件)HAVE_NO_DTBO -> true 并且 (env文件)HAVE_NO_DTBO_TOOL -> false
+  - 用于生成dtbo.img步骤所需的补丁文件，会在需要时自动使用
+  - 参考：https://review.lineageos.org/c/LineageOS/android_kernel_xiaomi_gauguin/+/372909/2
+
+- **backport_set_memory.patch**
+  - 需要**手动**填写执行
+  - 用于对内核版本≤4.9的设备移植set_memory功能的补丁文件，因为缺少大量测试，因此只作为测试补丁，且该补丁仅用于需要使用SukiSU-Ultra的KPM功能的情况下
+  - 参考：暂无
+
+- **Rekernel/rekernel-X.X.patch**
+  - 变量：REKERNEL_ENABLE -> true
+  - 让内核支持Re:Kernel的补丁文件，YAML会根据你的内核版本自动判断使用的补丁，不过若你是4.9内核且当前补丁不可用，就需要将补丁修改成rekernel-4.9-for-fixed.patch后尝试，不支持内核版本≤4.4设备
+  - 参考：https://github.com/Sakion-Team/Re-Kernel/blob/main/Integrate/README_CN.md
   
 最后提醒⚠️：非上述提示的步骤理论上不需要你做任何修改，我已经尽可能实现多情况判定

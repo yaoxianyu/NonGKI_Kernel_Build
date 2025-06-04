@@ -138,4 +138,47 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - SukiSU-Ultra now offers KPM kernel patching functionality. This feature currently doesn't support devices with kernel versions below 4.9. For 4.9 kernels, you can enable KPM after porting set_memory using the backport_set_memory.patch.
     - This feature works correctly under **Arch Linux** but behaves **abnormally on Ubuntu 22.04**. It is recommended to use the latest version of **Ubuntu or the Arch Linux YAML**.
     
+## Patches/Patch_Introduction.patch
+Below is an introduction to the patches included in the Patches directory:  
+
+- **normal_patches.sh**
+    - Variable: HOOK_METHOD -> normal
+    - Used for manually patching Non-GKI kernels. This is also the kernel used in the manual patching section for Non-GKI kernels on the KernelSU official website.
+    - Reference: https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+    
+- **vfs_hook_patches.sh**
+    - Variable: HOOK_METHOD -> vfs
+    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great.
+    - Reference: https://github.com/backslashxx/KernelSU/issues/5
+    
+- **extra_patches.sh**
+    - Executes automatically based on kernel version.
+    - Used for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
+    - Reference: https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
+
+- **backport_patches.sh**
+    - Executes automatically based on kernel version.
+    - Used for backporting features to Non-GKI kernels. While KernelSU-Next and SukiSU-Ultra can automatically handle backporting, other branches cannot. This script was independently created for automatic backporting in those cases.
+    - Reference: https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
+
+- **susfs_upgrade_to_157.patch**
+    - Variable: (env file) SUSFS_UPDATE -> true
+    - Updates SuSFS from v1.5.5 to v1.5.7 for Non-GKI devices that have stopped receiving updates.
+    - Reference: https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/compare/c7d82bf8607704c22a8a869c4611c7cf3d22ce31..1ea2cbd7659167e62d2265632710f084c45f3ca1
+
+- **temp_dtbo.patch**
+    - Variables: (env file) HAVE_NO_DTBO -> true , (env file) HAVE_NO_DTBO_TOOL -> false
+    - A patch file required for the dtbo.img generation step; it's used automatically when needed.
+    - Reference: https://review.lineageos.org/c/LineageOS/android_kernel_xiaomi_gauguin/+/372909/2
+
+- backport_set_memory.patch
+    - Requires **manual** execution.
+    - A patch file for backporting the set_memory function to devices with kernel versions ≤ 4.9. Due to a lack of extensive testing, it's considered a test patch only and should only be used when the KPM function of SukiSU-Ultra is required.
+    - Reference: None available.
+
+- Rekernel/rekernel-X.X.patch
+    - Variable: REKERNEL_ENABLE -> true
+    - A patch file to enable Re:Kernel support in the kernel. The YAML will automatically determine which patch to use based on your kernel version. However, if you have a 4.9 kernel and the current patch isn't working, you'll need to change the patch to rekernel-4.9-for-fixed.patch and try again. This does not support devices with kernel versions ≤ 4.4.
+    - Reference: https://github.com/Sakion-Team/Re-Kernel/blob/main/Integrate/README_CN.md
+    
 Final Reminder⚠ : Unless otherwise mentioned, there is no need to modify any other sections of the .yml workflow. The setup is designed to automatically handle various conditions.

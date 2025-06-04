@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 69**
+    - 修正 说明文件 有关 no-kprobe 部分说明
+
 - **Ver.1.4 Fixed 68**
     - 增加 backport_patches.sh 对 ARMV7A设备 的支持
     - 增加 vfs_hook_patches.sh 对 ARMV7A设备 的支持

@@ -81,14 +81,14 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - **KPM_ENABLE** - (实验性⚠)启用对SukiSU-Ultra的KPM编译支持，该项为实验项，请小心启用
   - **KPM_PATCH_SOURCE** - (实验性⚠)通常你不需要自行提供patch二进制下载链接，除非你有额外需求
   - **GENERATE_DTB** - 如果你的内核编译后，需要DTB文件（不是.dtb、.dts、.dtsi），则可以开启本项自动执行生成DTB步骤
-  - **GENERATE_CHIP** - 生成DTB文件的对应设备CPU，通常支持qcom、mediatek，但我们不确定其他CPU是否支持
+  - **GENERATE_CHIP** - 设定对应设备CPU，并提供给DTB和KPM功能用于识别，通常支持qcom、mediatek，但我们不确定其他CPU是否支持
   - **BUILD_DEBUGGER** - 若需要提供出错时的报告可使用该选项，目前提供patch错误rej文件的输出，其他功能可期待未来更新
   - **BUILD_OTHER_CONFIG** - 若你需要合并内核源码中自带的其他.config文件，可启用本项，但是需要自行修改”Build Kernel“中数组MERGE_CONFIG_FILES中的内容
   - **FREE_MORE_SPACE** - 若你认为当前的空间不足，则可以启用该项来获得更多空间释放，默认情况下可获得约88GB空间，启用本项可获得102GB空间，但执行时间会增加1-2分钟（仅限默认YAML，Arch Linux或Ubuntu 20.04仅可获得14-20GB空间）
   - **REKERNEL_ENABLE** - 如果你认为你的设备具备运行[Re:Kernel](https://github.com/Sakion-Team/Re-Kernel)的条件，并且你需要Re:Kernel，则可以启用本项，true或者false
 
 - **runs-on: ubuntu-XX.XX** 
-  - 不同内核所需系统不同，默认为22.04，我们预先提供了两套包安装选项（适配22.04和24.04），我们通过检测系统版本进行决定包安装
+  - 不同内核所需系统不同，默认为22.04，我们预先提供了两套包安装选项（适配20.04、22.04和24.04），我们通过检测系统版本进行决定包安装
   - 若使用Arch Linux YAML则该功能不适用，请不要修改
 
 - **Set Compile Environment**
@@ -97,7 +97,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 若有GCC，则需填写GCC 64位和32位的版本，对于GCC我们建议git形式，但同时支持tar.gz和zip
   - 你可以选择仅使用GCC而不启用Clang，并且GCC允许使用系统默认安装的GCC，可在yaml文件变量中开启
   - 根据本人的使用情况，我们对于Clang支持为git、tar.gz、tar.xz、zip以及上述提到的antman管理软件
-  - 如果你计划使用[Proton Clang 13](https://github.com/kdrag0n/proton-clang)，则需要在将系统设置为**Ubuntu-20.04**（我们不推荐Arch Linux，可能会导致glibc问题），我们已经预先适配了Proton Clang Toolchain，会在检测到Proton Clang后自动识别附带的GCC，但也记得不要填写GCC
+  - 如果你计划使用[Proton Clang 13](https://github.com/kdrag0n/proton-clang)，则需要使用Older YAML（我们不推荐Arch Linux，可能会导致glibc问题），我们已经预先适配了Proton Clang Toolchain，会在检测到Proton Clang后自动识别附带的GCC，但也记得不要填写GCC
 
 - **Get Kernel Source**
   - 正常来说内核源码都可以通过Git方式获得，所以基本不需要修改
@@ -125,6 +125,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 若你为**4.9**内核，在使用默认的Re:Kernel补丁修补后无法正常识别到，可切换至Re:Kernel Fixed补丁尝试
   - 补充修补需要执行你重新制作的patch补丁（步骤为：Fixed Kernel Patch）
   - 切记填写好**PATCHES_SOURCE**和**PATCHES_BRANCH**，否则会导致错误
+  - 默认SUSFS_FIXED启用后，通过PATCHES_SOURCE和PATCHES_BRANCH所git下来的目录的名称叫**NonGKI_Kernel_Patches**，即便你的项目不是这个名称
   
 - **Update SUSFS Version**
   - 旨在将停止更新的版本v1.5.5进行更新SUSFS v1.5.7的操作
@@ -133,7 +134,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 由变量控制是否执行该步骤
   
 - **KPM Patcher (Experiment)**
-  - 为SukiSU-Ultra提供KPM内核Patch功能，该功能目前暂不支持内核版本≤4.9的设备，若你已经反向移植部分功能用于KPM功能，请自行参照修改这个部分，但我们对实验性功能不提供支持
+  - 为SukiSU-Ultra提供KPM内核Patch功能，该功能目前暂不支持内核版本<4.9的设备，4.9内核可执行backport_set_memory.patch移植set_memory后启用KPM
   - 该功能在**Arch Linux**下可以正常执行，在**Ubuntu22.04下异常**，建议使用**最新版Ubuntu或者Arch Linux YAML**
   
 最后提醒⚠️：非上述提示的步骤理论上不需要你做任何修改，我已经尽可能实现多情况判定

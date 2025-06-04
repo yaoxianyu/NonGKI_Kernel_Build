@@ -29,7 +29,7 @@ Each profile consists of the following elements:
 **CLANG_BRANCH** - Required branch for Clang (only applicable if using git).  
 
 **GCC_GNU** - If your kernel requires GCC but does not need a custom GCC, you can enable the system-provided GNU-GCC with true or false.  
-**GCC_XX_SOURCE** - Location of GCC (supports git, tar.gz, zip).  
+**GCC_XX_SOURCE** - Location of GCC (supports git, tar.gz, zip). If you're an ARMV7A device, please only fill in GCC_32.  
 **GCC_XX_BRANCH** - Required branch for GCC (only applicable if using git).  
 
 **DEFCONFIG_SOURCE** - If you require a custom DEFCONFIG file, you can provide a download link for the DEFCONFIG file.  
@@ -143,12 +143,12 @@ Below is an introduction to the patches included in the Patches directory:
 
 - **normal_patches.sh**
     - Variable: HOOK_METHOD -> normal
-    - Used for manually patching Non-GKI kernels. This is also the kernel used in the manual patching section for Non-GKI kernels on the KernelSU official website.
+    - Used for manually patching Non-GKI kernels. This is also the kernel used in the manual patching section for Non-GKI kernels on the KernelSU official website. This is only suitable for ARM64 devices with kernel version 3.18 or higher.
     - Reference: https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
     
 - **vfs_hook_patches.sh**
     - Variable: HOOK_METHOD -> vfs
-    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great.
+    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great. But it's been adapted to support devices with kernel versions ≤ 3.18 (ARMV7A), so it's compatible with all kernels.
     - Reference: https://github.com/backslashxx/KernelSU/issues/5
     
 - **extra_patches.sh**
@@ -158,7 +158,7 @@ Below is an introduction to the patches included in the Patches directory:
 
 - **backport_patches.sh**
     - Executes automatically based on kernel version.
-    - Used for backporting features to Non-GKI kernels. While KernelSU-Next and SukiSU-Ultra can automatically handle backporting, other branches cannot. This script was independently created for automatic backporting in those cases.
+    - Used for backporting features to Non-GKI kernels. While KernelSU-Next and SukiSU-Ultra can automatically handle backporting, other branches cannot.
     - Reference: https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
 
 - **susfs_upgrade_to_157.patch**

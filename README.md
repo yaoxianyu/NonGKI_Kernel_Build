@@ -29,7 +29,7 @@
 **CLANG_BRANCH** - Clang所需分支，但前提是git  
 
 **GCC_GNU** - 若你的内核需要GCC，但不需要自定义GCC，可通过选项启用系统提供的GNU-GCC，true或false  
-**GCC_XX_SOURCE** - GCC所在之处，但支持git、tar.gz、zip  
+**GCC_XX_SOURCE** - GCC所在之处，若你是ARMV7A设备，请仅填写GCC_32，支持git、tar.gz、zip  
 **GCC_XX_BRANCH** - GCC所需分支，但前提是git  
 
 **DEFCONFIG_SOURCE** - 若有自定义DEFCONFIG文件需求可提供DEFCONFIG文件的下载地址  
@@ -142,12 +142,12 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
 
 - **normal_patches.sh**
   - 变量：HOOK_METHOD -> normal
-  - 用于执行Non-GKI内核的手动修补，也是KernelSU官网Non-GKI内核手动修补部分的内核
+  - 用于执行Non-GKI内核的手动修补，也是KernelSU官网Non-GKI内核手动修补部分的内核，仅适合内核版本≥3.18（ARM64）设备
   - 参考：https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
 
 - **vfs_hook_patches.sh**
   - 变量：HOOK_METHOD -> vfs
-  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好
+  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好，但适配支持了内核版本≤3.18（ARMV7A）设备，因此全内核可用
   - 参考：https://github.com/backslashxx/KernelSU/issues/5
 
 - **extra_patches.sh** 
@@ -157,7 +157,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   
 - **backport_patches.sh** 
   - 自动判断内核版本执行
-  - 用于执行对Non-GKI内核的反向移植，除了KernelSU-Next和SukiSU-Ultra可以实现自动反向移植外，其他的分支均无法实现，因此这时我独立制作用于自动反向移植的脚本
+  - 用于执行对Non-GKI内核的反向移植，除了KernelSU-Next和SukiSU-Ultra可以实现自动反向移植外，其他的分支均无法实现
   - 参考：https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
   
 - **susfs_upgrade_to_157.patch**

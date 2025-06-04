@@ -198,7 +198,11 @@ jobs:
               unzip gcc-32.zip -d gcc-32/
             fi
             GCC_32_BIN=arm-linux-androideabi-
-            echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc-32/bin/$GCC_32_BIN" >> $GITHUB_ENV
+            if [ -z "${{ env.GCC_64_SOURCE }}" ]; then
+                echo "GCC_32=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-32/bin/$GCC_32_BIN" >> $GITHUB_ENV
+            else
+                echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc-32/bin/$GCC_32_BIN" >> $GITHUB_ENV
+            fi
           fi
 
           # Set Clang
@@ -583,6 +587,15 @@ jobs:
                 make O=out ARCH=arm64 ${{ env.GCC_64 }} olddefconfig
             fi
             make -j$(nproc --all) O=out ARCH=arm64 ${{ env.GCC_64 }}
+          elif [ -z "${{ env.GCC_64 }}" ]; then
+            make O=out ARCH=arm64 ${{ env.GCC_64 }} ${{ env.DEFCONFIG_NAME }}
+            if [[ "${{ env.BUILD_OTHER_CONFIG }}"  == "true" ]]; then
+                for FILES in "${MERGE_CONFIG_FILES[@]}"; do
+                    ./scripts/kconfig/merge_config.sh -O out/ -m out/.config arch/arm64/configs/$FILES
+                done
+                make O=out ARCH=arm64 ${{ env.GCC_32 }} olddefconfig
+            fi
+            make -j$(nproc --all) O=out ARCH=arm64 ${{ env.GCC_32 }}
           elif [ -z "${{ env.CLANG_SOURCE }}" ]; then
             make O=out ARCH=arm64 ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.DEFCONFIG_NAME }}
             if [[ "${{ env.BUILD_OTHER_CONFIG }}"  == "true" ]]; then

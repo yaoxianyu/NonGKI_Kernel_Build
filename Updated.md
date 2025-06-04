@@ -1,4 +1,11 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 68**
+    - 增加 backport_patches.sh 对 ARMV7A设备 的支持
+    - 增加 vfs_hook_patches.sh 对 ARMV7A设备 的支持
+    - 增加 extra_patches.sh 对 ARMV7A设备 的支持
+    - 增加 示例YAML 对 ARMV7A设备 的支持
+    - 修正 说明文件 有关 Patch脚本 的部分说明
+
 - **Ver.1.4 Fixed 67**
     - 增加 说明文件 Patches/补丁介绍.patch 部分
     - 增加 说明文件 有关Patch Kernel部分说明

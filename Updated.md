@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 71**
+    - 增加 支持列表 LG Nexus 5 设备
+    - 修正 LG Nexus 5 YAML 标题错误
+
 - **Ver.1.4 Fixed 70**
     - 增加 支持列表 有关 ARMV7A设备 的 KernelSU分支 支持情况
     - 增加 示例YAML 有关 ARMV7A 利用 Anykernel3 打包的检测

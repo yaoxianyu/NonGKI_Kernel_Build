@@ -1,4 +1,4 @@
-name: Build Kernel Template (Cannot be used for compilation directly)
+name: Build Kernel LG Nexus 5 (LineageOS22.2 A15) with KSU
 on:
   workflow_call:
   workflow_dispatch:

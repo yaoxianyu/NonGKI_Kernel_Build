@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 70**
+    - 增加 支持列表 有关 ARMV7A设备 的 KernelSU分支 支持情况
+    - 修正 extra_patches.sh ARMV7A设备 修补错误
+    - 修正 backport_patches.sh ARMV7A设备 修补错误
+    - 修正 示例ENV文件 默认 GCC_32 获取地址
+
 - **Ver.1.4 Fixed 69**
     - 修正 说明文件 有关 no-kprobe 部分说明
 

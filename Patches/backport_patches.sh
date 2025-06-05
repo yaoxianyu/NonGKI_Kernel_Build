@@ -103,31 +103,32 @@ for i in "${patch_files[@]}"; do
     ## mm/maccess.c
     mm/maccess.c)
         if [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 18 ]; then
-            sed '$a \
-long strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr,\\
-\t\t\t    long count)\\
-{\\
-\tmm_segment_t old_fs = get_fs();\\
-\tlong ret;\\
-\\
-\tif (unlikely(count <= 0))\\
-\t\treturn 0;\\
-\\
-\tset_fs(USER_DS);\\
-\tpagefault_disable();\\
-\tret = strncpy_from_user(dst, unsafe_addr, count);\\
-\tpagefault_enable();\\
-\tset_fs(old_fs);\\
-\\
-\tif (ret >= count) {\\
-\t\tret = count;\\
-\t\tdst[ret - 1] = '\''\\0'\'';\\
-\t} else if (ret > 0) {\\
-\t\tret++;\\
-\t}\\
-\\
-\treturn ret;\\
-}' mm/maccess.c
+            cat <<EOF >> mm/maccess.c
+long strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr, long count)
+{
+	mm_segment_t old_fs = get_fs();
+	long ret;
+
+	if (unlikely(count <= 0))
+		return 0;
+
+	set_fs(USER_DS);
+	pagefault_disable();
+	ret = strncpy_from_user(dst, unsafe_addr, count);
+	pagefault_enable();
+	set_fs(old_fs);
+
+	if (ret >= count) {
+		ret = count;
+		dst[ret - 1] = '\0';
+	} else if (ret > 0) {
+		ret++;
+	}
+
+	return ret;
+}
+EOF
+
         else
             sed -i 's/\* strncpy_from_unsafe_user: - Copy a NUL terminated string from unsafe user/\* strncpy_from_user_nofault: - Copy a NUL terminated string from unsafe user/' mm/maccess.c
             sed -i 's/long strncpy_from_unsafe_user(char \*dst, const void __user \*unsafe_addr,/long strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr,/' mm/maccess.c

@@ -539,9 +539,13 @@ jobs:
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./
+          cp NonGKI_Kernel_Patches/namespace.patch ./
+          cp NonGKI_Kernel_Patches/sched.patch ./
+          cp NonGKI_Kernel_Patches/task_mmu.patch ./
 
-          patch -p1 < [patch_file].patch || true
+          patch -p1 < namespace.patch || true
+          patch -p1 < sched.patch || true
+          patch -p1 < task_mmu.patch || true
 
       - name: Updated SUSFS Version
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'

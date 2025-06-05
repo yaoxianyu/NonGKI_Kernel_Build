@@ -235,46 +235,60 @@ jobs:
           cd $GITHUB_WORKSPACE
           git clone --recursive ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_BRANCH }} device_kernel --depth=1
           if [[ -n "${{ env.DEFCONFIG_SOURCE }}" ]]; then
-            wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            if [[ -d "device_kernel/arch/arm64" ]]; then
+                wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            else
+                wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm/configs/${{ env.DEFCONFIG_NAME }}
+            fi
           elif [[ -n "${{ env.DEFCONFIG_ORIGIN_DEFCONFIG }}" ]]; then
             wget ${{ env.DEFCONFIG_ORIGIN_DEFCONFIG }} -O $GITHUB_WORKSPACE/device_kernel/Image
-            $GITHUB_WORKSPACE/device_kernel/scripts/extract-ikconfig $GITHUB_WORKSPACE/device_kernel/Image > $GITHUB_WORKSPACE/device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            if [[ -d "device_kernel/arch/arm64" ]]; then
+                $GITHUB_WORKSPACE/device_kernel/scripts/extract-ikconfig $GITHUB_WORKSPACE/device_kernel/Image > $GITHUB_WORKSPACE/device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            else
+                $GITHUB_WORKSPACE/device_kernel/scripts/extract-ikconfig $GITHUB_WORKSPACE/device_kernel/Image > $GITHUB_WORKSPACE/device_kernel/arch/arm/configs/${{ env.DEFCONFIG_NAME }}
+            fi
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
 
       - name: Set KSU and SUSFS for DEFCONFIG
         run: |
           cd $GITHUB_WORKSPACE/device_kernel
-          echo "CONFIG_KSU=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          if [[ -d "arch/arm64" ]]; then
+            ARCH=arm64
+          else
+            ARCH=arm
+          fi
+
+          echo "CONFIG_KSU=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           if [[ "${{ env.KERNELSU_SOURCE }}" == *rsuntk* ]] || [[ "${{ env.KERNELSU_SOURCE }}" == *SukiSU* ]]; then
-            echo "CONFIG_KSU_MANUAL_HOOK=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_MANUAL_HOOK=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
           if [[ "${{ env.KERNELSU_SOURCE }}" == *SukiSU* ]] && [[ "${{ env.KPM_ENABLE }}" == "true" ]]; then
-            echo "CONFIG_KALLSYMS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KALLSYMS_ALL=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KALLSYMS=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KALLSYMS_ALL=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
           if [[ "${{ env.SUSFS_ENABLE }}" == "true" ]]; then
-            echo "CONFIG_KSU_SUSFS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_SUS_KSTAT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "# CONFIG_KSU_SUSFS_SUS_OVERLAYFS is not set" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_SPOOF_UNAME=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_ENABLE_LOG=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SUS_KSTAT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "# CONFIG_KSU_SUSFS_SUS_OVERLAYFS is not set" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SPOOF_UNAME=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_ENABLE_LOG=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
           if [[ "${{ env.LXC_ENABLE }}" == "true" ]]; then
-           echo "CONFIG_VIRTUALIZATION=y" >> android-kernel/arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
-           echo "CONFIG_KVM=y" >> android-kernel/arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
-           echo "CONFIG_VHOST_NET=y" >> android-kernel/arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
-           echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> android-kernel/arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
+           echo "CONFIG_VIRTUALIZATION=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+           echo "CONFIG_KVM=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+           echo "CONFIG_VHOST_NET=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+           echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
 
       - name: Set Pack Method and KernelSU and SUSFS
@@ -340,7 +354,7 @@ jobs:
           ## KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then
             if [ -f "include/linux/set_memory.h" ] && [ "${{ env.KPM_ENABLE }}" == "true" ]; then
-                echo "CONFIG_KPM=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+                echo "CONFIG_KPM=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
                 wget "${{ env.KPM_PATCH_SOURCE }}" -O patch
                 chmod a+x patch
                 echo "Set KPM successfully !"
@@ -433,11 +447,7 @@ jobs:
         run: |
           # Only ${{ env.DEVICE_NAME }} use it.
           cd $GITHUB_WORKSPACE/device_kernel
-          # echo "CONFIG_CPU_BIG_ENDIAN=n" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          # echo "CONFIG_COMPAT_VDSO=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          # echo "CONFIG_LTO_NONE=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          # echo "CONFIG_INIT_STACK_NONE=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          # sed -i 's/# CONFIG_SECCOMP is not set/CONFIG_SECCOMP=y/' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          # Nothing
 
       - name: Added mkdtboimg to kernel (Experiment)
         if: env.HAVE_NO_DTBO == 'true' && env.HAVE_NO_DTBO_TOOL != 'true'
@@ -450,26 +460,32 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
           cp /tmp/Patches/temp_dtbo.patch ./
           patch -p1 < temp_dtbo.patch
-          sed -i '/targets := Image Image.bz2 Image.gz Image.lz4 Image.lzma Image.lzo/s/$/ dtbo.img/' ./arch/arm64/boot/Makefile
-          sed -i '/$(obj)\/Image\.gz-dtb: $(obj)\/Image\.gz $(DTB_OBJS) FORCE/a \#DTBO\n$(obj)\/dtbo.img: $(DTBO_OBJS) FORCE\n\t$(call if_changed,mkdtimg)' ./arch/arm64/boot/Makefile
-          sed -i '/KBUILD_DTBS\t:= dtbs/a \#DTBO\nKBUILD_DTBO_IMG := dtbo.img' ./arch/arm64/Makefile
+          sed -i '/targets := Image Image.bz2 Image.gz Image.lz4 Image.lzma Image.lzo/s/$/ dtbo.img/' ./arch/$ARCH/boot/Makefile
+          sed -i '/$(obj)\/Image\.gz-dtb: $(obj)\/Image\.gz $(DTB_OBJS) FORCE/a \#DTBO\n$(obj)\/dtbo.img: $(DTBO_OBJS) FORCE\n\t$(call if_changed,mkdtimg)' ./arch/$ARCH/boot/Makefile
+          sed -i '/KBUILD_DTBS\t:= dtbs/a \#DTBO\nKBUILD_DTBO_IMG := dtbo.img' ./arch/$ARCH/Makefile
           sed -i '/dtc-tmp = $(subst $(comma),_,$(dot-target)\.dts\.tmp)/a \#DTBO\n# mkdtimg\n#----------------------------------------------------------------------------\nquiet_cmd_mkdtimg = DTBOIMG $@\ncmd_mkdtimg = python3 $(srctree)\/scripts\/dtc\/mkdtboimg.py create $@ --page_size=4096 $(filter-out FORCE,$^)' ./scripts/Makefile.lib
 
       - name: Setup LXC (Experiment)
         if: env.LXC_ENABLE == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel
+          if [[ -d "arch/arm64" ]]; then
+            ARCH=arm64
+          else
+            ARCH=arm
+          fi
+
           rm -rf lxc
           git clone https://github.com/tomxi1997/lxc-docker-support-for-android.git lxc
           echo 'source "lxc/Kconfig"' >> "Kconfig"
 
-          echo "CONFIG_DOCKER=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_DOCKER=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
 
-          sed -i '/CONFIG_ANDROID_PARANOID_NETWORK/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          echo "# CONFIG_ANDROID_PARANOID_NETWORK is not set" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          sed -i '/CONFIG_ANDROID_PARANOID_NETWORK/d' ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+          echo "# CONFIG_ANDROID_PARANOID_NETWORK is not set" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
 
-          #sed -i '/CONFIG_LOCALVERSION/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          #echo 'CONFIG_LOCALVERSION="-LXC"' >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          #sed -i '/CONFIG_LOCALVERSION/d' ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+          #echo 'CONFIG_LOCALVERSION="-LXC"' >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
 
           chmod +x $GITHUB_WORKSPACE/device_kernel/lxc/runcpatch.sh
           if [ -f $GITHUB_WORKSPACE/device_kernel/kernel/cgroup/cgroup.c ]; then
@@ -588,14 +604,14 @@ jobs:
             fi
             make -j$(nproc --all) O=out ARCH=arm64 ${{ env.GCC_64 }}
           elif [ -z "${{ env.GCC_64 }}" ]; then
-            make O=out ARCH=arm64 ${{ env.GCC_64 }} ${{ env.DEFCONFIG_NAME }}
+            make O=out ARCH=arm ${{ env.GCC_64 }} ${{ env.DEFCONFIG_NAME }}
             if [[ "${{ env.BUILD_OTHER_CONFIG }}"  == "true" ]]; then
                 for FILES in "${MERGE_CONFIG_FILES[@]}"; do
-                    ./scripts/kconfig/merge_config.sh -O out/ -m out/.config arch/arm64/configs/$FILES
+                    ./scripts/kconfig/merge_config.sh -O out/ -m out/.config arch/arm/configs/$FILES
                 done
-                make O=out ARCH=arm64 ${{ env.GCC_32 }} olddefconfig
+                make O=out ARCH=arm ${{ env.GCC_32 }} olddefconfig
             fi
-            make -j$(nproc --all) O=out ARCH=arm64 ${{ env.GCC_32 }}
+            make -j$(nproc --all) O=out ARCH=arm ${{ env.GCC_32 }}
           elif [ -z "${{ env.CLANG_SOURCE }}" ]; then
             make O=out ARCH=arm64 ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.DEFCONFIG_NAME }}
             if [[ "${{ env.BUILD_OTHER_CONFIG }}"  == "true" ]]; then

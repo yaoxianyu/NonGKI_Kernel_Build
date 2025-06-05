@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 72**
+    - 修正 示例YAML 对于 ARMV7A设备 的部分判定
+    - 修正 LG Nexus 5 YAML 对于 ARMV7A设备 的部分判定
+
 - **Ver.1.4 Fixed 71**
     - 增加 支持列表 LG Nexus 5 设备
     - 修正 LG Nexus 5 YAML 标题错误

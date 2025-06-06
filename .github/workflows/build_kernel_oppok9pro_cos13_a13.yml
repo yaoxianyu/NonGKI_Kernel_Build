@@ -334,7 +334,7 @@ jobs:
           echo "UPLOADNAME=-${{ env.KERNELSU_NAME }}_$KSU_VERSION" >> $GITHUB_ENV
 
           # Remove SukiSU-Ultra ksu.c last line.
-          sed -i '$s/.*//' KernelSU/kernel/ksu.c
+          # sed -i '$s/.*//' KernelSU/kernel/ksu.c
 
           ## KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then

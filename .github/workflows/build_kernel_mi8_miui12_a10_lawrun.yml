@@ -450,9 +450,7 @@ jobs:
           echo "# CONFIG_88XXAU is not set" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           rm -rf drivers/88XXAU
           sed -i '/source "drivers\/88XXAU\/Kconfig"/d' drivers/Kconfig
-          sed '7d' drivers/Makefile
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mi6_miui/power_fixed.patch
-          patch -p1 < https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mi6_miui/power_fixed.patch
+          sed -i '7d' drivers/Makefile
 
       - name: Added mkdtboimg to kernel (Experiment)
         if: env.HAVE_NO_DTBO == 'true' && env.HAVE_NO_DTBO_TOOL != 'true'

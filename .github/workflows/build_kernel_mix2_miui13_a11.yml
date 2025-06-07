@@ -234,8 +234,6 @@ jobs:
 
           # Set Toolchain
           git clone ${{ env.TOOLCHAIN_SOURCE }} -b ${{ env.TOOLCHAIN_BRANCH }} toolchain --depth=1
-          echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/toolchain/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-" >> $GITHUB_ENV
-          echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/toolchain/gcc/linux-x86/aarch64/gcc-linaro-7.5.0/bin/aarch64-linux-gnu-" >> $GITHUB_ENV
 
       - name: Get Kernel Source
         run: |
@@ -593,8 +591,8 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel/
 
           # Toolchain Only
-          make CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.DEFCONFIG_NAME }}
-          make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+          make CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} LD=$GITHUB_WORKSPACE/toolchain/clang/host/linux-x86/clang-r428724/bin/ld.lld ${{ env.DEFCONFIG_NAME }}
+          make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} LD=$GITHUB_WORKSPACE/toolchain/clang/host/linux-x86/clang-r428724/bin/ld.lld ${{ env.GCC_32 }}
 
           ## Generate DTBO
           if [ "${{ env.HAVE_NO_DTBO }}" == "true" ] && [ "${{ env.HAVE_NO_DTBO_TOOL }}" == "true" ]; then

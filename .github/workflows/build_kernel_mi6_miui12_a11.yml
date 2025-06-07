@@ -456,6 +456,8 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mi6_miui/power_fixed.patch
           patch -p1 < power_fixed.patch
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mi6_miui/ultrasound_fixed.patch
+          patch -p1 < ultrasound_fixed.patch
 
       - name: Added mkdtboimg to kernel (Experiment)
         if: env.HAVE_NO_DTBO == 'true' && env.HAVE_NO_DTBO_TOOL != 'true'

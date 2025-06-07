@@ -1,4 +1,12 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 75**
+    - 增加 小米8 MIUI12
+    - 增加 小米8 Lawrun
+    - 增加 小米6 MIUI12
+    - 增加 小米Mix2 MIUI12.5
+    - 增加 一加9 Pro OOS11 Lily
+    - 增加 一加9 Pro OOS11 Omega
+
 - **Ver.1.4 Fixed 74**
     - 关闭 小米Mix2s LXC功能
     - 修正 OPPO K9 Pro 编译错误

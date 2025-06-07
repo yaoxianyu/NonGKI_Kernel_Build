@@ -230,9 +230,6 @@ jobs:
             echo "You needn't clang!"
           fi
 
-          # Set Toolchain
-          git clone ${{ env.TOOLCHAIN_SOURCE }} -b ${{ env.TOOLCHAIN_BRANCH }} toolchain --depth=1
-
       - name: Get Kernel Source
         run: |
           cd $GITHUB_WORKSPACE

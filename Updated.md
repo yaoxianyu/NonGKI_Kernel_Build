@@ -1,4 +1,11 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 77**
+    - 修正 小米Mix2 MIUI12.5 编译错误
+    - 修正 小米8 Lawrun 编译错误
+    - 修正 小米6 MIUI12 编译错误
+    - 修正 一加9 Pro OOS11 Omega 编译错误
+    - 修正 小米8 MIUI12 未开启SUSFS导致编译错误
+
 - **Ver.1.4 Fixed 76**
     - 切换 小米8 MIUI12 KernelSU分支切换至rsuntk
     - 切换 小米8 Lawrun KernelSU分支切换至rsuntk

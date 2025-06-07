@@ -510,7 +510,7 @@ jobs:
           echo "LXC_ENABLE=lxc" >> $GITHUB_ENV
 
       - name: Patch Kernel of SUSFS
-        if: env.SUSFS_ENABLE == 'true'
+        if: env.SUSFS_ENABLE == 'true' && env.NOTHING == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
           cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-$KERNEL_VERSION.patch ./

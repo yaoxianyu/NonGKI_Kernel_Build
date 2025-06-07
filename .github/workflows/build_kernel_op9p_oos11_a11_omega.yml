@@ -234,8 +234,6 @@ jobs:
 
           # Set Toolchain
           git clone ${{ env.TOOLCHAIN_SOURCE }} -b ${{ env.TOOLCHAIN_BRANCH }} toolchain --depth=1
-          echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/toolchain/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-" >> $GITHUB_ENV
-          echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/toolchain/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-" >> $GITHUB_ENV
 
       - name: Get Kernel Source
         run: |

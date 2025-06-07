@@ -447,7 +447,7 @@ jobs:
         run: |
           # Only ${{ env.DEVICE_NAME }} use it.
           cd $GITHUB_WORKSPACE/device_kernel
-          echo "# CONFIG_88XXAU is not set" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+          echo "# CONFIG_88XXAU is not set" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           rm -rf drivers/88XXAU
           sed -i '/source "drivers\/88XXAU\/Kconfig"/d' drivers/Kconfig
           sed '7d' drivers/Makefile

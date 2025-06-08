@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 83**
+    - 修正 支持列表 部分KernelSU分支信息
+
 - **Ver.1.4 Fixed 82**
     - 启用 一加9 Pro OOS11 Lily 生成DTB
 

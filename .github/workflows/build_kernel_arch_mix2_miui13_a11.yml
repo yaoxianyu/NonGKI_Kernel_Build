@@ -1,4 +1,4 @@
-name: Build Kernel Xiaomi Mix2 (MIUI13 A11) with KSU
+name: Build Kernel Arch Xiaomi Mix2 (MIUI13 A11) with KSU
 on:
   workflow_call:
   workflow_dispatch:
@@ -17,41 +17,19 @@ env:
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
   BUILD_OTHER_CONFIG: "false" # Merge config files.
-  FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
   REKERNEL_ENABLE: "false" # if u need Re:Kernel.
 
 
 jobs:
   build:
-    name: Build Kernel by ${{ github.actor }}
-    runs-on: ubuntu-22.04
+    name: Build Kernel by ${{ github.actor }} in Arch Linux
+    runs-on: ubuntu-latest
+    container: archlinux/archlinux:latest
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
       CCACHE_NOHASHDIR: "true"
       CCACHE_HARDLINK: "true"
     steps:
-      - name: Free Disk Space (Ubuntu)
-        if: env.FREE_MORE_SPACE == 'true'
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: true
-
-          # all of these default to true, but feel free to set to
-          # "false" if necessary for your workflow
-          android: false
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Remove useless tools
-        run: |
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
-
       - uses: actions/checkout@v4
       - name: Prepare Configuration
         run: |
@@ -102,48 +80,24 @@ jobs:
           # Move patch folder to tmp
           mv $GITHUB_WORKSPACE/Patches /tmp/
 
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 2048
-          temp-reserve-mb: 64
-          swap-size-mb: 8192
-          remove-dotnet: "true"
-          remove-android: "true"
-          remove-haskell: "true"
-          remove-codeql: "true"
-
       - name: Install necessary packages
         run: |
-          lsb_release -a
-          UBUNTU_VERSION=$(lsb_release -sr)
-          sudo apt-get update
+          cat /etc/os-release
 
-          if [ $UBUNTU_VERSION == "22.04" ] || [ $UBUNTU_VERSION == "20.04" ]; then
-            sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler
-            sudo apt-get install p7zip p7zip-full -y
-            if [ "${{ env.PYTHON_VERSION }}" == "3" ]; then
-                sudo apt install python2 python3 -y
-            elif [ "${{ env.PYTHON_VERSION }}" == "2" ]; then
-                sudo apt install python2 -y
-                sudo rm /usr/bin/python
-                sudo ln -s /usr/bin/python2.7 /usr/bin/python
-            else
-                echo "You need choose a python version."
-                false
-            fi
-          else
-            sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python3
-            sudo apt-get install zstd libc6 binutils libc6-dev-i386 gcc g++ p7zip p7zip-full -y
-          fi
+          pacman -Syyu --noconfirm
+          pacman -S git base-devel systemd wget rustup curl patch ccache automake flex lzop bison gperf zip curl bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip 7zip zstd binutils gcc python3 wget which --noconfirm
+
+          # Update Rust Toolchain
+          rustup default stable
 
       - name: Install GNU GCC
         if: env.GCC_GNU == 'true'
         run: |
           if [ -z ${{ env.GCC_64_SOURCE }} ] && [ -z ${{ env.GCC_32_SOURCE }} ]; then
-            sudo apt-get install binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi -y
+            pacman -S aarch64-linux-gnu-binutils aarch64-linux-gnu-gcc aarch64-linux-gnu-glibc aarch64-linux-gnu-linux-api-headers --noconfirm
+            pacman -S arm-none-eabi-binutils arm-none-eabi-gcc --noconfirm
             echo "GCC_64=CROSS_COMPILE=aarch64-linux-gnu-" >> $GITHUB_ENV
-            echo "GCC_32=CROSS_COMPILE_ARM32=arm-linux-gnueabi-" >> $GITHUB_ENV
+            echo "GCC_32=CROSS_COMPILE_ARM32=arm-none-eabi-" >> $GITHUB_ENV
           else
             echo "You needn't gcc powered by system."
           fi
@@ -241,9 +195,6 @@ jobs:
           else
             echo "You needn't clang!"
           fi
-
-          # Set Toolchain
-          git clone ${{ env.TOOLCHAIN_SOURCE }} -b ${{ env.TOOLCHAIN_BRANCH }} toolchain --depth=1
 
       - name: Get Kernel Source
         run: |

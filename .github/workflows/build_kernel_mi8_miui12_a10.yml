@@ -1,4 +1,4 @@
-name: Build Kernel Xiaomi 8 (MIUI12 A10) with KSU
+name: Build Kernel Xiaomi 8 (MIUI12 A10) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:

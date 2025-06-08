@@ -126,6 +126,8 @@ jobs:
               wget -O gcc-64.tar.xz ${{ env.GCC_32_SOURCE }}
               mkdir gcc-64
               tar -C gcc-64/ -xvf gcc-64.tar.xz --strip-components 1
+              ls -al gcc-64/
+              false
             fi
             if [[ "${{ env.GCC_64_SOURCE }}" == *'.zip' ]]; then
               wget -O gcc-64.zip ${{ env.GCC_64_SOURCE }}

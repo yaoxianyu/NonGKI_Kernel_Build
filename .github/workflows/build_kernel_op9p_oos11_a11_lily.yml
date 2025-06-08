@@ -734,11 +734,11 @@ jobs:
             echo "Found DTB!"
             cp -fp $IMAGE_DIR/dtb tmp
           elif [ "${{ env.GENERATE_DTB }}" == "true" ]; then
-            if [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
+            if [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
                 cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
                 cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
-            elif [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
+            elif [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
                 cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
                 cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
@@ -787,13 +787,13 @@ jobs:
             echo "Found DTB!"
             cp -fp $IMAGE_DIR/dtb out/dtb
           elif [ "${{ env.GENERATE_DTB }}" == "true" ]; then
-            if [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
+            if [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
                 cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
-                cp -fp $IMAGE_DIR/DTB out/dtb
+                cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
-            elif [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
+            elif [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
                 cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
-                cp -fp $IMAGE_DIR/DTB out/dtb
+                cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
             else
                 echo "Missing .dtb file in dts or dts/vendor ! Generate Failed !"

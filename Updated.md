@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 84**
+    - 修正 示例YAML 生成DTB 对于.dtb存在文件夹的检测顺序
+    - 修正 一加9 Pro OOS11 Lily 生成DTB 对于.dtb存在文件夹的检测顺序
+
 - **Ver.1.4 Fixed 83**
     - 修正 支持列表 部分KernelSU分支信息
 

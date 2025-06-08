@@ -109,7 +109,7 @@ jobs:
           # Set GCC Aarch64
           if [[ "${{ env.CLANG_SOURCE }}" == *proton* ]]; then
             echo "Detected Proton Clang. Not use GCC Source."
-            GCC_64_BIN=aarch64-linux-gnu-
+            GCC_64_BIN=aarch64-none-linux-gnu-
             echo "GCC_64=CROSS_COMPILE=$GCC_64_BIN" >> $GITHUB_ENV
           elif [ -z "${{ env.GCC_64_SOURCE }}" ]; then
             echo "Not set GCC 64!"
@@ -132,7 +132,7 @@ jobs:
               mkdir gcc-64
               unzip gcc-64.zip -d gcc-64/
             fi
-            GCC_64_BIN=aarch64-linux-gnu-
+            GCC_64_BIN=aarch64-none-linux-gnu-
             echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-64/bin/$GCC_64_BIN" >> $GITHUB_ENV
           fi
 
@@ -140,7 +140,7 @@ jobs:
           # Set GCC ARM32
           if [[ "${{ env.CLANG_SOURCE }}" == *proton* ]]; then
             echo "Detected Proton Clang. Not use GCC Source."
-            GCC_32_BIN=arm-linux-gnueabi-
+            GCC_32_BIN=arm-none-linux-gnueabihf-
             echo "GCC_32=CROSS_COMPILE=$GCC_32_BIN" >> $GITHUB_ENV
           elif [ -z "${{ env.GCC_32_SOURCE }}" ]; then
             echo "Not set GCC 32!"
@@ -163,7 +163,7 @@ jobs:
               mkdir gcc-32
               unzip gcc-32.zip -d gcc-32/
             fi
-            GCC_32_BIN=arm-linux-gnueabi-
+            GCC_32_BIN=arm-none-linux-gnueabihf-
             if [ -z "${{ env.GCC_64_SOURCE }}" ]; then
                 echo "GCC_32=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-32/bin/$GCC_32_BIN" >> $GITHUB_ENV
             else

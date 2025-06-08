@@ -735,7 +735,7 @@ jobs:
             cp -fp $IMAGE_DIR/dtb tmp
           elif [ "${{ env.GENERATE_DTB }}" == "true" ]; then
             if [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
-                cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/vendor/*.dtb > $IMAGE_DIR/DTB
+                cat $IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
                 cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
             elif [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then
@@ -788,7 +788,7 @@ jobs:
             cp -fp $IMAGE_DIR/dtb out/dtb
           elif [ "${{ env.GENERATE_DTB }}" == "true" ]; then
             if [ -d "$IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}" ]; then
-                cat $IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}/vendor/*.dtb > $IMAGE_DIR/DTB
+                cat $IMAGE_DIR/dts/vendor/${{ env.GENERATE_CHIP }}/*.dtb > $IMAGE_DIR/DTB
                 cp -fp $IMAGE_DIR/DTB tmp
                 echo "Generated ${{ env.GENERATE_CHIP }} DTB."
             elif [ -d "$IMAGE_DIR/dts/${{ env.GENERATE_CHIP }}" ]; then

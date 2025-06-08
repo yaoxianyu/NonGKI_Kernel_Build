@@ -178,7 +178,7 @@ jobs:
               mkdir gcc-64
               unzip gcc-64.zip -d gcc-64/
             fi
-            GCC_64_BIN=aarch64-linux-android-
+            GCC_64_BIN=aarch64-linux-gnu-
             echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-64/bin/$GCC_64_BIN" >> $GITHUB_ENV
           fi
 
@@ -209,7 +209,7 @@ jobs:
               mkdir gcc-32
               unzip gcc-32.zip -d gcc-32/
             fi
-            GCC_32_BIN=arm-linux-androideabi-
+            GCC_32_BIN=arm-linux-gnueabi-
             if [ -z "${{ env.GCC_64_SOURCE }}" ]; then
                 echo "GCC_32=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc-32/bin/$GCC_32_BIN" >> $GITHUB_ENV
             else

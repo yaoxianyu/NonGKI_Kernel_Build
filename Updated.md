@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 79**
+    - 增加 示例YAML文件 GCC针对tar.xz格式的支持
+    - 修正 说明文件 有关GCC的tar.xz格式的支持说明
+    - 移植 小米Mix2 MIUI12.5 GCC针对tar.xz格式的支持
+
 - **Ver.1.4 Fixed 78**
     - 修正 小米8 MIUI12 标题错误
 

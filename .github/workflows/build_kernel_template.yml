@@ -166,6 +166,11 @@ jobs:
               mkdir gcc-64
               tar -C gcc-64/ -zxvf gcc-64.tar.gz
             fi
+            if [[ "${{ env.GCC_64_SOURCE }}" == *'.tar.xz' ]]; then
+              wget -O gcc-64.tar.xz ${{ env.GCC_32_SOURCE }}
+              mkdir gcc-64
+              tar -C gcc-64/ -xvf gcc-64.tar.xz --strip-components 1
+            fi
             if [[ "${{ env.GCC_64_SOURCE }}" == *'.zip' ]]; then
               wget -O gcc-64.zip ${{ env.GCC_64_SOURCE }}
               mkdir gcc-64
@@ -191,6 +196,11 @@ jobs:
               wget -O gcc-32.tar.gz ${{ env.GCC_32_SOURCE }}
               mkdir gcc-32
               tar -C gcc-32/ -zxvf gcc-32.tar.gz
+            fi
+            if [[ "${{ env.GCC_32_SOURCE }}" == *'.tar.xz' ]]; then
+              wget -O gcc-32.tar.xz ${{ env.GCC_32_SOURCE }}
+              mkdir gcc-32
+              tar -C gcc-32/ -xvf gcc-32.tar.xz --strip-components 1
             fi
             if [[ "${{ env.GCC_32_SOURCE }}" == *'.zip' ]]; then
               wget -O gcc-32.zip ${{ env.GCC_32_SOURCE }}

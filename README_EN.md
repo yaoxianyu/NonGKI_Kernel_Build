@@ -29,7 +29,7 @@ Each profile consists of the following elements:
 **CLANG_BRANCH** - Required branch for Clang (only applicable if using git).  
 
 **GCC_GNU** - If your kernel requires GCC but does not need a custom GCC, you can enable the system-provided GNU-GCC with true or false.  
-**GCC_XX_SOURCE** - Location of GCC (supports git, tar.gz, zip). If you're an ARMV7A device, please only fill in GCC_32.  
+**GCC_XX_SOURCE** - Location of GCC (supports git, tar.gz, tar.xz, zip). If you're an ARMV7A device, please only fill in GCC_32.  
 **GCC_XX_BRANCH** - Required branch for GCC (only applicable if using git).  
 
 **DEFCONFIG_SOURCE** - If you require a custom DEFCONFIG file, you can provide a download link for the DEFCONFIG file.  

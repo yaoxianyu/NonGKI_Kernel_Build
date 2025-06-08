@@ -29,7 +29,7 @@
 **CLANG_BRANCH** - Clang所需分支，但前提是git  
 
 **GCC_GNU** - 若你的内核需要GCC，但不需要自定义GCC，可通过选项启用系统提供的GNU-GCC，true或false  
-**GCC_XX_SOURCE** - GCC所在之处，若你是ARMV7A设备，请仅填写GCC_32，支持git、tar.gz、zip  
+**GCC_XX_SOURCE** - GCC所在之处，若你是ARMV7A设备，请仅填写GCC_32，支持git、tar.gz、tar.xz、zip  
 **GCC_XX_BRANCH** - GCC所需分支，但前提是git  
 
 **DEFCONFIG_SOURCE** - 若有自定义DEFCONFIG文件需求可提供DEFCONFIG文件的下载地址  

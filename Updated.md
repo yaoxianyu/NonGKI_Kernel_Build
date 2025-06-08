@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 87**
+    - 放弃 小米8 NGK
+
 - **Ver.1.4 Fixed 86**
     - 修正 示例YAML文件 生成DTB 对vendor目录下生成的寻址错误
     - 修正 示例YAML文件 检测Proton并设置CROSS_COMPILE的编写错误

@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 82**
+    - 启用 一加9 Pro OOS11 Lily 生成DTB
+
 - **Ver.1.4 Fixed 81**
     - 修正 小米8 Lawrun 编译错误
 

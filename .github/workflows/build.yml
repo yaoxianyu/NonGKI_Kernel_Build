@@ -107,12 +107,12 @@ jobs:
       RELEASE_NOTES: |
         Below is the codename reference table. Please select the image or archive you need based on this table.
 
-        | Device Name | Codename | Kernel | System | Android | Method | KernelSU | SuSFS | Re:Kernel | VFS |
+        | Device Name | Codename | Kernel | System | Android | Method | KernelSU | SuSFS | Re:Kernel | Syscall |
         |----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
         | OnePlus 8  | instantnoodle | 4.19 | OxygenOS/ColorOS 13.1 | 13 | AnyKernel3 | Magic | ✅ | ❌ | ❌ |
         | OnePlus 8  | instantnoodle | 4.19 | Nameless 15 | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
         | Xiaomi MIX2S  | polaris | 4.9 | Evolution X 10.6 | 15 | Boot Image | SukiSU(U) | ✅ | ✅ | ❌ |
-        | Redmi K20 Pro  | raphael | 4.14 | Based-AOSP | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
+        | Redmi K20 Pro  | raphael | 4.14 | Based-AOSP | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ✅ |
         | Black Shark 4 | penrose | 4.19 | MIUI/JoyUI 12 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ✅ |
         | Xiaomi 10S | thyme | 4.19 | Based-AOSP | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
         | Samsung S20 5G | x1q | 4.19 | OneUI 5.1/6.1 | 13/14 | Boot Image | rsuntk | ❌ | ❌ | ❌ |

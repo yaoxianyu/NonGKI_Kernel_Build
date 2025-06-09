@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 89**
+    - 修正 支持列表 将vfs更名syscall
+    - 修正 发布列表 将vfs更名syscall
+
 - **Ver.1.4 Fixed 88**
     - 重命名 vfs_hook_patches.sh syscall_hook_patches.sh
     - 重命名 说明文件 vfs_hook_patches.sh syscall_hook_patches.sh

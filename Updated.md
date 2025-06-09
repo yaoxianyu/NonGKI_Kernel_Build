@@ -1,4 +1,19 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 88**
+    - 重命名 vfs_hook_patches.sh syscall_hook_patches.sh
+    - 重命名 说明文件 vfs_hook_patches.sh syscall_hook_patches.sh
+    - 合并 normal_patches.sh extra_patches.sh
+    - 增加 syscall_hook_patches.sh 有关hooks.c相关Patch
+    - 增加 说明文件 normal_patches.sh 有关hooks.c的内容和参考链接
+    - 增加 三星 S20 YAML HOOK_METHOD变量
+    - 修正 syscall_hook_patches.sh 判断方式
+    - 修正 说明文件 syscall_hook_patches.sh 有关hooks.c相关内容
+    - 修正 所有YAML文件 Patch no-kprobe 功能
+    - 修正 支持列表 将vfs更名syscall并增加名词相关链接
+    - 修正 红米 K20 Pro 将normal更改为syscall
+    - 删除 extra_patches.sh
+    - 删除 说明文件 有关extra_patches.sh有关内容
+
 - **Ver.1.4 Fixed 87**
     - 放弃 小米8 NGK
 

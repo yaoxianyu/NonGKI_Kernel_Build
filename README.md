@@ -142,18 +142,15 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
 
 - **normal_patches.sh**
   - 变量：HOOK_METHOD -> normal
-  - 用于执行Non-GKI内核的手动修补，也是KernelSU官网Non-GKI内核手动修补部分的内核，仅适合内核版本≥3.18（ARM64）设备
-  - 参考：https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+  - 用于执行Non-GKI内核的手动修补，也是KernelSU官网Non-GKI内核手动修补部分的内核，仅适合内核版本≥3.18（ARM64）设备，会自动执行对缺少SELinux相关权限的旧版本内核（内核版本≤4.9）
+  - 参考：
+    - https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+    - https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
 
-- **vfs_hook_patches.sh**
-  - 变量：HOOK_METHOD -> vfs
-  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好，但适配支持了内核版本≤3.18（ARMV7A）设备，因此全内核可用
+- **syscall_hook_patches.sh**
+  - 变量：HOOK_METHOD -> syscall
+  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好，但适配支持了内核版本≤3.18（ARMV7A）设备，会自动执行对缺少SELinux相关权限的旧版本内核（内核版本≤4.9），因此全内核可用
   - 参考：https://github.com/backslashxx/KernelSU/issues/5
-
-- **extra_patches.sh** 
-  - 自动判断内核版本执行
-  - 用于执行对缺少SELinux相关权限的旧版本内核（内核版本≤4.9）
-  - 参考：https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
   
 - **backport_patches.sh** 
   - 自动判断内核版本执行

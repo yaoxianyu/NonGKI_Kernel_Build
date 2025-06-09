@@ -143,18 +143,15 @@ Below is an introduction to the patches included in the Patches directory:
 
 - **normal_patches.sh**
     - Variable: HOOK_METHOD -> normal
-    - Used for manually patching Non-GKI kernels. This is also the kernel used in the manual patching section for Non-GKI kernels on the KernelSU official website. This is only suitable for ARM64 devices with kernel version 3.18 or higher.
-    - Reference: https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+    - Used for manually patching Non-GKI kernels. This is also the kernel used in the manual patching section for Non-GKI kernels on the KernelSU official website. This is only suitable for ARM64 devices with kernel version 3.18 or higher. This will automatically execute for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
+    - Reference: 
+        - https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
+        - https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
     
 - **vfs_hook_patches.sh**
     - Variable: HOOK_METHOD -> vfs
-    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great. But it's been adapted to support devices with kernel versions ≤ 3.18 (ARMV7A), so it's compatible with all kernels.
+    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great. But it's been adapted to support devices with kernel versions ≤ 3.18 (ARMV7A), so it's compatible with all kernels. This will automatically execute for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
     - Reference: https://github.com/backslashxx/KernelSU/issues/5
-    
-- **extra_patches.sh**
-    - Executes automatically based on kernel version.
-    - Used for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
-    - Reference: https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/646d0c8
 
 - **backport_patches.sh**
     - Executes automatically based on kernel version.

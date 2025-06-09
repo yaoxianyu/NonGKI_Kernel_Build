@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 91**
+    - 修正 说明文件 HOOK_METHOD说明错误
+
 - **Ver.1.4 Fixed 90**
     - 修正 黑鲨4 HOOK_METHOD为normal
     - 修正 发布列表 黑鲨4 修补方式为normal

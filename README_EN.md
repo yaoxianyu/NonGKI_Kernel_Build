@@ -75,7 +75,7 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - **PATCHES_BRANCH** - The required branch for the patch repository (default: main).
     - **HOOK_METHOD** - Two KernelSU patching methods are available:
         - **normal**: Standard patching, works in most cases. This is only suitable for ARM64 devices with kernel version 3.18 or higher.
-        - [vfs](https://github.com/backslashxx/KernelSU/issues/5): Minimal patching method, which may improve hiding KernelSU but might cause ISO compliance issues with older Clang versions，And there are issues with support for kernels ≤4.9. It is recommended to enable this only for higher kernel versions. We now support all kernel versions, with 3.4 being the minimum supported version.
+        - [syscall](https://github.com/backslashxx/KernelSU/issues/5): Minimal patching method, which may improve hiding KernelSU but might cause ISO compliance issues with older Clang versions，And there are issues with support for kernels ≤4.9. It is recommended to enable this only for higher kernel versions. We now support all kernel versions, with 3.4 being the minimum supported version.
     - **PROFILE_NAME** - Enter the name of your modified ENV environment variable file, such as codename_rom_template.env.
     - **KERNELSU_SUS_PATCH** - If your KernelSU is not part of KernelSU-Next and does not have a patch branch for SuSFS, you can enable this option (true). However, we do not recommend doing so, as the KernelSU branches have been heavily modified, and manual patching is no longer suitable for the current era.
     - **KPM_ENABLE** - (Experimental ⚠) Enables compilation support for KPM in SukiSU-Ultra. This is an experimental feature, so please enable it with caution.

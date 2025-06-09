@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.4 Fixed 90**
+    - 修正 黑鲨4 HOOK_METHOD为normal
+    - 修正 发布列表 黑鲨4 修补方式为normal
+    - 修正 支持列表 有关syscall的说明
+
 - **Ver.1.4 Fixed 89**
     - 修正 支持列表 将vfs更名syscall
     - 修正 发布列表 将vfs更名syscall

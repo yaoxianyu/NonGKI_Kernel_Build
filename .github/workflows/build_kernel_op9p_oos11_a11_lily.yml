@@ -587,7 +587,7 @@ jobs:
           make CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.DEFCONFIG_NAME }}
           if [[ "${{ env.BUILD_OTHER_CONFIG }}"  == "true" ]]; then
               for FILES in "${MERGE_CONFIG_FILES[@]}"; do
-                  ./scripts/kconfig/merge_config.sh -O out/ -m out/.config arch/arm/configs/$FILES
+                  ./scripts/kconfig/merge_config.sh -O out/ -m out/.config arch/arm64/configs/$FILES
               done
               make O=out ARCH=arm ${{ env.GCC_32 }} olddefconfig
           fi

@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 1**
+    - 修正 说明文件 有关KPM Patcher相关说明
+    - 撤回 发布Tag至 1.5-r1
+
 - **Ver.1.5**
     - 重命名 backport_set_memory.patch set_memory_to_49_and_low.patch
     - 创建 Patch 目录

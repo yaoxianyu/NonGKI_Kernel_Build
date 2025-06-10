@@ -135,7 +135,7 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - Whether this step is executed is controlled by a variable.
     
 - **KPM Patcher (Experiment)**
-    - SukiSU-Ultra now offers KPM kernel patching functionality. This feature currently doesn't support devices with kernel versions below 4.9. For 4.9 kernels, you can enable KPM after porting set_memory using the backport_set_memory.patch.
+    - SukiSU-Ultra now offers KPM kernel patching functionality. 
     - This feature works correctly under **Arch Linux** but behaves **abnormally on Ubuntu 22.04**. It is recommended to use the latest version of **Ubuntu or the Arch Linux YAML**.
     
 ## Patches/Patch_Introduction.patch

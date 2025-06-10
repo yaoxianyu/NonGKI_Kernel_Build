@@ -134,7 +134,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 由变量控制是否执行该步骤
   
 - **KPM Patcher (Experiment)**
-  - 为SukiSU-Ultra提供KPM内核Patch功能，该功能目前暂不支持内核版本<4.9的设备，4.9内核可执行backport_set_memory.patch移植set_memory后启用KPM
+  - 为SukiSU-Ultra提供KPM内核Patch功能
   - 该功能在**Arch Linux**下可以正常执行，在**Ubuntu22.04下异常**，建议使用**最新版Ubuntu或者Arch Linux YAML**
 
 ## Patches/补丁介绍.patch

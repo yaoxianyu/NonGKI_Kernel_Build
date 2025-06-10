@@ -565,7 +565,7 @@ jobs:
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp /tmp/Patches/susfs_upgrade_to_157.patch ./
+          cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
 
           patch -p1 < susfs_upgrade_to_157.patch || true
 

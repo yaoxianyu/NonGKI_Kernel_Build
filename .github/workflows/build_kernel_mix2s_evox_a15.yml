@@ -211,8 +211,8 @@ jobs:
           patch -p1 < binder_freezer_to_49.patch
 
           # Patch set_memory
-          cp /tmp/Patches/backport_set_memory.patch ./
-          patch -p1 < backport_set_memory.patch || true
+          cp /tmp/Patches/Patch/set_memory_to_49_and_low.patch ./
+          patch -p1 < set_memory_to_49_and_low.patch || true
 
           # Patch LZ4KD
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/lz4kd_to_49.patch
@@ -427,16 +427,11 @@ jobs:
           patch -p1 < fdinfo_fixed.patch || true
           patch -p1 < wireguard_fixed.patch || true
 
-          # Fixed KPM
-          cp NonGKI_Kernel_Patches/mix2s_evox_a15/set_momery_fixed.patch ./
-
-          patch -p1 < set_momery_fixed.patch
-
       - name: Updated SUSFS Version
         if: env.SUSFS_UPDATE == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp /tmp/Patches/susfs_upgrade_to_157.patch ./
+          cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
 
           patch -p1 < susfs_upgrade_to_157.patch || true
 

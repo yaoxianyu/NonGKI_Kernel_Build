@@ -2,7 +2,7 @@
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/JackA1ltman/NonGKI_Kernel_Build/main)![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/JackA1ltman/NonGKI_Kernel_Build/latest/total)  
 [支持列表](Supported_Devices.md) | 中文文档 | [English](README_EN.md) | [更新日志](Updated.md)  
 
-**Ver**.1.4
+**Ver**.1.5
 
 **Non-GKI**：我们常说的Non-GKI包括了GKI1.0（内核版本4.19-5.4）（5.4为QGKI）和真正Non-GKI（内核版本≤4.14）  
 
@@ -51,7 +51,7 @@
 
 **LXC_ENABLE** - (实验性⚠)启用自动化内核LXC/Docker支持，true或false  
 
-**HAVE_NO_DTBO** - (实验性⚠)若你的内核没有提供dtbo.img，且你的设备属于A/B分区且存在dtbo分区，则可启用本选项(true)，默认为false  
+**HAVE_NO_DTBO** - (实验性⚠)若你的内核没有提供dtbo.img，且你的设备属于A/B分区且存在dtbo分区，则可启用本选项(true)，默认为false，参考：https://review.lineageos.org/c/LineageOS/android_kernel_xiaomi_gauguin/+/372909/2  
 **HAVE_NO_DTBO_TOOL** - (实验性⚠)在上一项启用后，你可以选择启用这项来获得更加安全的生成dtbo.img方案  
 
 **ROM_TEXT** - 用于编译成功后用于上传文件标题，声明内核可用的ROM  
@@ -82,7 +82,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - **KPM_PATCH_SOURCE** - (实验性⚠)通常你不需要自行提供patch二进制下载链接，除非你有额外需求
   - **GENERATE_DTB** - 如果你的内核编译后，需要DTB文件（不是.dtb、.dts、.dtsi），则可以开启本项自动执行生成DTB步骤
   - **GENERATE_CHIP** - 设定对应设备CPU，并提供给DTB和KPM功能用于识别，通常支持qcom、mediatek，但我们不确定其他CPU是否支持
-  - **BUILD_DEBUGGER** - 若需要提供出错时的报告可使用该选项，目前提供patch错误rej文件的输出，其他功能可期待未来更新
+  - **BUILD_DEBUGGER** - 若需要提供出错时的报告可使用该选项，目前提供patch错误rej文件的输出，以及基础的编译错误分析，其他功能可期待未来更新
   - **BUILD_OTHER_CONFIG** - 若你需要合并内核源码中自带的其他.config文件，可启用本项，但是需要自行修改”Build Kernel“中数组MERGE_CONFIG_FILES中的内容
   - **FREE_MORE_SPACE** - 若你认为当前的空间不足，则可以启用该项来获得更多空间释放，默认情况下可获得约88GB空间，启用本项可获得102GB空间，但执行时间会增加1-2分钟（仅限默认YAML，Arch Linux或Ubuntu 20.04仅可获得14-20GB空间）
   - **REKERNEL_ENABLE** - 如果你认为你的设备具备运行[Re:Kernel](https://github.com/Sakion-Team/Re-Kernel)的条件，并且你需要Re:Kernel，则可以启用本项，true或者false
@@ -156,19 +156,24 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 自动判断内核版本执行
   - 用于执行对Non-GKI内核的反向移植，除了KernelSU-Next和SukiSU-Ultra可以实现自动反向移植外，其他的分支均无法实现
   - 参考：https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
+
+- **found_gcc.sh**
+  - 自动判断GCC执行
+  - 用于对GCC前缀进行自动化解析
+  - 参考：暂无
   
-- **susfs_upgrade_to_157.patch**
+- **check_error.sh**
+  - 变量：BUILD_DEBUGGER -> true
+  - 用于分析基础的编译错误，并提供一定建议
+  - 参考：暂无
+  
+- **Patch/susfs_upgrade_to_157.patch**
   - 变量：(env文件)SUSFS_UPDATE -> true
   - 对停止更新的Non-GKI设备的SuSFS进行更新，从v1.5.5更新至v1.5.7
   - 参考：https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/compare/c7d82bf8607704c22a8a869c4611c7cf3d22ce31..1ea2cbd7659167e62d2265632710f084c45f3ca1
-  
-- **temp_dtbo.patch**
-  - 变量：(env文件)HAVE_NO_DTBO -> true 并且 (env文件)HAVE_NO_DTBO_TOOL -> false
-  - 用于生成dtbo.img步骤所需的补丁文件，会在需要时自动使用
-  - 参考：https://review.lineageos.org/c/LineageOS/android_kernel_xiaomi_gauguin/+/372909/2
 
-- **backport_set_memory.patch**
-  - 需要**手动**填写执行
+- **Patch/set_memory_to_49_and_low.patch**
+  - 变量：KPM_ENABLE -> true
   - 用于对内核版本≤4.9的设备移植set_memory功能的补丁文件，因为缺少大量测试，因此只作为测试补丁，且该补丁仅用于需要使用SukiSU-Ultra的KPM功能的情况下
   - 参考：暂无
 

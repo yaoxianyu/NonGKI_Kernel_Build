@@ -1,4 +1,29 @@
 ## 项目更新日志
+- **Ver.1.5**
+    - 重命名 backport_set_memory.patch set_memory_to_49_and_low.patch
+    - 创建 Patch 目录
+    - 移动 set_memory_to_49_and_low.patch 至 Patch 目录
+    - 移动 susfs_upgrade_to_157.patch 至 Patch 目录
+    - 增加 示例YAML文件 获取内核版本变量全局化
+    - 增加 示例YAML文件 KPM Checker功能增加反向移植set_memory部分
+    - 增加 found_gcc.sh
+    - 增加 示例YAML文件 自动化检测GCC前缀名
+    - 增加 说明文件 有关 found_gcc.sh 相关说明
+    - 增加 check_error.sh
+    - 增加 说明文件 有关 check_error.sh 相关说明
+    - 增加 示例YAML文件 Analyze compile error步骤
+    - 修正 set_memory_to_49_and_low.patch 部分缺少修补和错误修补
+    - 修正 说明文件 补丁相关调整内容
+    - 修正 示例YAML文件 有关DTBO生成功能
+    - 修正 示例YAML文件 有关内核版本获取及判断内容
+    - 修正 所有YAML文件 SUSFS更新补丁所在目录地址错误
+    - 修正 小米Mix2s 有关set_memory相关功能的修改
+    - 修改 发布Tag至 1.5-r1
+    - 删除 说明文件 temp_dtbo.patch词条
+    - 删除 temp_dtbo.patch
+
+---
+
 - **Ver.1.4 Fixed 91**
     - 修正 说明文件 HOOK_METHOD说明错误
 

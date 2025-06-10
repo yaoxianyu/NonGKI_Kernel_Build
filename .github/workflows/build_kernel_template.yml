@@ -671,6 +671,12 @@ jobs:
           cp /tmp/Patches/check_error.sh ./
           bash check_error.sh
 
+          if [ -f "have_error" ]; then
+            false
+          else
+            echo "Skipped."
+          fi
+
       - name: KPM Patcher (Experiment)
         if: env.KPM_ENABLE == 'true'
         run: |

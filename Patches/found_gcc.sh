@@ -11,10 +11,10 @@ find_gcc_prefix() {
         return 1
     fi
 
-    for gcc_path in "$toolchain_bin_dir"/*gcc; do
+    for gcc_path in "$toolchain_bin_dir"/*elfedit; do
         if [ -x "$gcc_path" ] && [ -f "$gcc_path" ]; then
             filename=$(basename "$gcc_path")
-            prefix="${filename%gcc}"
+            prefix="${filename%elfedit}"
             if [ -n "$prefix" ]; then
                 possible_prefixes+=("$prefix")
             fi
@@ -22,7 +22,7 @@ find_gcc_prefix() {
     done
 
     if [ ${#possible_prefixes[@]} -eq 0 ]; then
-        echo "Warning: In '$toolchain_bin_dir' not found execuate file with 'gcc'." >&2
+        echo "Warning: In '$toolchain_bin_dir' not found execuate file with 'ar'." >&2
         return 1
     fi
 
@@ -37,7 +37,8 @@ find_gcc_prefix() {
         if (( ${#p} > max_len )); then
             max_len=${#p}
             best_prefix="$p"
-        elif (( ${#p} == max_len )); then
+        elif (( ${#p} < max_len )); then
+            best_prefix="$p"
             : # No-op
         fi
     done

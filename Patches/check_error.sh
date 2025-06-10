@@ -53,10 +53,9 @@ analyze_errors() {
 
     print_separator
     if [ "$error_found" = true ]; then
-        echo "Total found $error_count errors。"
-        echo "Please carefully review the error messages and suggestions above.(Only Chinese)"
-        print_separator
-        false
+        echo "Total found $error_count error(s). "
+        echo "Please carefully review the error messages and suggestions above.(Only Chinese) "
+        touch have_error
     else
         echo "Not found any errors."
     fi
@@ -72,8 +71,8 @@ process_error_block() {
         echo "  $error_line"
     done
 
-    local error_type="未知错误"
-    local suggestion=""
+    local error_type="非常见错误"
+    local suggestion="请按编译输出错误结果，结合利用搜索引擎尝试解决"
 
     if grep -q "No such file or directory" <<< "${error_block[@]}"; then
         error_type="头文件或源文件缺失"

@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 2**
+    - 修正 found_gcc.sh 设定变量异常
+    - 修正 check_error.sh 部分文本
+    - 增加 示例YAML文件 Analyze compile error步骤有关检测错误自动判定失败
+
 - **Ver.1.5 Fixed 1**
     - 修正 说明文件 有关KPM Patcher相关说明
     - 撤回 发布Tag至 1.5-r1

@@ -22,7 +22,7 @@ find_gcc_prefix() {
     done
 
     if [ ${#possible_prefixes[@]} -eq 0 ]; then
-        echo "Warning: In '$toolchain_bin_dir' not found execuate file with 'ar'." >&2
+        echo "Warning: In '$toolchain_bin_dir' not found execuate file with 'elfedit'." >&2
         return 1
     fi
 

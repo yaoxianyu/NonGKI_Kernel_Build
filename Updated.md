@@ -1,4 +1,13 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 4**
+    - 移植 一加8 OOS13 no-kprobe完整步骤
+    - 移植 一加8 OOS13 Updated SUSFS Version 步骤
+    - 切换 一加8 OOS13 将HOOK_METHOD改成syscall
+    - 启用 一加8 OOS13 Updated SUSFS Version
+    - 启用 一加8 Nameless Updated SUSFS Version
+    - 修正 支持列表 一加8 OOS13 和 一加8 Nameless Syscall 状态
+    - 修正 发布列表 一加8 OOS13 和 一加8 Nameless Syscall 状态
+
 - **Ver.1.5 Fixed 3**
     - 增加 syscall_hook_patches.sh 有关walk_component的修补和sys_execve的修补
     - 增加 syscall 相关说明内容

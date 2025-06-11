@@ -1,7 +1,7 @@
 **Only Chinese:**  
 | 设备名称 | 地区 | 设备代号 | 内核/作者/名称 | 系统 | Android | 打包方式 | KernelSU | SuSFS | LXC | Syscall Hook | KPM | Re:Kernel | 维护状态 |  
 |----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|  
-| 一加 8  | All | instantnoodle | 4.19/ppajda/XTD | OxygenOS/ColorOS 13.1 | 13 | AnyKernel3 | Magic | ✅ | ❌ | ❌ | ❌ | ❌ | Stable |  
+| 一加 8  | All | instantnoodle | 4.19/ppajda/XTD | OxygenOS/ColorOS 13.1 | 13 | AnyKernel3 | Magic | ✅ | ❌ | ✅ | ❌ | ❌ | Stable |  
 | 一加 8  | All | instantnoodle | 4.19/Nameless/Nameless | Nameless 15 | 15 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ | ❌ | ❌ | Stable |  
 | 一加 8  | All | instantnoodle | 4.19/Rohail33/Realking | OxygenOS/ColorOS 13.1 | 13 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ✅ | Suspend |  
 | 小米 MIX2S  | All | polaris | 4.9/EvoX/EvoX | Evolution X 10.6 | 15 | Boot Image | SukiSU(U) | ✅ | ❌ | ❌ | ✅ | ✅ | Stable |  

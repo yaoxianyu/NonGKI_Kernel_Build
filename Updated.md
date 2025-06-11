@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 3**
+    - 增加 syscall_hook_patches.sh 有关walk_component的修补和sys_execve的修补
+    - 增加 syscall 相关说明内容
+
 - **Ver.1.5 Fixed 2**
     - 修正 found_gcc.sh 设定变量异常
     - 修正 check_error.sh 部分文本

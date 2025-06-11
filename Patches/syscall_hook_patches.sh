@@ -10,6 +10,7 @@ patch_files=(
     fs/open.c
     fs/read_write.c
     fs/stat.c
+    fs/namei.c
     drivers/input/input.c
     security/security.c
     security/selinux/hooks.c
@@ -41,12 +42,21 @@ for i in "${patch_files[@]}"; do
     ## exec.c
     fs/exec.c)
         if [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 11 ]; then
-            sed -i '/SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern int ksu_handle_execve_sucompat(int \*fd, const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user \*filename_user,\n\t\t\tconst char __user \*const __user \*__argv);\n#ifdef CONFIG_COMPAT\nextern int ksu_handle_compat_execve_ksud(const char __user \*filename_user,\n\t\t\tconst compat_uptr_t __user \*__argv);\n#endif\n#endif' fs/exec.c
-            sed -i '/struct filename \*path = getname(filename);/i \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int \*)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' fs/exec.c
+            sed -i '/^SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern __attribute__((hot, always_inline)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user \*filename_user,\n\t\t\tconst char __user \*const __user \*__argv);\n#ifdef CONFIG_COMPAT  \/\/ 32-on-64 support\nextern int ksu_handle_compat_execve_ksud(const char __user \*filename_user,\n\t\t\tconst compat_uptr_t __user \*__argv);\n#endif\n#endif' fs/exec.c
+            sed -i '0,/struct filename \*path = getname(filename);/ { /struct filename \*path = getname(filename);/i \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int \*)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif
+                                       }' fs/exec.c
+            sed -i '/struct filename \*path = getname(filename);/{
+                                   x
+                                   s/^/I/
+                                   /II/{
+                                   x
+                                   i \#ifdef CONFIG_KSU \/\/ 32-bit sucompat and 32-on-64 support\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_compat_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int \*)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif
+                                   x
+                                   }
+                                   x
+                                   }' fs/exec.c
         else
-            sed -i '0,/SYSCALL_DEFINE3(execve,/ {
-                                                      /SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern int ksu_handle_execve_sucompat(int *fd, const char __user **filename_user,\n\t\t   void *__never_use_argv, void *__never_use_envp,\n\t\t   int *__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user *filename_user,\n\t\tconst char __user *const __user *__argv);\n#ifdef CONFIG_COMPAT  \/\/ 32-on-64 support\nextern int ksu_handle_compat_execve_ksud(const char __user *filename_user,\n\t\tconst compat_uptr_t __user *__argv);\n#endif\n#endif
-                                                  }' fs/exec.c
+            sed -i '/^SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern __attribute__((hot, always_inline)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user \*filename_user,\n\t\t\tconst char __user \*const __user \*__argv);\n#ifdef CONFIG_COMPAT  \/\/ 32-on-64 support\nextern int ksu_handle_compat_execve_ksud(const char __user \*filename_user,\n\t\t\tconst compat_uptr_t __user \*__argv);\n#endif\n#endif' fs/exec.c
             sed -i '/return do_execve(getname(filename), argv, envp);/i \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' fs/exec.c
             sed -i '/return compat_do_execve(getname(filename), argv, envp);/i \#ifdef CONFIG_KSU \/\/ 32-bit su and 32-on-64 support\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_compat_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' fs/exec.c
         fi
@@ -79,6 +89,15 @@ for i in "${patch_files[@]}"; do
         sed -i '/#if !defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_SYS_NEWFSTATAT)/i\#ifdef CONFIG_KSU\nextern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);\n#endif' fs/stat.c
         sed -i '0,/\terror = vfs_fstatat(dfd, filename, &stat, flag);/s//#ifdef CONFIG_KSU\n\tksu_handle_stat(\&dfd, \&filename, \&flag);\n#endif\n&/' fs/stat.c
         sed -i ':a;N;$!ba;s/\(\terror = vfs_fstatat(dfd, filename, &stat, flag);\)/#ifdef CONFIG_KSU\n\tksu_handle_stat(\&dfd, \&filename, \&flag);\n#endif\n\1/2' fs/stat.c
+        ;;
+
+    ## namei.c
+    fs/namei.c)
+        if [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 11 ]; then
+            sed -i '/err = lookup_slow(nd, path);/c \ \t\tif (unlikely(strstr(current->comm, "throne_tracker")))\n\t\t\terr = -ENOENT;\n\t\telse\n\t\t\terr = lookup_slow(nd, path);\n' fs/namei.c
+        elif [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 5 ]; then
+            sed -i '/err = lookup_slow(nd, name, path);/c \ \t\tif (strstr(current->comm, "throne_tracker") == NULL)\n\t\t\terr = lookup_slow(nd, name, path);\n\t\telse\n\t\t\terr = -ENOENT;\n' fs/namei.c
+        fi
         ;;
 
     # drivers/input changes

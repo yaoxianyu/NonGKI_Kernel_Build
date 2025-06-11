@@ -151,6 +151,7 @@ Below is an introduction to the patches included in the Patches directory:
 - **syscall_hook_patches.sh**
     - Variable: HOOK_METHOD -> syscall
     - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great. But it's been adapted to support devices with kernel versions ≤ 3.18 (ARMV7A), so it's compatible with all kernels. This will automatically execute for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
+        - If there are instances where syscall wasn't updated in time, you can submit an issue or a pull request.
     - Reference: https://github.com/backslashxx/KernelSU/issues/5
 
 - **backport_patches.sh**

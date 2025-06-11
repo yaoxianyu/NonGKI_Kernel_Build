@@ -44,7 +44,6 @@ jobs:
               ROM_TEXT
 
           )
-          ls -al ./
 
           for CONFIG in "${CONFIG_LIST[@]}"; do
               if [[ "$CONFIG" == "EXTRA_CMDS" || "$CONFIG" == "CUSTOM_CMDS" ]]; then
@@ -53,6 +52,9 @@ jobs:
                   echo "$CONFIG=$(grep -w "$CONFIG" "$CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
               fi
           done
+
+          # Move patch folder to tmp
+          mv $GITHUB_WORKSPACE/Patches /tmp/
 
       - name: Maximize build space
         uses: easimon/maximize-build-space@master

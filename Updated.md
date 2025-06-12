@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 5**
+    - 增加 backport_patches_newer.sh
+    - 增加 Patch/backport_kernel_read_and_kernel_write_to_ksu.patch
+    - 增加 说明文件 部分新补丁说明
+    - 增加 示例YAML 有关新补丁执行的更多判断以及新变量
+
 - **Ver.1.5 Fixed 4**
     - 移植 一加8 OOS13 no-kprobe完整步骤
     - 移植 一加8 OOS13 Updated SUSFS Version 步骤

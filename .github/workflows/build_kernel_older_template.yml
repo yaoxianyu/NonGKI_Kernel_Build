@@ -392,6 +392,7 @@ jobs:
           fi
 
       - name: Patch Kernel for no-kprobe
+        shell: bash
         run: |
           cd $GITHUB_WORKSPACE
           if grep -q "CONFIG_KSU" "device_kernel/fs/exec.c"; then
@@ -607,6 +608,7 @@ jobs:
           max-size: 2G
 
       - name: Build Kernel
+        shell: bash
         run: |
           MERGE_CONFIG_FILES=("vendor/debugfs.config" "vendor/lahaina_QGKI.config")
           export PATH=$GITHUB_WORKSPACE/clang-custom/bin:$PATH
@@ -679,6 +681,7 @@ jobs:
 
       - name: Analyze compile error
         if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}
+        shell: bash
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
 

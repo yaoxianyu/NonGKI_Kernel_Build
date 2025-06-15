@@ -24,6 +24,8 @@
 | 小米 MIX2 | All | chiron | 4.4/kangdom/placeholder | MIUI 13 | 11 | AnyKernel3 | SukiSU(U) | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 一加 9 Pro | All | lemonadep | 5.4/brickport-devs/lily | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 一加 9 Pro | All | lemonadep | 5.4/kristofpetho/omega | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 红米 Note8 Pro | All | lemonadep | 4.14/Nova-Kernels/Nova-miui | MIUI 12.5 | 11 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 小米 11 | All | lemonadep | 5.4/EndCredits/Acetaminophen | HyperOS | 14 | AnyKernel3 | SukiSU(U) | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 
 特别说明：
   - 我们提供的KernelSU分支包括：[Next(❌)](https://github.com/KernelSU-Next/KernelSU-Next)、[Magic](https://github.com/backslashxx/KernelSU)、[rsuntk](https://github.com/rsuntk/KernelSU)、[lightsummer233](https://github.com/lightsummer233/KernelSU)、[酷友二创-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra)、[SukiSU](https://github.com/ShirkNeko/KernelSU)

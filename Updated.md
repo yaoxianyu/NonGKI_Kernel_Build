@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 8**
+    - 修正 使用SukiSU-Ultra(SUSFS) ENV文件 切换至susfs-main
+    - 增加 支持列表 红米 Note8Pro MIUI12 A11 设备 和 小米11 HyperOS A14 设备
+
 - **Ver.1.5 Fixed 7**
     - 增加 红米 Note8Pro MIUI12 A11 设备
     - 增加 小米11 HyperOS A14 设备

@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 7**
+    - 增加 红米 Note8Pro MIUI12 A11 设备
+    - 增加 小米11 HyperOS A14 设备
+
 - **Ver.1.5 Fixed 6**
     - 修正 编译错误后依然判定成功以及BUILD_DEBUGGER功能优化
 

@@ -673,8 +673,12 @@ jobs:
             fi
           fi
 
+          if grep -q "Error 2" "error.log"; then
+            false
+          fi
+
       - name: Analyze compile error
-        if: env.BUILD_DEBUGGER == 'true' && always()
+        if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
 

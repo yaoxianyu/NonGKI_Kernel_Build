@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 6**
+    - 修正 编译错误后依然判定成功以及BUILD_DEBUGGER功能优化
+
 - **Ver.1.5 Fixed 5**
     - 增加 backport_patches_newer.sh
     - 增加 Patch/backport_kernel_read_and_kernel_write_to_ksu.patch

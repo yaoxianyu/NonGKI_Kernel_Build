@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 10**
+    - 增加 OPPO K10E 设备
+
 - **Ver.1.5 Fixed 9**
     - 撤回 小米11 HyperOS A14 设备
     - 修正 支持列表 小米11 Ultra HyperOS A14 设备命名

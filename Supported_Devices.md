@@ -14,7 +14,7 @@
 | 红米 Note 7 | All | lavender | 4.4/Stormbreaker/Predator | MIUI 12 | 10 | Boot Image | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 小米 5 | All | gemini | 4.4/crdroidandroid/crdroid | Crdroid 9 | 13 | Anykernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 谷歌 Pixel 9 Series | All | zumapro | 6.1/kerneltoast/Sultan | Pixel | 15 | Anykernel3 | SukiSU | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 小米 11 Ultra | All | star | 5.4/EndCredits/Acetaminophen | HyperOS | 14 | Anykernel3 | Magic | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 小米 11 (Ultra) | All | star | 5.4/EndCredits/Acetaminophen | HyperOS | 14 | Anykernel3 | Magic | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 小米平板 4(Plus) | All | clover | 4.19/pix106/SouthWest | LineageOS 22.1 | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ✅ | ❌ | Stable |  
 | OPPO K9 Pro | CN | PEYM00 | 4.19/nishant6342/(Nothing) | ColorOS 13.1 | 13 | AnyKernel3 | Magic | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | LG Nexus 5 | All | hammerhead | 3.4/nacroreiser/LineageOS | LineageOS 22.2 | 15 | AnyKernel3 | SukiSU(U) | ❌ | ❌ | ✅ | ❌ | ❌ | Suspend |  
@@ -25,7 +25,6 @@
 | 一加 9 Pro | All | lemonadep | 5.4/brickport-devs/lily | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 一加 9 Pro | All | lemonadep | 5.4/kristofpetho/omega | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 Note8 Pro | All | lemonadep | 4.14/Nova-Kernels/Nova-miui | MIUI 12.5 | 11 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 小米 11 | All | lemonadep | 5.4/EndCredits/Acetaminophen | HyperOS | 14 | AnyKernel3 | SukiSU(U) | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 
 特别说明：
   - 我们提供的KernelSU分支包括：[Next(❌)](https://github.com/KernelSU-Next/KernelSU-Next)、[Magic](https://github.com/backslashxx/KernelSU)、[rsuntk](https://github.com/rsuntk/KernelSU)、[lightsummer233](https://github.com/lightsummer233/KernelSU)、[酷友二创-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra)、[SukiSU](https://github.com/ShirkNeko/KernelSU)

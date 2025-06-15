@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 11**
+    - 增加 check_error.sh 错误类型判断和建议
+
 - **Ver.1.5 Fixed 10**
     - 增加 OPPO K10E 设备
 

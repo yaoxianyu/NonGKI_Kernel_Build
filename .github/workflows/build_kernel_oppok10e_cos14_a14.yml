@@ -901,7 +901,7 @@ jobs:
         with:
           name: Kernel-${{ env.PACK_NAME }}
           path: |
-            device_kernel/${{ env.PACK_NAME }}
+            device_kernel/kernel/msm-5.4/${{ env.PACK_NAME }}
 
       - name: Upload Build Artifacts For Boot Image
         if: env.PACK_METHOD == 'MKBOOTIMG'

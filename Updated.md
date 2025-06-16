@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 17**
+    - 修正 发布列表 文本错误
+    - 增加 红米 K40 Gaming MIUI13 A12 设备
+    - 增加 红米 K40 Gaming HyperOS A13 设备
+    - 增加 支持列表 新设备词条
+
 - **Ver.1.5 Fixed 16**
     - 修正 发布列表 SukiSU-Ultra 链接指向错误
     - 删除 发布列表 KernelSU分支lightsummer233

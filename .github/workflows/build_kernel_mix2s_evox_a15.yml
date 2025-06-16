@@ -45,6 +45,8 @@ jobs:
               SUSFS_ENABLE
               SUSFS_FIXED
               SUSFS_UPDATE
+              AK3_SOURCE
+              AK3_BRANCH
               BOOT_SOURCE
               LXC_ENABLE
               ROM_TEXT

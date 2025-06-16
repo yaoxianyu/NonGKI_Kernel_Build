@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 13**
+    - 撤回 小米Mix2s HOOK_METHOD为syscall
+
 - **Ver.1.5 Fixed 12**
     - 移植 小米Mix2s YAML 完整打包功能
     - 更新 小米Mix2s YAML no-kprobe功能为最新版

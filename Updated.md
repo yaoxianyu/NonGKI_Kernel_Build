@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 16**
+    - 修正 发布列表 SukiSU-Ultra 链接指向错误
+    - 删除 发布列表 KernelSU分支lightsummer233
+
 - **Ver.1.5 Fixed 15**
     - 修正 支持列表 发布列表 小米Mix2s 打包方式
 

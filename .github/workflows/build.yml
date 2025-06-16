@@ -169,9 +169,7 @@ jobs:
           KSU_MAGIC_VERSION=$(cd KernelSU-Magic && expr $(/usr/bin/git rev-list --count HEAD) + 10200 - 32)
           git clone -b susfs-v1.5.7 https://github.com/rsuntk/KernelSU.git KernelSU-rsuntk
           KSU_RSUNTK_VERSION=$(cd KernelSU-rsuntk && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
-          git clone -b non-gki https://github.com/lightsummer233/KernelSU.git KernelSU-lightsummer233
-          KSU_LIGHTSUMMER233_VERSION=$(cd KernelSU-lightsummer233 && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
-          git clone -b susfs-dev https://github.com/ShirkNeko/SukiSU-Ultra.git KernelSU-SukiSU-Ultra
+          git clone -b susfs-main https://github.com/ShirkNeko/SukiSU-Ultra.git KernelSU-SukiSU-Ultra
           KSU_SUKISU_ULTRA_VERSION=$(cd KernelSU-SukiSU-Ultra && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
 
           # Input release note
@@ -181,7 +179,6 @@ jobs:
           echo "[KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) Not Supported ❌ !  " >> $GITHUB_ENV
           echo "[KernelSU-Magic](https://github.com/backslashxx/KernelSU) Version: $KSU_MAGIC_VERSION  " >> $GITHUB_ENV
           echo "[KernelSU-rsuntk](https://github.com/rsuntk/KernelSU) Version: $KSU_RSUNTK_VERSION  " >> $GITHUB_ENV
-          echo "[KernelSU-lightsummer233](https://github.com/lightsummer233/KernelSU) Version: $KSU_LIGHTSUMMER233_VERSION  " >> $GITHUB_ENV
           echo "[KernelSU-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra) Version: $KSU_SUKISU_ULTRA_VERSION  " >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 

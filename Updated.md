@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 12**
+    - 移植 小米Mix2s YAML 完整打包功能
+    - 更新 小米Mix2s YAML no-kprobe功能为最新版
+    - 切换 小米Mix2s HOOK_METHOD为syscall
+    - 切换 小米Mix2s 打包方式为Anykernel3
+
 - **Ver.1.5 Fixed 11**
     - 增加 check_error.sh 错误类型判断和建议
 

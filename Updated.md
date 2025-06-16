@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 14**
+    - 修正 小米Mix2s YAML 完整打包功能
+
 - **Ver.1.5 Fixed 13**
     - 撤回 小米Mix2s HOOK_METHOD为syscall
 

@@ -28,7 +28,7 @@
 | OPPO K10E | CN | PERM10 | 5.4/fangkuaixiaoqia/官方内核 | ColorOS 14 | 14 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/AbzRaider/(Nothing) | MIUI 13 | 12 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/Tkpointz/aresin | HyperOS | 13 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 红米 Note 12 Pro 5G | CN | ruby | 5.4/qiangua2460/AlphaDroid | AlphaDroid 15.1 | 15 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 红米 Note 12 Pro 5G | CN | ruby | 4.19/qiangua2460/AlphaDroid | AlphaDroid 15.1 | 15 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 
 特别说明：
   - 我们提供的KernelSU分支包括：[Next(❌)](https://github.com/KernelSU-Next/KernelSU-Next)、[Magic](https://github.com/backslashxx/KernelSU)、[rsuntk](https://github.com/rsuntk/KernelSU)、[lightsummer233](https://github.com/lightsummer233/KernelSU)、[酷友二创-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra)、[SukiSU](https://github.com/ShirkNeko/KernelSU)

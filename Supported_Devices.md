@@ -24,7 +24,7 @@
 | 小米 MIX2 | All | chiron | 4.4/kangdom/placeholder | MIUI 13 | 11 | AnyKernel3 | SukiSU(U) | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 一加 9 Pro | All | lemonadep | 5.4/brickport-devs/lily | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 一加 9 Pro | All | lemonadep | 5.4/kristofpetho/omega | OxygenOS/ColorOS 11 | 11 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 红米 Note8 Pro | All | lemonadep | 4.14/Nova-Kernels/Nova-miui | MIUI 12.5 | 11 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 红米 Note8 Pro | All | begonia | 4.14/Nova-Kernels/Nova-miui | MIUI 12.5 | 11 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | OPPO K10E | CN | PERM10 | 5.4/fangkuaixiaoqia/官方内核 | ColorOS 14 | 14 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/AbzRaider/(Nothing) | MIUI 13 | 12 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/Tkpointz/aresin | HyperOS | 13 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  

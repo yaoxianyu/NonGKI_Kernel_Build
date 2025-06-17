@@ -244,6 +244,10 @@ jobs:
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/makefile_fixed.patch
           patch -p1 < makefile_fixed.patch
 
+          # Get any files
+          wget https://raw.githubusercontent.com/OnePlusOSS/android_kernel_oneplus_sm8550/refs/heads/oneplus_sm8550_t_13.0_oneplus_11/include/linux/compiler_types.h -O include/linux/compiler_types.h
+          wget https://raw.githubusercontent.com/OnePlusOSS/android_kernel_oneplus_sm8550/refs/heads/oneplus_sm8550_t_13.0_oneplus_11/include/linux/fs_parser.h -O /include/linux/fs_parser.h
+
           # KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then
             if [ -f "include/linux/set_memory.h" ] && [ "${{ env.KPM_ENABLE }}" == "true" ]; then

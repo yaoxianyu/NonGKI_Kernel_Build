@@ -1,4 +1,14 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 18**
+    - 增加 红米 Note12Pro AlphaDroid 设备
+    - 增加 支持列表 新设备词条
+    - 修正 小米Mix2s ENV文件 ROM文本
+    - 修正 小米 10S ENV文件 ROM文本
+    - 修正 红米 K20 Pro ENV文件 ROM文本
+    - 修正 红米 K20 Pro ENV文件 设备名称
+    - 修正 黑鲨4 ENV文件 ROM文本
+    - 修正 一加8 OOS13 ENV文件 ROM文本
+
 - **Ver.1.5 Fixed 17**
     - 修正 发布列表 文本错误
     - 增加 红米 K40 Gaming MIUI13 A12 设备

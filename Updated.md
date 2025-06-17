@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 19**
+    - 切换 小米Mix2s binder补丁至515补丁
+
 - **Ver.1.5 Fixed 18**
     - 增加 红米 Note12Pro AlphaDroid 设备
     - 增加 支持列表 新设备词条

@@ -1,4 +1,4 @@
-name: Build Kernel Redmi Note12 Pro (AlphaDroid A15) with KSU
+name: Build Kernel Redmi Note 12Pro (AlphaDroid A15) with KSU
 on:
   workflow_call:
   workflow_dispatch:

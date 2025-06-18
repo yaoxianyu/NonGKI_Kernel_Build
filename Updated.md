@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 20**
+    - 修正 示例YAML文件 安全生成DTBO功能获取文件错误
+
 - **Ver.1.5 Fixed 19**
     - 切换 小米Mix2s binder补丁至515补丁
 

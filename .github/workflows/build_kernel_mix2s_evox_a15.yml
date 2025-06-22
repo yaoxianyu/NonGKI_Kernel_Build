@@ -5,7 +5,7 @@ on:
 env:
   PACK_METHOD: "Anykernel3" # Anykernel3 need SOURCE and BRANCH, MKBOOTIMG needn't it.
   HOOK_METHOD: "normal" # manual hook method,can choice syscall and normal.
-  HOOK_NEWER: "false"
+  HOOK_OLDER: "false" # contain backport older patch and syscall older patch.
   KPM_ENABLE: "true" # Only use it for SukiSU-Ultra.
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
@@ -279,19 +279,18 @@ jobs:
                   bash normal_patches.sh
                   echo "execuated patch successfully."
                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
-                      if [[ "${{ env.HOOK_NEWER }}" == "true" ]] && [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
-                        cp /tmp/Patches/backport_patches_newer.sh ./
-                        cp /tmp/Patches/Patch/backport_kernel_read_and_kernel_write_to_ksu.patch ./
-                        patch -p1 < backport_kernel_read_and_kernel_write_to_ksu.patch || true
-                        bash backport_patches_newer.sh
-                        echo "execuated backport patch newer successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
-                      elif [[ "${{ env.HOOK_NEWER }}" == "true" ]]; then
-                        cp /tmp/Patches/backport_patches_newer.sh ./
-                        bash backport_patches_newer.sh
-                        echo "execuated backport patch newer successfully."
+                      if [[ "${{ env.HOOK_OLDER }}" == "true" ]] && ; then
+                        cp /tmp/Patches/backport_patches_older.sh ./
+                        bash backport_patches_older.sh
+                        echo "execuated backport patch older successfully. "
                       else
                         cp /tmp/Patches/backport_patches.sh ./
                         bash backport_patches.sh
+                        if [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
+                            cp /tmp/Patches/Patch/backport_kernel_read_and_kernel_write_to_ksu.patch ./
+                            patch -p1 < backport_kernel_read_and_kernel_write_to_ksu.patch || true
+                            echo "execuated backport patch kernel_read and kernel_read successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
+                        fi
                         echo "execuated backport patch successfully."
                       fi
                   else
@@ -308,28 +307,30 @@ jobs:
                   bash syscall_hook_patches.sh
                   echo "execuated syscall patch successfully."
                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
-                      if [[ "${{ env.HOOK_NEWER }}" == "true" ]] && [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
-                        cp /tmp/Patches/backport_patches_newer.sh ./
+                    cp /tmp/Patches/backport_patches.sh ./
+                    bash backport_patches.sh
+                    if [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
                         cp /tmp/Patches/Patch/backport_kernel_read_and_kernel_write_to_ksu.patch ./
                         patch -p1 < backport_kernel_read_and_kernel_write_to_ksu.patch || true
-                        bash backport_patches_newer.sh
-                        echo "execuated backport patch newer successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
-                      elif [[ "${{ env.HOOK_NEWER }}" == "true" ]]; then
-                        cp /tmp/Patches/backport_patches_newer.sh ./
-                        bash backport_patches_newer.sh
-                        echo "execuated backport patch newer successfully."
-                      else
-                        cp /tmp/Patches/backport_patches.sh ./
-                        bash backport_patches.sh
-                        echo "execuated backport patch successfully."
-                      fi
-                  else
-                      echo "your kernel needn't backport patch."
-                  fi
-              else
-                  echo "Cannot found syscall_hook_patches.sh in build project , please check u file existed in build project !"
-                  false
-              fi
+                        echo "execuated backport patch kernel_read and kernel_read successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
+                    fi
+                    echo "execuated backport patch successfully."
+               elif [[ -f "/tmp/Patches/syscall_hook_patches_older.sh" ]] && [[ "${{ env.HOOK_OLDER }}" == "true" ]]; then
+                   cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
+                   cd device_kernel
+                   bash syscall_hook_patches_older.sh
+                   echo "execuated syscall patch successfully."
+                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
+                     cp /tmp/Patches/backport_patches_older.sh ./
+                     bash backport_patches_older.sh
+                     echo "execuated backport patch older successfully. "
+                   else
+                     echo "your kernel needn't backport patch."
+                   fi
+               else
+                   echo "Cannot found syscall_hook_patches.sh in build project , please check u file existed in build project !"
+                   false
+               fi
             else
               echo "please input vaild option!"
               false

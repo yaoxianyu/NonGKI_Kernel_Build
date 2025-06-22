@@ -16,9 +16,12 @@ patch_files=(
     security/selinux/hooks.c
 )
 
+PATCH_LEVEL="1.5"
 KERNEL_VERSION=$(head -n 3 Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')
 FIRST_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $1}')
 SECOND_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $2}')
+
+echo "Current patch version:$PATCH_LEVEL"
 
 for i in "${patch_files[@]}"; do
 
@@ -33,8 +36,8 @@ for i in "${patch_files[@]}"; do
     ## sys_arm.c
     arch/arm/kernel/sys_arm.c)
         if [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 5 ]; then
-            sed -i '/asmlinkage int sys_execve(const char __user \*filenamei,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern int ksu_handle_execve_sucompat(int *fd, const char __user **filename_user,\n\t\t\t\t        void *__never_use_argv, void *__never_use_envp,\n\t\t\t\t        int *__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user *filename_user,\n\t\t\tconst char __user *const __user *__argv);\n#endif' arch/arm/kernel/sys_arm.c
-            sed -i '/error = PTR_ERR(filename);/a \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' arch/arm/kernel/sys_arm.c
+            sed -i '/asmlinkage int sys_execve(const char __user \*filenamei,/i \#ifdef CONFIG_KSU\nextern int __attribute__((hot)) ksu_handle_execve_sucompat(int \*fd,\n\t\t\t\tconst char __user \*\*filename_user,\n\t\t\t\tvoid \*__never_use_argv, void \*__never_use_envp,\n\t\t\t\tint \*__never_use_flags);\n#endif' arch/arm/kernel/sys_arm.c
+            sed -i '/filename = getname(filenamei);/i \#ifdef CONFIG_KSU\n\tksu_handle_execve_sucompat((int \*)AT_FDCWD, &filenamei, NULL, NULL, NULL);\n#endif' arch/arm/kernel/sys_arm.c
         fi
         ;;
 
@@ -42,7 +45,7 @@ for i in "${patch_files[@]}"; do
     ## exec.c
     fs/exec.c)
         if [ "$FIRST_VERSION" -lt 4 ] && [ "$SECOND_VERSION" -lt 11 ]; then
-            sed -i '/^SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern __attribute__((hot, always_inline)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user \*filename_user,\n\t\t\tconst char __user \*const __user \*__argv);\n#ifdef CONFIG_COMPAT  \/\/ 32-on-64 support\nextern int ksu_handle_compat_execve_ksud(const char __user \*filename_user,\n\t\t\tconst compat_uptr_t __user \*__argv);\n#endif\n#endif' fs/exec.c
+            sed -i '/SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern __attribute__((hot)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\n#endif' fs/exec.c
             sed -i '0,/struct filename \*path = getname(filename);/ { /struct filename \*path = getname(filename);/i \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int \*)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif
                                        }' fs/exec.c
             sed -i '/struct filename \*path = getname(filename);/{
@@ -56,7 +59,7 @@ for i in "${patch_files[@]}"; do
                                    x
                                    }' fs/exec.c
         else
-            sed -i '/^SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern bool ksu_execveat_hook __read_mostly;\nextern __attribute__((hot, always_inline)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\nextern int ksu_handle_execve_ksud(const char __user \*filename_user,\n\t\t\tconst char __user \*const __user \*__argv);\n#ifdef CONFIG_COMPAT  \/\/ 32-on-64 support\nextern int ksu_handle_compat_execve_ksud(const char __user \*filename_user,\n\t\t\tconst compat_uptr_t __user \*__argv);\n#endif\n#endif' fs/exec.c
+            sed -i '/SYSCALL_DEFINE3(execve,/i \#ifdef CONFIG_KSU\nextern __attribute__((hot)) int ksu_handle_execve_sucompat(int \*fd,\n\t\t\t       const char __user \*\*filename_user,\n\t\t\t       void \*__never_use_argv, void \*__never_use_envp,\n\t\t\t       int \*__never_use_flags);\n#endif' fs/exec.c
             sed -i '/return do_execve(getname(filename), argv, envp);/i \#ifdef CONFIG_KSU\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' fs/exec.c
             sed -i '/return compat_do_execve(getname(filename), argv, envp);/i \#ifdef CONFIG_KSU \/\/ 32-bit su and 32-on-64 support\n\tif (unlikely(ksu_execveat_hook))\n\t\tksu_handle_compat_execve_ksud(filename, argv);\n\telse\n\t\tksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);\n#endif' fs/exec.c
         fi

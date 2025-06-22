@@ -1,4 +1,11 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 21**
+    - 重命名 backport_patches_newer.sh backport_patches.sh
+    - 重命名 backport_patches.sh backport_patches_older.sh
+    - 增加 syscall_hook_patches_older.sh 补丁
+    - 修正 部分YAML文件 对于新补丁的调用
+    - 修正 说明文件 对应补丁词条说明
+
 - **Ver.1.5 Fixed 20**
     - 修正 示例YAML文件 安全生成DTBO功能获取文件错误
 

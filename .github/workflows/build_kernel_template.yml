@@ -448,6 +448,7 @@ jobs:
                         echo "execuated backport patch kernel_read and kernel_read successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
                     fi
                     echo "execuated backport patch successfully."
+                  fi
                elif [[ -f "/tmp/Patches/syscall_hook_patches_older.sh" ]] && [[ "${{ env.HOOK_OLDER }}" == "true" ]]; then
                    cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
                    cd device_kernel

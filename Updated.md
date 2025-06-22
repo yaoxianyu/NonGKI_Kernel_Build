@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 23**
+    - 修正 部分YAML文件 新补丁判定
+
 - **Ver.1.5 Fixed 22**
     - 命名交换 红米 K40 Gaming MIUI13 A12 和 红米 K40 Gaming HyperOS A13
 

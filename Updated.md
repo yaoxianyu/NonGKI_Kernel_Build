@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 24**
+    - 移植 小米Mix2s YAML 合并config功能
+    - 修正 小米Mix2s ENV文件 Defconfig文件指向
+
 - **Ver.1.5 Fixed 23**
     - 修正 部分YAML文件 新补丁判定
 

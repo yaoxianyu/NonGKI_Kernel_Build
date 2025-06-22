@@ -365,8 +365,8 @@ jobs:
           echo "CONFIG_CGROUP_SCHEDTUNE=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
 
           # Binder
-          sed -i '/^CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder"$/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
-          sed -i '/^CONFIG_DEBUG_FS=y$/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          # sed -i '/^CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder"$/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          # sed -i '/^CONFIG_DEBUG_FS=y$/d' ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
 
           # LZ4KD
           echo "CONFIG_CRYPTO_ZSTD=y" >> ./arch/arm64/configs/${{ env.DEFCONFIG_NAME }}

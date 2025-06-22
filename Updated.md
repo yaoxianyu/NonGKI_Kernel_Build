@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 22**
+    - 命名交换 红米 K40 Gaming MIUI13 A12 和 红米 K40 Gaming HyperOS A13
+
 - **Ver.1.5 Fixed 21**
     - 重命名 backport_patches_newer.sh backport_patches.sh
     - 重命名 backport_patches.sh backport_patches_older.sh

@@ -1,4 +1,4 @@
-name: Build Kernel Older Redmi K40 Gaming (HyperOS A13) with KSU
+name: Build Kernel Older Redmi K40 Gaming (MIUI13 A12) with KSU
 on:
   workflow_call:
   workflow_dispatch:
@@ -398,7 +398,7 @@ jobs:
           if grep -q "CONFIG_KSU" "device_kernel/fs/exec.c"; then
             echo "Your kernel source code appears to have been manually patched, so this step is skipped."
           else
-            if [[ "${{ env.HOOK_METHOD }}" == "normal" ]]; then
+            if [[ ${{ env.HOOK_METHOD }} == "normal" ]]; then
               if [[ -f "/tmp/Patches/normal_patches.sh" ]]; then
                   cp /tmp/Patches/normal_patches.sh device_kernel/
                   cd device_kernel
@@ -427,7 +427,7 @@ jobs:
                   echo "Cannot found normal_patches.sh in build project , please check u file existed in build project !"
                   false
               fi
-            elif [[ "${{ env.HOOK_METHOD }}" == "syscall" ]]; then
+            elif [[ ${{ env.HOOK_METHOD }} == "syscall" ]]; then
               if [[ -f "/tmp/Patches/syscall_hook_patches.sh" ]]; then
                   cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
                   cd device_kernel

@@ -417,7 +417,7 @@ jobs:
               fi
             elif [[ ${{ env.HOOK_METHOD }} == "syscall" ]]; then
                if [[ -f "/tmp/Patches/syscall_hook_patches_older.sh" ]] && [[ "${{ env.HOOK_OLDER }}" == "true" ]]; then
-                   cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
+                   cp /tmp/Patches/syscall_hook_patches_older.sh device_kernel/
                    cd device_kernel
                    bash syscall_hook_patches_older.sh
                    echo "execuated syscall patch successfully."

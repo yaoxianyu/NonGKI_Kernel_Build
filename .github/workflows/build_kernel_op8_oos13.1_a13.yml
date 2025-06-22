@@ -3,8 +3,8 @@ on:
   workflow_call:
   workflow_dispatch:
 env:
-  HOOK_METHOD: "syscall" # manual hook method,can choice syscall and normal.
-  HOOK_OLDER: "true" # contain backport older patch and syscall older patch.
+  HOOK_METHOD: "normal" # manual hook method,can choice syscall and normal.
+  HOOK_OLDER: "false" # contain backport older patch and syscall older patch.
 
 jobs:
   build:

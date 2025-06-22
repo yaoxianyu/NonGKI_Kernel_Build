@@ -149,6 +149,8 @@ jobs:
             wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
+          echo "FIRST_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $1}')" >> $GITHUB_ENV
+          echo "SECOND_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $2}')" >> $GITHUB_ENV
 
       - name: Set KSU and SUSFS for DEFCONFIG
         run: |
@@ -216,22 +218,7 @@ jobs:
                   false
               fi
             elif [[ ${{ env.HOOK_METHOD }} == "syscall" ]]; then
-              if [[ -f "/tmp/Patches/syscall_hook_patches.sh" ]]; then
-                  cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
-                  cd device_kernel
-                  bash syscall_hook_patches.sh
-                  echo "execuated syscall patch successfully."
-                  if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
-                    cp /tmp/Patches/backport_patches.sh ./
-                    bash backport_patches.sh
-                    if [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
-                        cp /tmp/Patches/Patch/backport_kernel_read_and_kernel_write_to_ksu.patch ./
-                        patch -p1 < backport_kernel_read_and_kernel_write_to_ksu.patch || true
-                        echo "execuated backport patch kernel_read and kernel_read successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
-                    fi
-                    echo "execuated backport patch successfully."
-                  fi
-               elif [[ -f "/tmp/Patches/syscall_hook_patches_older.sh" ]] && [[ "${{ env.HOOK_OLDER }}" == "true" ]]; then
+               if [[ -f "/tmp/Patches/syscall_hook_patches_older.sh" ]] && [[ "${{ env.HOOK_OLDER }}" == "true" ]]; then
                    cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
                    cd device_kernel
                    bash syscall_hook_patches_older.sh
@@ -243,7 +230,22 @@ jobs:
                    else
                      echo "your kernel needn't backport patch."
                    fi
-               else
+               elif [[ -f "/tmp/Patches/syscall_hook_patches.sh" ]]; then
+                   cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
+                   cd device_kernel
+                   bash syscall_hook_patches.sh
+                   echo "execuated syscall patch successfully."
+                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
+                     cp /tmp/Patches/backport_patches.sh ./
+                     bash backport_patches.sh
+                     if [ "${{ env.FIRST_VERSION }}" -lt 5 ] && [ "${{ env.SECOND_VERSION }}" -lt 10 ]; then
+                         cp /tmp/Patches/Patch/backport_kernel_read_and_kernel_write_to_ksu.patch ./
+                         patch -p1 < backport_kernel_read_and_kernel_write_to_ksu.patch || true
+                         echo "execuated backport patch kernel_read and kernel_read successfully. If you current kernel version < 4.14, then u maybe manual fixed it."
+                     fi
+                     echo "execuated backport patch successfully."
+                   fi
+                else
                    echo "Cannot found syscall_hook_patches.sh in build project , please check u file existed in build project !"
                    false
                fi

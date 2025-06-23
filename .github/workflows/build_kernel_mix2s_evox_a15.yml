@@ -243,7 +243,7 @@ jobs:
 
           # Patch Simple LMK
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/simple_lmk_to_49.patch
-          patch -p1 < simple_lmk_to_49.patch
+          patch -p1 < simple_lmk_to_49.patch || true
 
           # Fix Makefile
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/makefile_fixed.patch

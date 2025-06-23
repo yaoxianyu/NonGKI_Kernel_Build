@@ -471,6 +471,7 @@ jobs:
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/wireguard_fixed.patch ./
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/rekernel_fork_fixed.patch ./
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/signal_fixed.patch ./
+          cp NonGKI_Kernel_Patches/mix2s_evox_a15/remove_cgroup_c_unsed_function.patch ./
 
           patch -p1 < cmdline_fixed.patch || true
           patch -p1 < task_mmu_fixed.patch || true
@@ -478,6 +479,7 @@ jobs:
           patch -p1 < wireguard_fixed.patch || true
           patch -p1 < rekernel_fork_fixed.patch || true
           patch -p1 < signal_fixed.patch || true
+          patch -p1 < remove_cgroup_c_unsed_function.patch || true
 
       - name: Updated SUSFS Version
         if: env.SUSFS_UPDATE == 'true'

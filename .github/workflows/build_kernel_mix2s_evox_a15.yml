@@ -470,12 +470,14 @@ jobs:
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/fdinfo_fixed.patch ./
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/wireguard_fixed.patch ./
           cp NonGKI_Kernel_Patches/mix2s_evox_a15/rekernel_fork_fixed.patch ./
+          cp NonGKI_Kernel_Patches/mix2s_evox_a15/signal_fixed.patch ./
 
           patch -p1 < cmdline_fixed.patch || true
           patch -p1 < task_mmu_fixed.patch || true
           patch -p1 < fdinfo_fixed.patch || true
           patch -p1 < wireguard_fixed.patch || true
           patch -p1 < rekernel_fork_fixed.patch || true
+          patch -p1 < signal_fixed.patch || true
 
       - name: Updated SUSFS Version
         if: env.SUSFS_UPDATE == 'true'

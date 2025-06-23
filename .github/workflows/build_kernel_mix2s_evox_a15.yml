@@ -222,14 +222,16 @@ jobs:
           echo "UPLOADNAME=-${{ env.KERNELSU_NAME }}_$KSU_VERSION" >> $GITHUB_ENV
 
           # Patch Cgroup V2
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_to_49.patch
-          patch -p1 < cgroupv2_to_49.patch
+          # wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_to_49.patch
+          # patch -p1 < cgroupv2_to_49.patch
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_fork_to_49.patch
+          patch -p1 < cgroupv2_fork_to_49.patch
 
           # Patch Binder
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_freezer_to_49.patch
-          patch -p1 < binder_freezer_to_49.patch
-          # wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_515_to_49.patch
-          # patch -p1 < binder_515_to_49.patch
+          # wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_freezer_to_49.patch
+          # patch -p1 < binder_freezer_to_49.patch
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_5_15_to_49.patch
+          patch -p1 < binder_5_15_to_49.patch
 
           # Patch set_memory
           cp /tmp/Patches/Patch/set_memory_to_49_and_low.patch ./
@@ -241,11 +243,11 @@ jobs:
 
           # Patch Simple LMK
           wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/simple_lmk_to_49.patch
-          patch -p1 < simple_lmk_to_49.patch  || true
+          patch -p1 < simple_lmk_to_49.patch
 
           # Fix Makefile
-          # wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/makefile_fixed.patch
-          # patch -p1 < makefile_fixed.patch
+          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/makefile_fixed.patch
+          patch -p1 < makefile_fixed.patch
 
           # KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then

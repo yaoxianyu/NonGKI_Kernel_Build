@@ -60,7 +60,7 @@ for i in "${patch_files[@]}"; do
             sed -i '/SYSCALL_DEFINE3(faccessat, int, dfd, const char __user \*, filename, int, mode)/i \#ifdef CONFIG_KSU\nextern int ksu_handle_faccessat(int \*dfd, const char __user \*\*filename_user, int \*mode,\n\t\t\t                     int \*flags);\n#endif' fs/open.c
             sed -i '/if (mode & ~S_IRWXO)/i \#ifdef CONFIG_KSU\n\tksu_handle_faccessat(&dfd, &filename, &mode, NULL);\n#endif' fs/open.c
         else
-            ed -i '/SYSCALL_DEFINE3(faccessat, int, dfd, const char __user \*, filename, int, mode)/i \#ifdef CONFIG_KSU\nextern __attribute__((hot)) int ksu_handle_faccessat(int \*dfd, \n\t\t\t                    const char __user \*\*filename_user, int \*mode, int \*flags);\n#endif' fs/exec.c
+            sed -i '/SYSCALL_DEFINE3(faccessat, int, dfd, const char __user \*, filename, int, mode)/i \#ifdef CONFIG_KSU\nextern __attribute__((hot)) int ksu_handle_faccessat(int \*dfd, \n\t\t\t                    const char __user \*\*filename_user, int \*mode, int \*flags);\n#endif' fs/exec.c
             sed -i '/return do_faccessat(dfd, filename, mode);/i \#ifdef CONFIG_KSU\n\tksu_handle_faccessat(&dfd, &filename, &mode, NULL);\n#endif' fs/open.c
         fi
         ;;

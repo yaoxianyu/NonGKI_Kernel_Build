@@ -94,7 +94,7 @@ jobs:
   build_kernel_redmi8_4_19_aosp_a15:
     uses: ./.github/workflows/build_kernel_redmi8_4.19_aosp_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_redmi8_4.19_aosp_a15 }}
+    if: ${{ inputs.build_kernel_redmi8_4_19_aosp_a15 }}
 
   trigger-release:
     runs-on: ubuntu-latest

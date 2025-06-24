@@ -80,10 +80,12 @@ GitHub has dropped support for Ubuntu 20.04. If you still need it or are using C
     - **PROFILE_NAME** - Enter the name of your modified ENV environment variable file, such as codename_rom_template.env.
     - **KERNELSU_SUS_PATCH** - If your KernelSU is not part of KernelSU-Next and does not have a patch branch for SuSFS, you can enable this option (true). However, we do not recommend doing so, as the KernelSU branches have been heavily modified, and manual patching is no longer suitable for the current era.
     - **KPM_ENABLE** - (Experimental ⚠) Enables compilation support for KPM in SukiSU-Ultra. This is an experimental feature, so please enable it with caution.
+    - **KPM_FIX** - (Experimental ⚠) The current KPM feature might have a ["stack frame" overflow vulnerability](https://www.google.com/search?q=https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141) that leads to compilation failures. If you're experiencing this issue, enable this option.
     - **KPM_PATCH_SOURCE** - (Experimental ⚠) Normally, you don't need to provide the patch binary download link yourself, unless you have additional requirements.
     - **GENERATE_DTB** - If your kernel requires a DTB file after compilation (not .dtb, .dts, or .dtsi), you can enable this option to automatically generate the DTB file. 
     - **GENERATE_CHIP** - Set the corresponding device CPU, and provide it for DTB and KPM functions for identification. It typically supports Qualcomm (qcom) and MediaTek (mediatek), but we're unsure if other CPUs are supported.
     - **BUILD_DEBUGGER** - Enables error reporting if needed. Currently, it provides output for patch error .rej files and basic compilation error analysis., with more features expected in future updates.
+    - **SKIP_PATCH** - When **BUILD_DEBUGGER** is enabled, if you want to display error file information but don't want it to affect the compilation process, you can enable this option.
     - **BUILD_OTHER_CONFIG** - If you need to merge additional .config files included in the kernel source, you can enable this option. However, you must manually modify the MERGE_CONFIG_FILES array in the "Build Kernel" section.
     - **FREE_MORE_SPACE** - If you believe the current available space is insufficient, you can enable this option to free up additional space. By default, approximately 88GB of space is available. Enabling this option can increase the available space to 102GB, but it will add 1–2 minutes to the execution time. (Only applies to the default YAML; Arch Linux or Ubuntu 20.04 can only provide 14–20GB of space.)
     - **REKERNEL_ENABLE** - If you believe your device meets the requirements to run [Re:Kernel](https://github.com/Sakion-Team/Re-Kernel) and you need Re:Kernel, you can enable this option, true or false.
@@ -190,6 +192,11 @@ Below is an introduction to the patches included in the Patches directory:
     - A patch file for backporting the set_memory function to devices with kernel versions ≤ 4.9. Due to a lack of extensive testing, it's considered a test patch only and should only be used when the KPM function of SukiSU-Ultra is required.
     - Reference: None available.
 
+- **Patch/fix_kpm.patch**
+    - Variable: KPM_FIX -> true
+    - Used to address compilation failures caused by the **"stack frame" overflow vulnerability**.
+    - Reference: [https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141](https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141)
+    
 - **Rekernel/rekernel-X.X.patch**
     - Variable: REKERNEL_ENABLE -> true
     - A patch file to enable Re:Kernel support in the kernel. The YAML will automatically determine which patch to use based on your kernel version. However, if you have a 4.9 kernel and the current patch isn't working, you'll need to change the patch to rekernel-4.9-for-fixed.patch and try again. This does not support devices with kernel versions ≤ 4.4.

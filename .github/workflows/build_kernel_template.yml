@@ -612,7 +612,7 @@ jobs:
                 echo "==========EOF=========="
             done
 
-            if [[ "${{ env.SKIP_PATCH }}"  != "true" ]]; then
+            if [[ "${{ env.SKIP_PATCH }}" != "true" ]]; then
               false
             fi
           fi
@@ -841,8 +841,13 @@ jobs:
           fi
 
           cp -rp ./Anykernel3/* tmp
+          cd tmp
+          7za a -mx9 tmp.zip *
+          cd ..
+          cp -fp tmp/tmp.zip ${{ env.DEVICE_CODENAME }}-${{ env.ROM_TEXT }}-$TIME-${{ env.PACK_METHOD }}${{ env.LXC_STATUS }}.zip
+          rm -rf tmp
 
-          echo "PACK_NAME=Kernel-${{ env.DEVICE_CODENAME }}-${{ env.ROM_TEXT }}-$TIME-${{ env.PACK_METHOD }}${{ env.LXC_STATUS }}.zip" >> $GITHUB_ENV
+          echo "PACK_NAME=${{ env.DEVICE_CODENAME }}-${{ env.ROM_TEXT }}-$TIME-${{ env.PACK_METHOD }}${{ env.LXC_STATUS }}.zip" >> $GITHUB_ENV
 
       - name: Make Latest Boot Image
         if: env.PACK_METHOD == 'MKBOOTIMG'
@@ -898,14 +903,14 @@ jobs:
         if: env.PACK_METHOD == 'Anykernel3'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PACK_NAME }}
+          name: Kernel-${{ env.PACK_NAME }}
           path: |
-            device_kernel/tmp
+            device_kernel/${{ env.PACK_NAME }}
 
       - name: Upload Build Artifacts For Boot Image
         if: env.PACK_METHOD == 'MKBOOTIMG'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PACK_NAME }}
+          name: Kernel-${{ env.PACK_NAME }}
           path: |
             ${{ env.PACK_NAME }}

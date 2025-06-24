@@ -1,4 +1,12 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 26**
+    - 增加 红米 8 4.19 A15 设备
+    - 增加 示例YAML 修复KPM编译异常步骤
+    - 增加 示例YAML Patch Debugger 步骤 跳过错误继续执行
+    - 增加 fix_kpm.patch 补丁
+    - 增加 说明文件 对应变量说明
+    - 增加 发布列表 红米 8 4.19 A15 设备
+
 - **Ver.1.5 Fixed 25**
     - 修正 小米Mix2s YAML cgroup v2与binder补丁执行
 

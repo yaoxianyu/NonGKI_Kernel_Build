@@ -123,7 +123,6 @@ jobs:
         - The Black Shark 4 cannot patch SuSFS due to a kernel defect (missing ANDROID_KABI). To enhance stealth and security, it is the first device to switch from the regular manual hook to [Syscall Hook](https://github.com/backslashxx/KernelSU/issues/5).
         - Samsung S20 5G supported **Snapdragon** only，Exynos doesn't try flash it.
         - Xiaomi Mi Mix 2S has been backported to Cgroup V2, but Cgroup Freezer requires additional system steps to be used and the actual execution of the freezing process is abnormal. It is recommended to use Cgroup UID.
-        - Redmi 8 supports the experimental LXC feature. This functionality for the device was added and debugged by [@yu13140](https://github.com/yu13140).
         - The KernelSU version is for reference only. It is normal for the KernelSU version embedded in SUSFS to be lower.
         - [Re:Kernel](https://github.com/Sakion-Team/Re-Kernel) is a module used for quickly executing temporary unfreezing of processes during Binder transactions, but it may not necessarily work on all devices.
 

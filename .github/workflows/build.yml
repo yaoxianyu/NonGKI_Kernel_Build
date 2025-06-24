@@ -47,6 +47,11 @@ on:
         required: true
         type: boolean
         default: true
+      build_kernel_redmi8_4.19_aosp_a15:
+        description: "Redmi 8 (Kernel-4.19) (Based AOSP A15)?"
+        required: true
+        type: boolean
+        default: true
       make_release:
         description: "Do you want to create a release?"
         required: true
@@ -86,6 +91,10 @@ jobs:
     uses: ./.github/workflows/build_kernel_mipad4p_lineage_a15.yml
     secrets: inherit
     if: ${{ inputs.build_kernel_mipad4p_lineage_a15 }}
+  build_kernel_redmi8_4.19_aosp_a15:
+    uses: ./.github/workflows/build_kernel_redmi8_4.19_aosp_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_redmi8_4.19_aosp_a15 }}
 
   trigger-release:
     runs-on: ubuntu-latest
@@ -98,6 +107,7 @@ jobs:
       - build_kernel_op8_nameless15_a15
       - build_kernel_s20_oneui5_a13
       - build_kernel_mipad4p_lineage_a15
+      - build_kernel_redmi8_4.19_aosp_a15
     if: ${{ inputs.make_release }}
     env:
       REPO_OWNER: JackA1ltman

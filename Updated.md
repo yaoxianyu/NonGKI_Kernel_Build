@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 28**
+    - 修正 发布列表 红米 8 4.19 A15 设备
+
 - **Ver.1.5 Fixed 27**
     - 增加 Arch Linux 示例YAML libxml2-legacy 包安装
 

@@ -252,8 +252,8 @@ jobs:
           # patch -p1 < makefile_5_15_fixed.patch
 
           # Patch Seq File
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/seq_file_fixed.patch
-          patch -p1 < seq_file_fixed.patch
+          # wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/seq_file_fixed.patch
+          # patch -p1 < seq_file_fixed.patch
 
           # KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then

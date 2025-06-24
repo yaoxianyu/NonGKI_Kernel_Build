@@ -48,7 +48,7 @@ on:
         type: boolean
         default: true
       build_kernel_redmi8_4.19_aosp_a15:
-        description: "Redmi 8 (Kernel-4.19) (Based AOSP A15)?"
+        description: "Build Kernel Redmi 8 (Kernel-4.19) (Based AOSP A15)?"
         required: true
         type: boolean
         default: true

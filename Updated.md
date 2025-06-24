@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 29**
+    - 修正 syscall_hook_patches.sh 大量错误
+
 - **Ver.1.5 Fixed 28**
     - 修正 发布列表 红米 8 4.19 A15 设备
 

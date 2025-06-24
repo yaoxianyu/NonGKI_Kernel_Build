@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 30**
+    - 切换 一加8 OOS13 修补方式为syscall
+    - 修正 小米平板4(Plus) ROM文本
+    - 修正 红米 8 4.19 A15 ROM文本
+
 - **Ver.1.5 Fixed 29**
     - 修正 syscall_hook_patches.sh 大量错误
 

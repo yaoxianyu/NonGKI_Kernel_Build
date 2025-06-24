@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 31**
+    - 修正 一加8 OOS13 内核版本变量获取
+    - 修正 syscall_hook_patches.sh 执行错误
+
 - **Ver.1.5 Fixed 30**
     - 切换 一加8 OOS13 修补方式为syscall
     - 修正 小米平板4(Plus) ROM文本

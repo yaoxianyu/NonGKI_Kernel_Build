@@ -1,24 +1,25 @@
-name: Build Kernel Template (Cannot be used for compilation directly)
+name: Build Kernel Redmi 8 (4.19-Universal) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:
+  push:
 env:
   PYTHON_VERSION: "3" # Only 2(Ubuntu 22.04) or 3(Any OS Versions).
   PACK_METHOD: "Anykernel3" # Anykernel3 need SOURCE and BRANCH, MKBOOTIMG needn't it.
   KERNELSU_METHOD: "shell" # shell, manual and only.
-  PATCHES_SOURCE: "author/source" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
-  PATCHES_BRANCH: "branch" # [your_branch] -> main
-  HOOK_METHOD: "normal" # manual hook method,can choice syscall and normal.
+  PATCHES_SOURCE: "SukiSU-Ultra/SukiSU_patch" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
+  PATCHES_BRANCH: "main" # [your_branch] -> main
+  HOOK_METHOD: "syscall" # manual hook method,can choice syscall and normal.
   HOOK_OLDER: "false" # contain backport older patch and syscall older patch.
-  PROFILE_NAME: "codename_rom_template.env" # your profile name.
+  PROFILE_NAME: "olive_4.19-universal.env" # your profile name.
   KERNELSU_SUS_PATCH: "false" # if u need manual susfs patch to kernelsu.
-  KPM_ENABLE: "false" # Only use it for SukiSU-Ultra.
-  KPM_FIX: "false" # Fix Error When Enabling KPM.
+  KPM_ENABLE: "true" # Only use it for SukiSU-Ultra.
+  KPM_FIX: "true" # Fix Error When Enabling KPM.
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .
   GENERATE_DTB: "false" # if u kernel need DTB , but cannot auto generate it. (Only Anykernel3).
-  GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
+  GENERATE_CHIP: "xiaomi-sdm439" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
-  SKIP_PATCH: "false" # Ignore errors found in Patch Debugger.
+  SKIP_PATCH: "true" # Ignore errors found in Patch Debugger.
   BUILD_OTHER_CONFIG: "false" # Merge config files.
   FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
   REKERNEL_ENABLE: "false" # if u need Re:Kernel.
@@ -314,7 +315,7 @@ jobs:
       - name: Set Pack Method and KernelSU and SUSFS
         run: |
           # Variable
-          SUSFS_SOURCE=https://gitlab.com/simonpunk/susfs4ksu.git
+          SUSFS_SOURCE=https://github.com/yu13140/susfs4ksu.git
           SUSFS_BRANCH=kernel-${{ env.KERNEL_VERSION }}
 
           # Set ${{ env.PACK_METHOD }} and KernelSU
@@ -547,8 +548,10 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
           cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-${{ env.KERNEL_VERSION }}.patch ./
+          cp susfs4ksu/kernel_patches/kernel_4.19-Bump-SuSFS-version-to-v1.5.8.patch ./
 
           patch -p1 < 50_add_susfs_in_kernel-${{ env.KERNEL_VERSION }}.patch || true
+          patch -p1 < kernel_4.19-Bump-SuSFS-version-to-v1.5.8.patch || true
 
           if [[ "${{ env.KERNELSU_NAME }}"  == "KernelSU-Next" ]]; then
             if [[ "${{ env.KERNELSU_SOURCE }}" =~ ".sh" && "${{ env.KERNELSU_BRANCH }}" =~ "susfs" ]]; then
@@ -581,9 +584,16 @@ jobs:
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./
+          cp NonGKI_Kernel_Patches/4.19/ksu_hooks_sukisu_4.19.patch ./
+          cp NonGKI_Kernel_Patches/hooks/syscall_hooks.patch ./
 
-          patch -p1 < [patch_file].patch || true
+          patch -p1 < syscall_hooks.patch || true
+          patch -p1 < ksu_hooks_sukisu_4.19.patch || true
+          
+          cp -f susfs4ksu/kernel_patches/stat.c fs/stat.c
+          cp -f susfs4ksu/kernel_patches/proc_namespace.c fs/proc_namespace.c
+          cp -f susfs4ksu/kernel_patches/readdir.c fs/readdir.c
+          cp -f susfs4ksu/kernel_patches/stat.h include/linux/stat.h
 
       - name: Updated SUSFS Version
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
@@ -693,6 +703,22 @@ jobs:
                 python dtbo_tool/src/mkdtboimg.py create $GITHUB_WORKSPACE/device_kernel/out/arch/arm64/boot/dtbo.img $GITHUB_WORKSPACE/device_kernel/out/arch/arm64/boot/dts/${{ env.GENERATE_CHIP }}/*.dtbo
             fi
           fi
+
+      - name: Upload Build Artifacts For Packing Error
+        if: env.BUILD_DEBUGGER == 'true'      
+        uses: actions/upload-artifact@v4
+        with:
+          name: fs
+          path: |
+            device_kernel/fs
+            
+      - name: Upload Build Artifacts For Packing Error 2
+        if: env.BUILD_DEBUGGER == 'true'      
+        uses: actions/upload-artifact@v4
+        with:
+          name: include
+          path: |
+            device_kernel/include            
 
       - name: Analyze compile error
         if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}

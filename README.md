@@ -184,7 +184,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
 - **Patch/susfs_upgrade_to_157.patch**
   - 变量：(env文件)SUSFS_UPDATE -> true
   - 对停止更新的Non-GKI设备的SuSFS进行更新，从v1.5.5更新至v1.5.7
-  - 参考：https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/compare/c7d82bf8607704c22a8a869c4611c7cf3d22ce31..1ea2cbd7659167e62d2265632710f084c45f3ca1
+  - 参考：https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/pull/1
 
 - **Patch/set_memory_to_49_and_low.patch**
   - 变量：KPM_ENABLE -> true

@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 32**
+    - 修正 说明文件 susfs_upgrade_to_157.sh 参考链接
+
 - **Ver.1.5 Fixed 31**
     - 修正 一加8 OOS13 内核版本变量获取
     - 修正 syscall_hook_patches.sh 执行错误

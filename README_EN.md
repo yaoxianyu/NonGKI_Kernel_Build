@@ -185,7 +185,7 @@ Below is an introduction to the patches included in the Patches directory:
 - **Patch/susfs_upgrade_to_157.patch**
     - Variable: (env file) SUSFS_UPDATE -> true
     - Updates SuSFS from v1.5.5 to v1.5.7 for Non-GKI devices that have stopped receiving updates.
-    - Reference: https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/compare/c7d82bf8607704c22a8a869c4611c7cf3d22ce31..1ea2cbd7659167e62d2265632710f084c45f3ca1
+    - Reference: https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/pull/1
 
 - **Patch/set_memory_to_49_and_low.patch**
     - Requires **manual** execution.
@@ -195,7 +195,7 @@ Below is an introduction to the patches included in the Patches directory:
 - **Patch/fix_kpm.patch**
     - Variable: KPM_FIX -> true
     - Used to address compilation failures caused by the **"stack frame" overflow vulnerability**.
-    - Reference: [https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141](https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141)
+    - Reference: https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141
     
 - **Rekernel/rekernel-X.X.patch**
     - Variable: REKERNEL_ENABLE -> true

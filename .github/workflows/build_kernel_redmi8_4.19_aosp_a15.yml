@@ -21,7 +21,7 @@ env:
   SKIP_PATCH: "true" # Ignore errors found in Patch Debugger.
   BUILD_OTHER_CONFIG: "false" # Merge config files.
   FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
-  REKERNEL_ENABLE: "false" # if u need Re:Kernel.
+  REKERNEL_ENABLE: "true" # if u need Re:Kernel.
 
 
 jobs:
@@ -547,10 +547,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
           cp susfs4ksu/kernel_patches/50_add_susfs_in_kernel-${{ env.KERNEL_VERSION }}.patch ./
-          cp susfs4ksu/kernel_patches/kernel_4.19-Bump-SuSFS-version-to-v1.5.8.patch ./
 
           patch -p1 < 50_add_susfs_in_kernel-${{ env.KERNEL_VERSION }}.patch || true
-          patch -p1 < kernel_4.19-Bump-SuSFS-version-to-v1.5.8.patch || true
 
           if [[ "${{ env.KERNELSU_NAME }}"  == "KernelSU-Next" ]]; then
             if [[ "${{ env.KERNELSU_SOURCE }}" =~ ".sh" && "${{ env.KERNELSU_BRANCH }}" =~ "susfs" ]]; then
@@ -589,10 +587,8 @@ jobs:
           patch -p1 < syscall_hooks.patch || true
           patch -p1 < ksu_hooks_sukisu_4.19.patch || true
           
-          cp -f susfs4ksu/kernel_patches/stat.c fs/stat.c
-          cp -f susfs4ksu/kernel_patches/proc_namespace.c fs/proc_namespace.c
-          cp -f susfs4ksu/kernel_patches/readdir.c fs/readdir.c
-          cp -f susfs4ksu/kernel_patches/stat.h include/linux/stat.h
+          cp -f susfs4ksu/kernel_patches/sdm439/stat.c fs/stat.c
+          cp -f susfs4ksu/kernel_patches/sdm439/proc_namespace.c fs/proc_namespace.c
 
       - name: Updated SUSFS Version
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
@@ -684,7 +680,7 @@ jobs:
             make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} 2>&1|tee error.log
           fi
 
-          if grep -q "Error 1" "error.log"; then
+          if grep -q "Error 2" "error.log"; then
             false
           fi
 
@@ -704,20 +700,20 @@ jobs:
           fi
 
       - name: Upload Build Artifacts For Packing Error
-        if: env.BUILD_DEBUGGER == 'true'      
+        if: env.BUILD_DEBUGGER == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: fs
           path: |
             device_kernel/fs
-            
+
       - name: Upload Build Artifacts For Packing Error 2
-        if: env.BUILD_DEBUGGER == 'true'      
+        if: env.BUILD_DEBUGGER == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: include
           path: |
-            device_kernel/include            
+            device_kernel/include
 
       - name: Analyze compile error
         if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}

@@ -185,8 +185,16 @@ Below is an introduction to the patches included in the Patches directory:
 - **Patch/susfs_upgrade_to_157.patch**
     - Variable: (env file) SUSFS_UPDATE -> true
     - Updates SuSFS from v1.5.5 to v1.5.7 for Non-GKI devices that have stopped receiving updates.
-    - Reference: https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/pull/1
+    - Reference: https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/commit/b3c85f330b135baf5c101b07f027e69e75f42060
 
+- **Patch/susfs_upgrade_to_158_X_X.patch**
+    - Variable: (env file) SUSFS_UPDATE -> true
+    - Updates SuSFS from v1.5.7 to v1.5.8 for Non-GKI devices that have stopped receiving updates.
+    - References:
+        - https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/commit/41678dd9290f04d98b9f0523574e11f98c7ce7c1
+        - https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/commit/60008290523a235282176b328f390777282024c9
+        - https://github.com/rsuntk/android_kernel_asus_sdm660-4.19/commit/999ae11965ac2b4f3d3c7fbebc8e09cc8bbd0fce
+    
 - **Patch/set_memory_to_49_and_low.patch**
     - Requires **manual** execution.
     - A patch file for backporting the set_memory function to devices with kernel versions ≤ 4.9. Due to a lack of extensive testing, it's considered a test patch only and should only be used when the KPM function of SukiSU-Ultra is required.

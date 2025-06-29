@@ -592,7 +592,7 @@ jobs:
           # Upgrade 1.5.8
           cp /tmp/Patches/Patch/susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
 
-          patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
+          patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch || true
 
           # Extra SUSFS Patch
           # cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./

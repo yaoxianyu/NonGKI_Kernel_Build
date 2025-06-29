@@ -691,7 +691,7 @@ jobs:
           fi
 
       - name: Analyze compile error
-      shell: bash
+        shell: bash
         if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/

@@ -198,7 +198,7 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   
 - **Patch/fix_kpm.patch**
   - 变量：KPM_FIX -> true
-  - 用于应对**“栈帧”溢出漏洞**导致的编译失败问题
+  - 用于应对**栈帧溢出漏洞**导致的编译失败问题
   - 参考：https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141
   
 - **Rekernel/rekernel-X.X.patch**

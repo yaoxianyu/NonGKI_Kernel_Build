@@ -194,7 +194,7 @@ Below is an introduction to the patches included in the Patches directory:
 
 - **Patch/fix_kpm.patch**
     - Variable: KPM_FIX -> true
-    - Used to address compilation failures caused by the **"stack frame" overflow vulnerability**.
+    - Used to address compilation failures caused by the **stack frame overflow vulnerability**.
     - Reference: https://github.com/SukiSU-Ultra/SukiSU-Ultra/issues/141
     
 - **Rekernel/rekernel-X.X.patch**

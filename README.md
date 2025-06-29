@@ -206,4 +206,9 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 让内核支持Re:Kernel的补丁文件，YAML会根据你的内核版本自动判断使用的补丁，不过若你是4.9内核且当前补丁不可用，就需要将补丁修改成rekernel-4.9-for-fixed.patch后尝试，不支持内核版本≤4.4设备
   - 参考：https://github.com/Sakion-Team/Re-Kernel/blob/main/Integrate/README_CN.md
   
+- **Bin/curlx.sh**
+  - 自动执行
+  - 用于更加便捷的执行包括断点续传在内的curl命令
+  - 参考：由[@yu13140](https://github.com/yu13140)提供更新
+  
 最后提醒⚠️：非上述提示的步骤理论上不需要你做任何修改，我已经尽可能实现多情况判定

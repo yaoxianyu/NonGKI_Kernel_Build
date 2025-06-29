@@ -1,4 +1,13 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 33**
+    - 增加 示例YAML文件 引入 curlx
+    - 增加 说明文件 curlx.sh脚本说明
+    - 增加 红米8 4.19 A15 Older YAML编译方式
+    - 增加 说明文件 curlx.sh脚本说明词条
+    - 修正 示例YAML文件 wget 更改为 curlx
+    - 修正 发布列表 红米8 4.19 A15 Re:Kernel支持
+    - 切换 发布列表 红米8 4.19 A15 为 Older YAML编译方式
+
 - **Ver.1.5 Fixed 32**
     - 修正 说明文件 susfs_upgrade_to_157.sh 参考链接
 

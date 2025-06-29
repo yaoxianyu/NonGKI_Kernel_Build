@@ -103,10 +103,10 @@ jobs:
           # Move patch folder to tmp
           mv $GITHUB_WORKSPACE/Patches /tmp/
 
-          # set curlx
+          # Set curlx
           mv $GITHUB_WORKSPACE/bin /tmp/
-          chmod 777 /tmp/bin/curlx.sh
-          echo "curlx=/tmp/bin/curlx.sh" >> $GITHUB_ENV
+          chmod 777 /tmp/Bin/curlx.sh
+          echo "curlx=/tmp/Bin/curlx.sh" >> $GITHUB_ENV
 
       - name: Maximize build space
         uses: easimon/maximize-build-space@master

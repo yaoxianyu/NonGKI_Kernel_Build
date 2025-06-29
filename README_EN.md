@@ -202,4 +202,9 @@ Below is an introduction to the patches included in the Patches directory:
     - A patch file to enable Re:Kernel support in the kernel. The YAML will automatically determine which patch to use based on your kernel version. However, if you have a 4.9 kernel and the current patch isn't working, you'll need to change the patch to rekernel-4.9-for-fixed.patch and try again. This does not support devices with kernel versions ≤ 4.4.
     - Reference: https://github.com/Sakion-Team/Re-Kernel/blob/main/Integrate/README_CN.md
     
+- **Bin/curlx.sh**
+    - Automatic execution
+    - Used for more convenient execution of **curl** commands, including resuming interrupted downloads.
+    - Reference: Updated by [@yu13140](https://github.com/yu13140).
+    
 Final Reminder⚠ : Unless otherwise mentioned, there is no need to modify any other sections of the .yml workflow. The setup is designed to automatically handle various conditions.

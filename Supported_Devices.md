@@ -29,7 +29,7 @@
 | 红米 K40 Gaming | All | ares | 4.14/Tkpointz/aresin | MIUI 13 | 12 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/AbzRaider/(Nothing) | HyperOS | 13 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 Note 12 Pro 5G | CN | ruby | 4.19/qiangua2460/AlphaDroid | AlphaDroid 15.1 | 15 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 红米 8 | All | olive | 4.19/yu13140/mi439 | Based-AOSP | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ✅ | ✅ | ❌ | Stable | 
+| 红米 8 | All | olive | 4.19/yu13140/mi439 | Based-AOSP | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ✅ | ✅ | ✅ | Stable | 
 
 特别说明：
   - 我们提供的KernelSU分支包括：[Next(❌)](https://github.com/KernelSU-Next/KernelSU-Next)、[Magic](https://github.com/backslashxx/KernelSU)、[rsuntk](https://github.com/rsuntk/KernelSU)、[lightsummer233](https://github.com/lightsummer233/KernelSU)、[酷友二创-SukiSU-Ultra](https://github.com/ShirkNeko/SukiSU-Ultra)、[SukiSU](https://github.com/ShirkNeko/KernelSU)
@@ -53,3 +53,4 @@
   - 小米平板 4(Plus) 基于SukiSU Ultra的KPM功能**未经完整测试**（会显示在管理器中，但未刷入内核模块进行测试）
   - 小米 Mix2s 已移植Cgroup V2，但Cgroup Freezer需要依赖系统额外步骤才能使用且该功能实际执行冻结过程异常，建议使用Cgroup UID
   - 红米 K40 Gaming 内核与 Poco F3 GT 通用
+  - 红米 8 内核与 红米 8a 通用；理论上LineageOS系的系统，只要是4.19内核都通用 (无论是安卓几)

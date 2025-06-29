@@ -82,7 +82,7 @@ jobs:
           mv $GITHUB_WORKSPACE/Patches /tmp/
 
           # Set curlx
-          mv $GITHUB_WORKSPACE/bin /tmp/
+          mv $GITHUB_WORKSPACE/Bin /tmp/
           chmod 777 /tmp/Bin/curlx.sh
           echo "curlx=/tmp/Bin/curlx.sh" >> $GITHUB_ENV
 

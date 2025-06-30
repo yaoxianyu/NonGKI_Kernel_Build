@@ -37,21 +37,6 @@ index ceffbdc..e5cc0d0 100644
  		spin_lock(&dentry->d_lock);
  		if (dentry->d_parent != parent)
  			goto next;
-diff --git a/fs/exec.c b/fs/exec.c
-index cd6d67b..b9245a7 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1912,10 +1912,6 @@ extern int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
- 				 void *argv, void *envp, int *flags);
- #endif
- 
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--extern bool susfs_is_sus_su_hooks_enabled __read_mostly;
--#endif
--
- static int do_execveat_common(int fd, struct filename *filename,
- 			      struct user_arg_ptr argv,
- 			      struct user_arg_ptr envp,
 diff --git a/fs/namei.c b/fs/namei.c
 index ec86acb..05bffae 100644
 --- a/fs/namei.c
@@ -456,33 +441,6 @@ index ec86acb..05bffae 100644
  	nd->flags &= ~LOOKUP_PARENT;
  	nd->flags |= op->intent;
  
-diff --git a/fs/open.c b/fs/open.c
-index f212037..2fe8091 100644
---- a/fs/open.c
-+++ b/fs/open.c
-@@ -350,9 +350,6 @@ extern int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int
- 			 int *flags);
- #endif
- 
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--extern bool susfs_is_sus_su_hooks_enabled __read_mostly;
--#endif
- 
- long do_faccessat(int dfd, const char __user *filename, int mode)
- {
-@@ -367,12 +364,6 @@ long do_faccessat(int dfd, const char __user *filename, int mode)
- 	ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
- 	#endif
- 
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--	if (susfs_is_sus_su_hooks_enabled) {
--		ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
--	}
--#endif
--
- 	if (mode & ~S_IRWXO)	/* where's F_OK, X_OK, W_OK, R_OK? */
- 		return -EINVAL;
- 
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 index e440bad..f51a51c 100644
 --- a/fs/overlayfs/inode.c
@@ -599,7 +557,7 @@ index 6c5839e..ba1cf0f 100644
  #endif
  
 diff --git a/fs/readdir.c b/fs/readdir.c
-index 29b8e88..0937c06 100644
+index 29b8e88..4c642c0 100644
 --- a/fs/readdir.c
 +++ b/fs/readdir.c
 @@ -23,6 +23,11 @@
@@ -711,19 +669,7 @@ index 29b8e88..0937c06 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (buf.result)
  		error = buf.result;
-@@ -219,6 +274,11 @@ struct linux_dirent {
- struct getdents_callback {
- 	struct dir_context ctx;
- 	struct linux_dirent __user * current_dir;
-+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
-+	struct super_block *sb;
-+	bool is_base_dentry_android_data_root_dir;
-+	bool is_base_dentry_sdcard_root_dir;
-+#endif
- 	int prev_reclen;
- 	int count;
- 	int error;
-@@ -236,9 +296,7 @@ static int filldir(struct dir_context *ctx, const char *name, int namlen,
+@@ -236,9 +291,7 @@ static int filldir(struct dir_context *ctx, const char *name, int namlen,
  	int prev_reclen;
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -734,7 +680,7 @@ index 29b8e88..0937c06 100644
  #endif
  	buf->error = verify_dirent_name(name, namlen);
  	if (unlikely(buf->error))
-@@ -315,6 +373,11 @@ SYSCALL_DEFINE3(getdents, unsigned int, fd,
+@@ -315,6 +368,11 @@ SYSCALL_DEFINE3(getdents, unsigned int, fd,
  struct getdents_callback64 {
  	struct dir_context ctx;
  	struct linux_dirent64 __user * current_dir;
@@ -746,7 +692,7 @@ index 29b8e88..0937c06 100644
  	int prev_reclen;
  	int count;
  	int error;
-@@ -331,9 +394,7 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
+@@ -331,9 +389,7 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
  	int prev_reclen;
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -757,7 +703,38 @@ index 29b8e88..0937c06 100644
  #endif
  	buf->error = verify_dirent_name(name, namlen);
  	if (unlikely(buf->error))
-@@ -379,6 +440,9 @@ int ksys_getdents64(unsigned int fd, struct linux_dirent64 __user *dirent,
+@@ -345,6 +401,30 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
+ 	if (prev_reclen && signal_pending(current))
+ 		return -EINTR;
+ 	dirent = buf->current_dir;
++
++#ifdef CONFIG_KSU_SUSFS_SUS_PATH
++	if (buf->is_base_dentry_android_data_root_dir) {
++		if (susfs_is_sus_android_data_d_name_found(name)) {
++			return 0;
++		}
++	} else if (buf->is_base_dentry_sdcard_root_dir) {
++		if (susfs_is_sus_sdcard_d_name_found(name)) {
++			return 0;
++		}
++	}
++
++	inode = ilookup(buf->sb, ino);
++	if (!inode) {
++		goto orig_flow;
++	}
++	if (susfs_is_inode_sus_path(inode)) {
++		iput(inode);
++		return 0;
++	}
++	iput(inode);
++orig_flow:
++#endif
++
+ 	prev = (void __user *)dirent - prev_reclen;
+ 	if (!user_access_begin(prev, reclen + prev_reclen))
+ 		goto efault;
+@@ -379,6 +459,9 @@ int ksys_getdents64(unsigned int fd, struct linux_dirent64 __user *dirent,
  		.current_dir = dirent
  	};
  	int error;
@@ -767,7 +744,7 @@ index 29b8e88..0937c06 100644
  
  	if (!access_ok(dirent, count))
  		return -EFAULT;
-@@ -387,6 +451,27 @@ int ksys_getdents64(unsigned int fd, struct linux_dirent64 __user *dirent,
+@@ -387,6 +470,27 @@ int ksys_getdents64(unsigned int fd, struct linux_dirent64 __user *dirent,
  	if (!f.file)
  		return -EBADF;
  
@@ -795,7 +772,7 @@ index 29b8e88..0937c06 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (error >= 0)
  		error = buf.error;
-@@ -422,6 +507,11 @@ struct compat_old_linux_dirent {
+@@ -422,6 +526,11 @@ struct compat_old_linux_dirent {
  struct compat_readdir_callback {
  	struct dir_context ctx;
  	struct compat_old_linux_dirent __user *dirent;
@@ -807,7 +784,7 @@ index 29b8e88..0937c06 100644
  	int result;
  };
  
-@@ -433,14 +523,13 @@ static int compat_fillonedir(struct dir_context *ctx, const char *name,
+@@ -433,14 +542,13 @@ static int compat_fillonedir(struct dir_context *ctx, const char *name,
  		container_of(ctx, struct compat_readdir_callback, ctx);
  	struct compat_old_linux_dirent __user *dirent;
  	compat_ulong_t d_ino;
@@ -826,7 +803,7 @@ index 29b8e88..0937c06 100644
  	buf->result = verify_dirent_name(name, namlen);
  	if (buf->result < 0)
  		return buf->result;
-@@ -449,6 +538,28 @@ static int compat_fillonedir(struct dir_context *ctx, const char *name,
+@@ -449,6 +557,28 @@ static int compat_fillonedir(struct dir_context *ctx, const char *name,
  		buf->result = -EOVERFLOW;
  		return -EOVERFLOW;
  	}
@@ -855,7 +832,7 @@ index 29b8e88..0937c06 100644
  	buf->result++;
  	dirent = buf->dirent;
  	if (!access_ok(dirent,
-@@ -476,10 +587,34 @@ COMPAT_SYSCALL_DEFINE3(old_readdir, unsigned int, fd,
+@@ -476,10 +606,34 @@ COMPAT_SYSCALL_DEFINE3(old_readdir, unsigned int, fd,
  		.ctx.actor = compat_fillonedir,
  		.dirent = dirent
  	};
@@ -890,7 +867,7 @@ index 29b8e88..0937c06 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (buf.result)
  		error = buf.result;
-@@ -498,6 +633,11 @@ struct compat_linux_dirent {
+@@ -498,6 +652,11 @@ struct compat_linux_dirent {
  struct compat_getdents_callback {
  	struct dir_context ctx;
  	struct compat_linux_dirent __user *current_dir;
@@ -902,7 +879,7 @@ index 29b8e88..0937c06 100644
  	struct compat_linux_dirent __user *previous;
  	int count;
  	int error;
-@@ -512,24 +652,67 @@ static int compat_filldir(struct dir_context *ctx, const char *name, int namlen,
+@@ -512,15 +671,14 @@ static int compat_filldir(struct dir_context *ctx, const char *name, int namlen,
  	compat_ulong_t d_ino;
  	int reclen = ALIGN(offsetof(struct compat_linux_dirent, d_name) +
  		namlen + 2, sizeof(compat_long_t));
@@ -922,31 +899,7 @@ index 29b8e88..0937c06 100644
  	d_ino = ino;
  	if (sizeof(d_ino) < sizeof(ino) && d_ino != ino) {
  		buf->error = -EOVERFLOW;
- 		return -EOVERFLOW;
- 	}
-+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
-+	if (buf->is_base_dentry_android_data_root_dir) {
-+		if (susfs_is_sus_android_data_d_name_found(name)) {
-+			return 0;
-+		}
-+	} else if (buf->is_base_dentry_sdcard_root_dir) {
-+		if (susfs_is_sus_sdcard_d_name_found(name)) {
-+			return 0;
-+		}
-+	}
-+
-+	inode = ilookup(buf->sb, ino);
-+	if (!inode) {
-+		goto orig_flow;
-+	}
-+	if (susfs_is_inode_sus_path(inode)) {
-+		iput(inode);
-+		return 0;
-+	}
-+	iput(inode);
-+orig_flow:
-+#endif
- 	dirent = buf->previous;
+@@ -530,6 +688,28 @@ static int compat_filldir(struct dir_context *ctx, const char *name, int namlen,
  	if (dirent) {
  		if (signal_pending(current))
  			return -EINTR;
@@ -975,7 +928,7 @@ index 29b8e88..0937c06 100644
  		if (__put_user(offset, &dirent->d_off))
  			goto efault;
  	}
-@@ -565,6 +748,9 @@ COMPAT_SYSCALL_DEFINE3(getdents, unsigned int, fd,
+@@ -565,6 +745,9 @@ COMPAT_SYSCALL_DEFINE3(getdents, unsigned int, fd,
  		.count = count
  	};
  	int error;
@@ -985,7 +938,7 @@ index 29b8e88..0937c06 100644
  
  	if (!access_ok(dirent, count))
  		return -EFAULT;
-@@ -573,6 +759,27 @@ COMPAT_SYSCALL_DEFINE3(getdents, unsigned int, fd,
+@@ -573,6 +756,27 @@ COMPAT_SYSCALL_DEFINE3(getdents, unsigned int, fd,
  	if (!f.file)
  		return -EBADF;
  
@@ -1013,34 +966,6 @@ index 29b8e88..0937c06 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (error >= 0)
  		error = buf.error;
-diff --git a/fs/stat.c b/fs/stat.c
-index e881577..b5b374f 100644
---- a/fs/stat.c
-+++ b/fs/stat.c
-@@ -187,10 +187,6 @@ EXPORT_SYMBOL(vfs_statx_fd);
- extern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);
- #endif
- 
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--extern bool susfs_is_sus_su_hooks_enabled __read_mostly;
--#endif
--
- int vfs_statx(int dfd, const char __user *filename, int flags,
- 	      struct kstat *stat, u32 request_mask)
- {
-@@ -202,12 +198,6 @@ int vfs_statx(int dfd, const char __user *filename, int flags,
- 	ksu_handle_stat(&dfd, &filename, &flags);
- 	#endif
- 
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--	if (susfs_is_sus_su_hooks_enabled) {
--		ksu_handle_stat(&dfd, &filename, &flags);
--	}
--#endif
--
- 	if ((flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |
- 		       AT_EMPTY_PATH | KSTAT_QUERY_FLAGS)) != 0)
- 		return -EINVAL;
 diff --git a/fs/statfs.c b/fs/statfs.c
 index 1e8c828..df3de23 100644
 --- a/fs/statfs.c

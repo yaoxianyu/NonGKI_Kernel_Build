@@ -1,4 +1,10 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 36**
+    - 增加 Patch/susfs_upgrade_to_158_5.4_kprobe.patch
+    - 修正 示例YAML SuSFS 1.5.8 补丁步骤逻辑
+    - 修正 小米11 Ultra SuSFS 1.5.8 补丁步骤逻辑
+    - 修正 Patch/susfs_upgrade_to_158_5.4.patch
+
 - **Ver.1.5 Fixed 35**
     - 移植 红米 K20 Pro SuSFS更新步骤
     - 移植 小米11 Ultra HyperOS A14 SuSFS更新步骤

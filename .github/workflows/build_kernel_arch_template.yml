@@ -549,35 +549,23 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
 
-          # Fixed sus_su to 5.4 kernel
-          if [[ "${{ env.KERNEL_VERSION }}" == "5.4" ]]; then
-
-            # exec.c
-            sed -i '/static int do_execveat_common(int fd, struct filename \*filename,/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\nextern bool susfs_is_sus_su_hooks_enabled __read_mostly;\nextern int ksu_handle_execveat_sucompat(int \*fd, struct filename \*\*filename_ptr, void \*argv,\n\t\t\t\tvoid \*envp, int \*flags);\n#endif' fs/exec.c
-            sed -i '/return __do_execve_file(fd, filename, argv, envp, flags, NULL);/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\n\tif (susfs_is_sus_su_hooks_enabled)\n\t\tksu_handle_execveat_sucompat(&fd, &filename, &argv, &envp, &flags);\n#endif' fs/exec.c
-
-            # open.c
-            sed -i '/long do_faccessat(int dfd, const char __user \*filename, int mode)/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\nextern bool susfs_is_sus_su_hooks_enabled __read_mostly;\nextern int ksu_handle_faccessat(int \*dfd, const char __user \*\*filename_user, int \*mode,\n\t\t\tint \*flags);\n#endif' fs/open.c
-            sed -i '/if (mode & ~S_IRWXO)/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\n\tif (susfs_is_sus_su_hooks_enabled) {\n\t\tksu_handle_faccessat(&dfd, &filename, &mode, NULL);\n\t}\n#endif' fs/open.c
-
-            # stat.c
-            sed -i '/int vfs_statx(int dfd, const char __user \*filename, int flags,/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\nextern bool susfs_is_sus_su_hooks_enabled __read_mostly;\nextern int ksu_handle_stat(int \*dfd, const char __user \*\*filename_user, int \*flags);\n#endif' fs/stat.c
-            sed -i '/if ((flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\n\tif (susfs_is_sus_su_hooks_enabled) {\n\t\tksu_handle_stat(&dfd, &filename, &flags);\n\t}\n#endif' fs/stat.c
-
-            # inode.c
-            sed -i '/if (dentry->d_sb->s_magic != DEVPTS_SUPER_MAGIC)/i \#ifdef CONFIG_KSU_SUSFS_SUS_SU\n\tif (likely(ksu_devpts_hook)) {\n\t\tksu_handle_devpts(dentry->d_inode);\n\t}\n#endif' fs/devpts/inode.c
-
-          fi
-
           # Upgrade 1.5.7
           cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
 
           patch -p1 < susfs_upgrade_to_157.patch || true
 
           # Upgrade 1.5.8
-          cp /tmp/Patches/Patch/susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
-
-          patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch || true
+          if grep -q "CONFIG_KSU" "fs/exec.c"; then
+            cp /tmp/Patches/Patch/susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
+            patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch || true
+            echo "Cannot detected no-kprobe hook, use no-kprobe patch."
+          elif [[ "${{ env.KERNEL_VERSION }}" == "5.4" ]]; then
+            cp /tmp/Patches/Patch/susfs_upgrade_to_158_5.4_kprobe.patch ./
+            patch -p1 < susfs_upgrade_to_158_5.4_kprobe.patch || true
+            echo "Cannot detected kprobe hook in kernel 5.4, use kprobe patch."
+          else
+            echo "kernel version<5.4 cannot use kprobe patch."
+          fi
 
           # Extra SUSFS Patch
           # cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./

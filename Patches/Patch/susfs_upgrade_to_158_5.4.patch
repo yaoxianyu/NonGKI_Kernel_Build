@@ -1,7 +1,7 @@
-diff --git a/hyper_a14_mi11_bak/fs/dcache.c b/hyper_a14_mi11/fs/dcache.c
+diff --git a/fs/dcache.c b/fs/dcache.c
 index ceffbdc..e5cc0d0 100644
---- a/hyper_a14_mi11_bak/fs/dcache.c
-+++ b/hyper_a14_mi11/fs/dcache.c
+--- a/fs/dcache.c
++++ b/fs/dcache.c
 @@ -32,9 +32,6 @@
  #include <linux/bit_spinlock.h>
  #include <linux/rculist_bl.h>
@@ -37,10 +37,10 @@ index ceffbdc..e5cc0d0 100644
  		spin_lock(&dentry->d_lock);
  		if (dentry->d_parent != parent)
  			goto next;
-diff --git a/hyper_a14_mi11_bak/fs/exec.c b/hyper_a14_mi11/fs/exec.c
+diff --git a/fs/exec.c b/fs/exec.c
 index d4f0d14..5a12263 100644
---- a/hyper_a14_mi11_bak/fs/exec.c
-+++ b/hyper_a14_mi11/fs/exec.c
+--- a/fs/exec.c
++++ b/fs/exec.c
 @@ -1916,8 +1916,9 @@ static int do_execveat_common(int fd, struct filename *filename,
  			      int flags)
  {
@@ -52,10 +52,10 @@ index d4f0d14..5a12263 100644
  #endif
  	return __do_execve_file(fd, filename, argv, envp, flags, NULL);
  }
-diff --git a/hyper_a14_mi11_bak/fs/namei.c b/hyper_a14_mi11/fs/namei.c
+diff --git a/fs/namei.c b/fs/namei.c
 index ec86acb..05bffae 100644
---- a/hyper_a14_mi11_bak/fs/namei.c
-+++ b/hyper_a14_mi11/fs/namei.c
+--- a/fs/namei.c
++++ b/fs/namei.c
 @@ -50,6 +50,15 @@
  #define CREATE_TRACE_POINTS
  #include <trace/events/namei.h>
@@ -456,10 +456,10 @@ index ec86acb..05bffae 100644
  	nd->flags &= ~LOOKUP_PARENT;
  	nd->flags |= op->intent;
  
-diff --git a/hyper_a14_mi11_bak/fs/open.c b/hyper_a14_mi11/fs/open.c
+diff --git a/fs/open.c b/fs/open.c
 index 2fd9ace..06243f2 100644
---- a/hyper_a14_mi11_bak/fs/open.c
-+++ b/hyper_a14_mi11/fs/open.c
+--- a/fs/open.c
++++ b/fs/open.c
 @@ -362,7 +362,7 @@ long do_faccessat(int dfd, const char __user *filename, int mode)
  	unsigned int lookup_flags = LOOKUP_FOLLOW;
  
@@ -469,10 +469,10 @@ index 2fd9ace..06243f2 100644
  		ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
  	}
  #endif
-diff --git a/hyper_a14_mi11_bak/fs/overlayfs/inode.c b/hyper_a14_mi11/fs/overlayfs/inode.c
+diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 index e440bad..f51a51c 100644
---- a/hyper_a14_mi11_bak/fs/overlayfs/inode.c
-+++ b/hyper_a14_mi11/fs/overlayfs/inode.c
+--- a/fs/overlayfs/inode.c
++++ b/fs/overlayfs/inode.c
 @@ -152,16 +152,6 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
  	bool metacopy_blocks = false;
  
@@ -490,10 +490,10 @@ index e440bad..f51a51c 100644
  	type = ovl_path_real(dentry, &realpath);
  	old_cred = ovl_override_creds(dentry->d_sb);
  	err = vfs_getattr(&realpath, stat, request_mask, flags);
-diff --git a/hyper_a14_mi11_bak/fs/overlayfs/readdir.c b/hyper_a14_mi11/fs/overlayfs/readdir.c
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
 index 6a46133..816a14f 100644
---- a/hyper_a14_mi11_bak/fs/overlayfs/readdir.c
-+++ b/hyper_a14_mi11/fs/overlayfs/readdir.c
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
 @@ -892,19 +892,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
  	if (!od)
  		return -ENOMEM;
@@ -515,10 +515,10 @@ index 6a46133..816a14f 100644
  	realfile = ovl_path_open(&realpath, file->f_flags);
  	if (IS_ERR(realfile)) {
  		kfree(od);
-diff --git a/hyper_a14_mi11_bak/fs/overlayfs/super.c b/hyper_a14_mi11/fs/overlayfs/super.c
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 index a8a1c52..093af1d 100644
---- a/hyper_a14_mi11_bak/fs/overlayfs/super.c
-+++ b/hyper_a14_mi11/fs/overlayfs/super.c
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
 @@ -302,18 +302,6 @@ static int ovl_statfs(struct dentry *dentry, struct kstatfs *buf)
  	struct path path;
  	int err;
@@ -538,10 +538,10 @@ index a8a1c52..093af1d 100644
  	ovl_path_real(root_dentry, &path);
  
  	err = vfs_statfs(&path, buf);
-diff --git a/hyper_a14_mi11_bak/fs/proc_namespace.c b/hyper_a14_mi11/fs/proc_namespace.c
+diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
 index 6c5839e..ba1cf0f 100644
---- a/hyper_a14_mi11_bak/fs/proc_namespace.c
-+++ b/hyper_a14_mi11/fs/proc_namespace.c
+--- a/fs/proc_namespace.c
++++ b/fs/proc_namespace.c
 @@ -21,6 +21,11 @@
  #include "pnode.h"
  #include "internal.h"
@@ -584,10 +584,10 @@ index 6c5839e..ba1cf0f 100644
  		return 0;
  #endif
  
-diff --git a/hyper_a14_mi11_bak/fs/readdir.c b/hyper_a14_mi11/fs/readdir.c
+diff --git a/fs/readdir.c b/fs/readdir.c
 index 29b8e88..f078481 100644
---- a/hyper_a14_mi11_bak/fs/readdir.c
-+++ b/hyper_a14_mi11/fs/readdir.c
+--- a/fs/readdir.c
++++ b/fs/readdir.c
 @@ -23,6 +23,11 @@
  #include <linux/uaccess.h>
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -999,10 +999,10 @@ index 29b8e88..f078481 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (error >= 0)
  		error = buf.error;
-diff --git a/hyper_a14_mi11_bak/fs/stat.c b/hyper_a14_mi11/fs/stat.c
+diff --git a/fs/stat.c b/fs/stat.c
 index 9ca1a80..f9680b1 100644
---- a/hyper_a14_mi11_bak/fs/stat.c
-+++ b/hyper_a14_mi11/fs/stat.c
+--- a/fs/stat.c
++++ b/fs/stat.c
 @@ -197,7 +197,7 @@ int vfs_statx(int dfd, const char __user *filename, int flags,
  	unsigned int lookup_flags = LOOKUP_FOLLOW | LOOKUP_AUTOMOUNT;
  
@@ -1012,10 +1012,10 @@ index 9ca1a80..f9680b1 100644
  		ksu_handle_stat(&dfd, &filename, &flags);
  	}
  #endif
-diff --git a/hyper_a14_mi11_bak/fs/statfs.c b/hyper_a14_mi11/fs/statfs.c
+diff --git a/fs/statfs.c b/fs/statfs.c
 index 1e8c828..df3de23 100644
---- a/hyper_a14_mi11_bak/fs/statfs.c
-+++ b/hyper_a14_mi11/fs/statfs.c
+--- a/fs/statfs.c
++++ b/fs/statfs.c
 @@ -123,22 +123,6 @@ retry:
  			goto retry;
  		}
@@ -1052,10 +1052,10 @@ index 1e8c828..df3de23 100644
  	return error;
  }
  
-diff --git a/hyper_a14_mi11_bak/fs/susfs.c b/hyper_a14_mi11/fs/susfs.c
+diff --git a/fs/susfs.c b/fs/susfs.c
 index 2d95768..5c6ba87 100644
---- a/hyper_a14_mi11_bak/fs/susfs.c
-+++ b/hyper_a14_mi11/fs/susfs.c
+--- a/fs/susfs.c
++++ b/fs/susfs.c
 @@ -13,6 +13,7 @@
  #include <linux/version.h>
  #include <linux/fdtable.h>
@@ -1458,10 +1458,10 @@ index 2d95768..5c6ba87 100644
  	inode = d_inode(p.dentry);
  	if (!inode) {
  		path_put(&p);
-diff --git a/hyper_a14_mi11_bak/include/linux/susfs.h b/hyper_a14_mi11/include/linux/susfs.h
+diff --git a/include/linux/susfs.h b/include/linux/susfs.h
 index 76382cd..5360825 100644
---- a/hyper_a14_mi11_bak/include/linux/susfs.h
-+++ b/hyper_a14_mi11/include/linux/susfs.h
+--- a/include/linux/susfs.h
++++ b/include/linux/susfs.h
 @@ -8,7 +8,7 @@
  #include <linux/path.h>
  #include <linux/susfs_def.h>
@@ -1509,10 +1509,10 @@ index 76382cd..5360825 100644
  #endif
  /* sus_mount */
  #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-diff --git a/hyper_a14_mi11_bak/include/linux/susfs_def.h b/hyper_a14_mi11/include/linux/susfs_def.h
+diff --git a/include/linux/susfs_def.h b/include/linux/susfs_def.h
 index 7442047..aec9b96 100644
---- a/hyper_a14_mi11_bak/include/linux/susfs_def.h
-+++ b/hyper_a14_mi11/include/linux/susfs_def.h
+--- a/include/linux/susfs_def.h
++++ b/include/linux/susfs_def.h
 @@ -8,7 +8,10 @@
  /********/
  /* shared with userspace ksu_susfs tool */

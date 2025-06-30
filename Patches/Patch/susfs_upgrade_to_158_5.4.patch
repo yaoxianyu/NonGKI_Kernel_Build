@@ -1,7 +1,7 @@
-diff --git a/fs/dcache.c b/fs/dcache.c
+diff --git a/hyper_a14_mi11_bak/fs/dcache.c b/hyper_a14_mi11/fs/dcache.c
 index ceffbdc..e5cc0d0 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
+--- a/hyper_a14_mi11_bak/fs/dcache.c
++++ b/hyper_a14_mi11/fs/dcache.c
 @@ -32,9 +32,6 @@
  #include <linux/bit_spinlock.h>
  #include <linux/rculist_bl.h>
@@ -37,10 +37,25 @@ index ceffbdc..e5cc0d0 100644
  		spin_lock(&dentry->d_lock);
  		if (dentry->d_parent != parent)
  			goto next;
-diff --git a/fs/namei.c b/fs/namei.c
+diff --git a/hyper_a14_mi11_bak/fs/exec.c b/hyper_a14_mi11/fs/exec.c
+index d4f0d14..5a12263 100644
+--- a/hyper_a14_mi11_bak/fs/exec.c
++++ b/hyper_a14_mi11/fs/exec.c
+@@ -1916,8 +1916,9 @@ static int do_execveat_common(int fd, struct filename *filename,
+ 			      int flags)
+ {
+ #ifdef CONFIG_KSU_SUSFS_SUS_SU
+-	if (susfs_is_sus_su_hooks_enabled)
++	if (likely(susfs_is_sus_su_hooks_enabled)) {
+ 		ksu_handle_execveat_sucompat(&fd, &filename, &argv, &envp, &flags);
++	}
+ #endif
+ 	return __do_execve_file(fd, filename, argv, envp, flags, NULL);
+ }
+diff --git a/hyper_a14_mi11_bak/fs/namei.c b/hyper_a14_mi11/fs/namei.c
 index ec86acb..05bffae 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
+--- a/hyper_a14_mi11_bak/fs/namei.c
++++ b/hyper_a14_mi11/fs/namei.c
 @@ -50,6 +50,15 @@
  #define CREATE_TRACE_POINTS
  #include <trace/events/namei.h>
@@ -441,10 +456,23 @@ index ec86acb..05bffae 100644
  	nd->flags &= ~LOOKUP_PARENT;
  	nd->flags |= op->intent;
  
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
+diff --git a/hyper_a14_mi11_bak/fs/open.c b/hyper_a14_mi11/fs/open.c
+index 2fd9ace..06243f2 100644
+--- a/hyper_a14_mi11_bak/fs/open.c
++++ b/hyper_a14_mi11/fs/open.c
+@@ -362,7 +362,7 @@ long do_faccessat(int dfd, const char __user *filename, int mode)
+ 	unsigned int lookup_flags = LOOKUP_FOLLOW;
+ 
+ #ifdef CONFIG_KSU_SUSFS_SUS_SU
+-	if (susfs_is_sus_su_hooks_enabled) {
++	if (likely(susfs_is_sus_su_hooks_enabled)) {
+ 		ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
+ 	}
+ #endif
+diff --git a/hyper_a14_mi11_bak/fs/overlayfs/inode.c b/hyper_a14_mi11/fs/overlayfs/inode.c
 index e440bad..f51a51c 100644
---- a/fs/overlayfs/inode.c
-+++ b/fs/overlayfs/inode.c
+--- a/hyper_a14_mi11_bak/fs/overlayfs/inode.c
++++ b/hyper_a14_mi11/fs/overlayfs/inode.c
 @@ -152,16 +152,6 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
  	bool metacopy_blocks = false;
  
@@ -462,10 +490,10 @@ index e440bad..f51a51c 100644
  	type = ovl_path_real(dentry, &realpath);
  	old_cred = ovl_override_creds(dentry->d_sb);
  	err = vfs_getattr(&realpath, stat, request_mask, flags);
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+diff --git a/hyper_a14_mi11_bak/fs/overlayfs/readdir.c b/hyper_a14_mi11/fs/overlayfs/readdir.c
 index 6a46133..816a14f 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
+--- a/hyper_a14_mi11_bak/fs/overlayfs/readdir.c
++++ b/hyper_a14_mi11/fs/overlayfs/readdir.c
 @@ -892,19 +892,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
  	if (!od)
  		return -ENOMEM;
@@ -487,10 +515,10 @@ index 6a46133..816a14f 100644
  	realfile = ovl_path_open(&realpath, file->f_flags);
  	if (IS_ERR(realfile)) {
  		kfree(od);
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+diff --git a/hyper_a14_mi11_bak/fs/overlayfs/super.c b/hyper_a14_mi11/fs/overlayfs/super.c
 index a8a1c52..093af1d 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
+--- a/hyper_a14_mi11_bak/fs/overlayfs/super.c
++++ b/hyper_a14_mi11/fs/overlayfs/super.c
 @@ -302,18 +302,6 @@ static int ovl_statfs(struct dentry *dentry, struct kstatfs *buf)
  	struct path path;
  	int err;
@@ -510,10 +538,10 @@ index a8a1c52..093af1d 100644
  	ovl_path_real(root_dentry, &path);
  
  	err = vfs_statfs(&path, buf);
-diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
+diff --git a/hyper_a14_mi11_bak/fs/proc_namespace.c b/hyper_a14_mi11/fs/proc_namespace.c
 index 6c5839e..ba1cf0f 100644
---- a/fs/proc_namespace.c
-+++ b/fs/proc_namespace.c
+--- a/hyper_a14_mi11_bak/fs/proc_namespace.c
++++ b/hyper_a14_mi11/fs/proc_namespace.c
 @@ -21,6 +21,11 @@
  #include "pnode.h"
  #include "internal.h"
@@ -556,10 +584,10 @@ index 6c5839e..ba1cf0f 100644
  		return 0;
  #endif
  
-diff --git a/fs/readdir.c b/fs/readdir.c
+diff --git a/hyper_a14_mi11_bak/fs/readdir.c b/hyper_a14_mi11/fs/readdir.c
 index 29b8e88..f078481 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
+--- a/hyper_a14_mi11_bak/fs/readdir.c
++++ b/hyper_a14_mi11/fs/readdir.c
 @@ -23,6 +23,11 @@
  #include <linux/uaccess.h>
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -971,10 +999,23 @@ index 29b8e88..f078481 100644
  	error = iterate_dir(f.file, &buf.ctx);
  	if (error >= 0)
  		error = buf.error;
-diff --git a/fs/statfs.c b/fs/statfs.c
+diff --git a/hyper_a14_mi11_bak/fs/stat.c b/hyper_a14_mi11/fs/stat.c
+index 9ca1a80..f9680b1 100644
+--- a/hyper_a14_mi11_bak/fs/stat.c
++++ b/hyper_a14_mi11/fs/stat.c
+@@ -197,7 +197,7 @@ int vfs_statx(int dfd, const char __user *filename, int flags,
+ 	unsigned int lookup_flags = LOOKUP_FOLLOW | LOOKUP_AUTOMOUNT;
+ 
+ #ifdef CONFIG_KSU_SUSFS_SUS_SU
+-	if (susfs_is_sus_su_hooks_enabled) {
++	if (likely(susfs_is_sus_su_hooks_enabled)) {
+ 		ksu_handle_stat(&dfd, &filename, &flags);
+ 	}
+ #endif
+diff --git a/hyper_a14_mi11_bak/fs/statfs.c b/hyper_a14_mi11/fs/statfs.c
 index 1e8c828..df3de23 100644
---- a/fs/statfs.c
-+++ b/fs/statfs.c
+--- a/hyper_a14_mi11_bak/fs/statfs.c
++++ b/hyper_a14_mi11/fs/statfs.c
 @@ -123,22 +123,6 @@ retry:
  			goto retry;
  		}
@@ -1011,156 +1052,10 @@ index 1e8c828..df3de23 100644
  	return error;
  }
  
-diff --git a/fs/sus_su.c b_bak/fs/sus_su.c
-deleted file mode 100644
-index d140468..0000000
---- a/fs/sus_su.c
-+++ /dev/null
-@@ -1,140 +0,0 @@
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/fs.h>
--#include <linux/uaccess.h>
--#include <linux/cdev.h>
--#include <linux/random.h>
--#include <linux/cred.h>
--#include <linux/sus_su.h>
--
--#ifdef CONFIG_KSU_SUSFS_ENABLE_LOG
--extern bool susfs_is_log_enabled __read_mostly;
--#define SUSFS_LOGI(fmt, ...) if (susfs_is_log_enabled) pr_info("susfs_sus_su:[%u][%u][%s] " fmt, current_uid().val, current->pid, __func__, ##__VA_ARGS__)
--#define SUSFS_LOGE(fmt, ...) if (susfs_is_log_enabled) pr_err("susfs_sus_su:[%u][%u][%s]" fmt, current_uid().val, current->pid, __func__, ##__VA_ARGS__)
--#else
--#define SUSFS_LOGI(fmt, ...)
--#define SUSFS_LOGE(fmt, ...)
--#endif
--
--#define FIFO_SIZE 1024
--#define MAX_DRV_NAME 255
--
--static int cur_maj_dev_num = -1;
--static char fifo_buffer[FIFO_SIZE];
--static struct cdev sus_su_cdev;
--static const char *sus_su_token = "!@#$SU_IS_SUS$#@!-pRE6W9BKXrJr1hEKyvDq0CvWziVKbatT8yzq06fhtrEGky2tVS7Q2QTjhtMfVMGV";
--static char rand_drv_path[MAX_DRV_NAME+1] = "/dev/";
--static bool is_sus_su_enabled_before = false;
--
--extern bool susfs_is_allow_su(void);
--extern void ksu_escape_to_root(void);
--
--static void gen_rand_drv_name(char *buffer, size_t min_length, size_t max_length) {
--    const char *symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-+@#:=";
--    size_t symbols_length = strlen(symbols);
--    size_t length, i;
--    unsigned int rand_value;
--
--    // Determine the random length of the string
--    get_random_bytes(&rand_value, sizeof(rand_value));
--    length = min_length + (rand_value % (max_length - min_length + 1));
--
--    for (i = 0; i < length; ++i) {
--        get_random_bytes(&rand_value, sizeof(rand_value));
--        buffer[i] = symbols[rand_value % symbols_length];
--    }
--    buffer[length] = '\0'; // Null-terminate the string
--}
--
--static int fifo_open(struct inode *inode, struct file *file) {
--    return 0;
--}
--
--static int fifo_release(struct inode *inode, struct file *file) {
--    return 0;
--}
--
--static ssize_t fifo_read(struct file *file, char __user *buf, size_t len, loff_t *offset) {
--    return 0;
--}
--
--static ssize_t fifo_write(struct file *file, const char __user *buf, size_t len, loff_t *offset) {
--    int sus_su_token_len = strlen(sus_su_token);
--
--    if (!susfs_is_allow_su()) {
--        SUSFS_LOGE("root is not allowed for uid: '%d', pid: '%d'\n", current_uid().val, current->pid);
--        return 0;
--    }
--
--    if (copy_from_user(fifo_buffer, buf, sus_su_token_len+1)) {
--        SUSFS_LOGE("copy_from_user() failed, uid: '%d', pid: '%d'\n", current_uid().val, current->pid);
--        return 0;
--    }
--
--    if (!memcmp(fifo_buffer, sus_su_token, sus_su_token_len+1)) {
--        SUSFS_LOGI("granting root access for uid: '%d', pid: '%d'\n", current_uid().val, current->pid);
--        ksu_escape_to_root();
--    } else {
--        SUSFS_LOGI("wrong token! deny root access for uid: '%d', pid: '%d'\n", current_uid().val, current->pid);
--    }
--    memset(fifo_buffer, 0, FIFO_SIZE);
--    return 0;
--}
--
--static struct file_operations fops = {
--    .owner = THIS_MODULE,
--    .open = fifo_open,
--    .release = fifo_release,
--    .read = fifo_read,
--    .write = fifo_write,
--};
--
--int sus_su_fifo_init(int *maj_dev_num, char *drv_path) {
--    if (cur_maj_dev_num > 0) {
--        SUSFS_LOGE("'%s' is already registered\n", rand_drv_path);
--        return -1;
--    }
--
--    // generate a random driver name if it is executed for the first time
--    if (!is_sus_su_enabled_before) {
--        // min length 192, max length 248, just make sure max length doesn't exceeds 255
--        gen_rand_drv_name(rand_drv_path+5, 192, 248);
--    }
--
--    cur_maj_dev_num = register_chrdev(0, rand_drv_path+5, &fops);
--    if (cur_maj_dev_num < 0) {
--        SUSFS_LOGE("Failed to register character device\n");
--        return -1;
--    }
--
--    cdev_init(&sus_su_cdev, &fops);
--    if (cdev_add(&sus_su_cdev, MKDEV(cur_maj_dev_num, 0), 1) < 0) {
--        unregister_chrdev(cur_maj_dev_num, rand_drv_path+5);
--        SUSFS_LOGE("Failed to add cdev\n");
--        return -1;
--    }
--
--    strncpy(drv_path, rand_drv_path, strlen(rand_drv_path));
--    *maj_dev_num = cur_maj_dev_num;
--    SUSFS_LOGI("'%s' registered with major device number %d\n", rand_drv_path, cur_maj_dev_num);
--    
--    if (!is_sus_su_enabled_before)
--        is_sus_su_enabled_before = true;
--
--    return 0;
--}
--
--int sus_su_fifo_exit(int *maj_dev_num, char *drv_path) {
--    if (cur_maj_dev_num < 0) {
--        SUSFS_LOGE("'%s' was already unregistered before\n", rand_drv_path);
--        return 0;
--    }
--
--    cdev_del(&sus_su_cdev);
--    unregister_chrdev(cur_maj_dev_num, rand_drv_path+5);
--    cur_maj_dev_num = -1;
--    *maj_dev_num = cur_maj_dev_num;
--    strncpy(drv_path, rand_drv_path, strlen(rand_drv_path));
--    SUSFS_LOGI("'%s' unregistered\n", rand_drv_path);
--    return 0;
--}
-diff --git a/fs/susfs.c b/fs/susfs.c
-index 2d95768..5e32604 100644
---- a/fs/susfs.c
-+++ b/fs/susfs.c
+diff --git a/hyper_a14_mi11_bak/fs/susfs.c b/hyper_a14_mi11/fs/susfs.c
+index 2d95768..5c6ba87 100644
+--- a/hyper_a14_mi11_bak/fs/susfs.c
++++ b/hyper_a14_mi11/fs/susfs.c
 @@ -13,6 +13,7 @@
  #include <linux/version.h>
  #include <linux/fdtable.h>
@@ -1228,15 +1123,15 @@ index 2d95768..5e32604 100644
 +	if (err < 0) {
 +		SUSFS_LOGE("failed copying from userspace\n");
 +		goto out_kfree_tmp_buf;
- 	}
- 
--	if (!(inode->i_state & INODE_STATE_SUS_PATH)) {
++	}
++
 +	err = kern_path(info, LOOKUP_FOLLOW, &path);
 +	if (err) {
 +		SUSFS_LOGE("Failed opening file '%s'\n", info);
 +		goto out_kfree_tmp_buf;
-+	}
-+
+ 	}
+ 
+-	if (!(inode->i_state & INODE_STATE_SUS_PATH)) {
 +	resolved_pathname = d_path(&path, tmp_buf, PAGE_SIZE);
 +	if (!resolved_pathname) {
 +		err = -ENOMEM;
@@ -1493,7 +1388,7 @@ index 2d95768..5e32604 100644
 +		}
 +	}
 +	return false;
-+}
+ }
 +
 +bool susfs_is_sus_sdcard_d_name_found(const char *d_name) {
 +	struct st_susfs_sus_path_list *cursor = NULL, *temp = NULL;
@@ -1542,7 +1437,7 @@ index 2d95768..5e32604 100644
 +		return true;
 +	}
 +	return false;
- }
++}
 +#endif
 +
  #endif // #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -1563,92 +1458,10 @@ index 2d95768..5e32604 100644
  	inode = d_inode(p.dentry);
  	if (!inode) {
  		path_put(&p);
-@@ -841,66 +1034,6 @@ struct filename* susfs_get_redirected_path(unsigned long ino) {
- }
- #endif // #ifdef CONFIG_KSU_SUSFS_OPEN_REDIRECT
- 
--/* sus_su */
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--bool susfs_is_sus_su_hooks_enabled __read_mostly = false;
--static int susfs_sus_su_working_mode = 0;
--extern void ksu_susfs_enable_sus_su(void);
--extern void ksu_susfs_disable_sus_su(void);
--
--int susfs_get_sus_su_working_mode(void) {
--	return susfs_sus_su_working_mode;
--}
--
--int susfs_sus_su(struct st_sus_su* __user user_info) {
--	struct st_sus_su info;
--	int last_working_mode = susfs_sus_su_working_mode;
--
--	if (copy_from_user(&info, user_info, sizeof(struct st_sus_su))) {
--		SUSFS_LOGE("failed copying from userspace\n");
--		return 1;
--	}
--
--	if (info.mode == SUS_SU_WITH_HOOKS) {
--		if (last_working_mode == SUS_SU_WITH_HOOKS) {
--			SUSFS_LOGE("current sus_su mode is already %d\n", SUS_SU_WITH_HOOKS);
--			return 1;
--		}
--		if (last_working_mode != SUS_SU_DISABLED) {
--			SUSFS_LOGE("please make sure the current sus_su mode is %d first\n", SUS_SU_DISABLED);
--			return 2;
--		}
--		ksu_susfs_enable_sus_su();
--		susfs_sus_su_working_mode = SUS_SU_WITH_HOOKS;
--		susfs_is_sus_su_hooks_enabled = true;
--		SUSFS_LOGI("core kprobe hooks for ksu are disabled!\n");
--		SUSFS_LOGI("non-kprobe hook sus_su is enabled!\n");
--		SUSFS_LOGI("sus_su mode: %d\n", SUS_SU_WITH_HOOKS);
--		return 0;
--	} else if (info.mode == SUS_SU_DISABLED) {
--		if (last_working_mode == SUS_SU_DISABLED) {
--			SUSFS_LOGE("current sus_su mode is already %d\n", SUS_SU_DISABLED);
--			return 1;
--		}
--		susfs_is_sus_su_hooks_enabled = false;
--		ksu_susfs_disable_sus_su();
--		susfs_sus_su_working_mode = SUS_SU_DISABLED;
--		if (last_working_mode == SUS_SU_WITH_HOOKS) {
--			SUSFS_LOGI("core kprobe hooks for ksu are enabled!\n");
--			goto out;
--		}
--out:
--		if (copy_to_user(user_info, &info, sizeof(info)))
--			SUSFS_LOGE("copy_to_user() failed\n");
--		return 0;
--	} else if (info.mode == SUS_SU_WITH_OVERLAY) {
--		SUSFS_LOGE("sus_su mode %d is deprecated\n", SUS_SU_WITH_OVERLAY);
--		return 1;
--	}
--	return 1;
--}
--#endif // #ifdef CONFIG_KSU_SUSFS_SUS_SU
--
- /* susfs_init */
- void susfs_init(void) {
- 	spin_lock_init(&susfs_spin_lock);
-diff --git a/include/linux/sus_su.h b_bak/include/linux/sus_su.h
-deleted file mode 100644
-index 98e8f3b..0000000
---- a/include/linux/sus_su.h
-+++ /dev/null
-@@ -1,9 +0,0 @@
--#ifndef __KSU_H_SUS_SU
--#define __KSU_H_SUS_SU
--
--#include "../../drivers/kernelsu/core_hook.h"
--
--int sus_su_fifo_init(int *maj_dev_num, char *drv_path);
--int sus_su_fifo_exit(int *maj_dev_num, char *drv_path);
--
--#endif
-diff --git a/include/linux/susfs.h b/include/linux/susfs.h
-index 76382cd..85ceaf9 100644
---- a/include/linux/susfs.h
-+++ b/include/linux/susfs.h
+diff --git a/hyper_a14_mi11_bak/include/linux/susfs.h b/hyper_a14_mi11/include/linux/susfs.h
+index 76382cd..5360825 100644
+--- a/hyper_a14_mi11_bak/include/linux/susfs.h
++++ b/hyper_a14_mi11/include/linux/susfs.h
 @@ -8,7 +8,7 @@
  #include <linux/path.h>
  #include <linux/susfs_def.h>
@@ -1686,19 +1499,7 @@ index 76382cd..85ceaf9 100644
  };
  #endif
  
-@@ -115,20 +127,13 @@ struct st_susfs_open_redirect_hlist {
- };
- #endif
- 
--/* sus_su */
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--struct st_sus_su {
--	int         mode;
--};
--#endif
--
- /***********************/
- /* FORWARD DECLARATION */
+@@ -127,8 +139,8 @@ struct st_sus_su {
  /***********************/
  /* sus_path */
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
@@ -1708,22 +1509,10 @@ index 76382cd..85ceaf9 100644
  #endif
  /* sus_mount */
  #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-@@ -175,11 +180,6 @@ int susfs_spoof_cmdline_or_bootconfig(struct seq_file *m);
- int susfs_add_open_redirect(struct st_susfs_open_redirect* __user user_info);
- struct filename* susfs_get_redirected_path(unsigned long ino);
- #endif
--/* sus_su */
--#ifdef CONFIG_KSU_SUSFS_SUS_SU
--int susfs_get_sus_su_working_mode(void);
--int susfs_sus_su(struct st_sus_su* __user user_info);
--#endif
- /* susfs_init */
- void susfs_init(void);
- 
-diff --git a/include/linux/susfs_def.h b/include/linux/susfs_def.h
-index 7442047..1ac0e52 100644
---- a/include/linux/susfs_def.h
-+++ b/include/linux/susfs_def.h
+diff --git a/hyper_a14_mi11_bak/include/linux/susfs_def.h b/hyper_a14_mi11/include/linux/susfs_def.h
+index 7442047..aec9b96 100644
+--- a/hyper_a14_mi11_bak/include/linux/susfs_def.h
++++ b/hyper_a14_mi11/include/linux/susfs_def.h
 @@ -8,7 +8,10 @@
  /********/
  /* shared with userspace ksu_susfs tool */
@@ -1735,28 +1524,7 @@ index 7442047..1ac0e52 100644
  #define CMD_SUSFS_ADD_SUS_KSTAT 0x55570
  #define CMD_SUSFS_UPDATE_SUS_KSTAT 0x55571
  #define CMD_SUSFS_ADD_SUS_KSTAT_STATICALLY 0x55572
-@@ -21,9 +24,6 @@
- #define CMD_SUSFS_SHOW_VERSION 0x555e1
- #define CMD_SUSFS_SHOW_ENABLED_FEATURES 0x555e2
- #define CMD_SUSFS_SHOW_VARIANT 0x555e3
--#define CMD_SUSFS_SHOW_SUS_SU_WORKING_MODE 0x555e4
--#define CMD_SUSFS_IS_SUS_SU_READY 0x555f0
--#define CMD_SUSFS_SUS_SU 0x60000
- 
- #define SUSFS_MAX_LEN_PATHNAME 256 // 256 should address many paths already unless you are doing some strange experimental stuff, then set your own desired length
- #define SUSFS_FAKE_CMDLINE_OR_BOOTCONFIG_SIZE 4096
-@@ -31,10 +31,6 @@
- #define TRY_UMOUNT_DEFAULT 0 /* used by susfs_try_umount() */
- #define TRY_UMOUNT_DETACH 1 /* used by susfs_try_umount() */
- 
--#define SUS_SU_DISABLED 0
--#define SUS_SU_WITH_OVERLAY 1 /* deprecated */
--#define SUS_SU_WITH_HOOKS 2
--
- #define DEFAULT_SUS_MNT_ID 100000 /* used by mount->mnt_id */
- #define DEFAULT_SUS_MNT_ID_FOR_KSU_PROC_UNSHARE 1000000 /* used by vfsmount->susfs_mnt_id_backup */
- #define DEFAULT_SUS_MNT_GROUP_ID 1000 /* used by mount->mnt_group_id */
-@@ -53,6 +49,16 @@
+@@ -53,6 +56,16 @@
  
  #define TASK_STRUCT_NON_ROOT_USER_APP_PROC BIT(24)
  

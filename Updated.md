@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 40**
+    - 切换 小米11 Ultra HOOK_METHOD为none
+
 - **Ver.1.5 Fixed 39**
     - 增加 示例YAML文件 有关ZYGOTE_ISO_SERVICE编译错误修复方式
     - 修正 小米11 Ultra 有关ZYGOTE_ISO_SERVICE编译错误修复方式

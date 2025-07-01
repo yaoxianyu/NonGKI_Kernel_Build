@@ -149,6 +149,9 @@ jobs:
 
       # Get the Latest Tag from GitHub
       - name: Generate and Create New Tag
+        permissions:
+          contents: write
+          workflows: write
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

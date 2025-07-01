@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 38**
+    - 切换 小米11 Ultra HOOK_METHOD为syscall
+    - 修正 支持列表 小米11 Ultra 部分参数
+
 - **Ver.1.5 Fixed 37**
     - 切换 小米11 Ultra KernelSU分支版本
 

@@ -1,4 +1,4 @@
-name: Build Kernel Template (Cannot be used for compilation directly)
+name: Build Kernel Xiaomi 11 Ultra (HyperOS A14) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:

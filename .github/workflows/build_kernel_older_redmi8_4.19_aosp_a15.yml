@@ -16,10 +16,10 @@ env:
   KPM_FIX: "true" # Fix Error When Enabling KPM.
   KPM_PATCH_SOURCE: "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU_patch/refs/heads/main/kpm/patch_linux" # patch exec file source -> raw.githubusercontent.com/Test/Test/patch .
   GENERATE_DTB: "false" # if u kernel need DTB , but cannot auto generate it. (Only Anykernel3).
-  GENERATE_CHIP: "xiaomi-sdm439" # only supported for qcom and mediatek.
+  GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
   BUILD_DEBUGGER: "false" # Output build errors.
   SKIP_PATCH: "true" # Ignore errors found in Patch Debugger.
-  BUILD_OTHER_CONFIG: "false" # Merge config files.
+  BUILD_OTHER_CONFIG: "true" # Merge config files.
   REKERNEL_ENABLE: "true" # if u need Re:Kernel.
 
 
@@ -467,7 +467,6 @@ jobs:
                fi
             else
               echo "please input vaild option!"
-              false
             fi
           fi
 
@@ -571,14 +570,19 @@ jobs:
             echo "Your kernel not supported it."
           fi
 
+          # Fixed Patches
+          cp cp NonGKI_Kernel_Patches/redmi_8_419/rekernel_fixed.patch ./
+
+          patch -p1 < rekernel_fixed.patch
+
       - name: Fixed Kernel Patch
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp NonGKI_Kernel_Patches/redmi_8_419/task_mmu_fixed.patch ./
-          
-          patch -p1 < task_mmu_fixed.patch
+          cp NonGKI_Kernel_Patches/redmi_8_419/susfs_155_fixed.patch ./
+
+          patch -p1 < susfs_155_fixed.patch || true
 
       - name: Updated SUSFS Version
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
@@ -638,7 +642,7 @@ jobs:
       - name: Build Kernel
         shell: bash
         run: |
-          MERGE_CONFIG_FILES=("vendor/debugfs.config" "vendor/lahaina_QGKI.config")
+          MERGE_CONFIG_FILES=("vendor/xiaomi-sdm439.config")
           export PATH=$GITHUB_WORKSPACE/clang-custom/bin:$PATH
           cd $GITHUB_WORKSPACE/device_kernel/
           if [ -z "${{ env.GCC_32 }}" ] && [ -z "${{ env.GCC_64 }}" ]; then
@@ -706,22 +710,6 @@ jobs:
           if grep -q "Error 2" "error.log"; then
             false
           fi
-
-      - name: Upload Build Artifacts For Packing Error
-        if: ${{ always() && env.BUILD_DEBUGGER == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: fs
-          path: |
-            device_kernel/fs
-
-      - name: Upload Build Artifacts For Packing Error 2
-        if: ${{ always() && env.BUILD_DEBUGGER == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: include
-          path: |
-            device_kernel/include
 
       - name: Analyze compile error
         if: ${{ failure() && env.BUILD_DEBUGGER == 'true' }}
@@ -931,14 +919,14 @@ jobs:
         if: env.PACK_METHOD == 'Anykernel3'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PACK_NAME }}
+          name: Kernel-${{ env.PACK_NAME }}
           path: |
-            device_kernel/tmp
+            device_kernel/${{ env.PACK_NAME }}
 
       - name: Upload Build Artifacts For Boot Image
         if: env.PACK_METHOD == 'MKBOOTIMG'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PACK_NAME }}
+          name: Kernel-${{ env.PACK_NAME }}
           path: |
             ${{ env.PACK_NAME }}

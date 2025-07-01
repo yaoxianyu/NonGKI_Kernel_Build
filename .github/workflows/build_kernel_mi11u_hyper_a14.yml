@@ -8,7 +8,7 @@ env:
   KERNELSU_METHOD: "only" # shell, manual and only.
   PATCHES_SOURCE: "JackA1ltman/NonGKI_Kernel_Patches" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
   PATCHES_BRANCH: "mi_kernel" # [your_branch] -> main
-  HOOK_METHOD: "none" # manual hook method,can choice syscall and normal.
+  HOOK_METHOD: "normal" # manual hook method,can choice syscall and normal.
   HOOK_OLDER: "false" # contain backport older patch and syscall older patch.
   PROFILE_NAME: "star_hyper_a14.env" # your profile name.
   KERNELSU_SUS_PATCH: "false" # if u need manual susfs patch to kernelsu.
@@ -56,7 +56,6 @@ jobs:
               KERNELSU_NAME
               SUSFS_ENABLE
               SUSFS_FIXED
-              SUSFS_UPDATE
               AK3_SOURCE
               AK3_BRANCH
               BOOT_SOURCE
@@ -416,7 +415,8 @@ jobs:
                    false
                fi
             else
-              echo "kprobe mode detected."
+              echo "please input vaild option!"
+              false
             fi
           fi
 
@@ -522,36 +522,6 @@ jobs:
 
           patch -p1 < hyperos_a14_fixed.patch || true
 
-      - name: Updated SUSFS Version
-        if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
-        run: |
-          cd $GITHUB_WORKSPACE/device_kernel/
-
-          # Upgrade 1.5.7
-          cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
-
-          patch -p1 < susfs_upgrade_to_157.patch || true
-
-          # Extra SUSFS Patch
-          cp NonGKI_Kernel_Patches/mi11u_hyperos/hyper_susfs_157_fixed.patch ./
-
-          patch -p1 < hyper_susfs_157_fixed.patch || true
-
-          # Upgrade 1.5.8
-          if grep -q "CONFIG_KSU" "fs/exec.c"; then
-            cp /tmp/Patches/Patch/susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
-            patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch || true
-            echo "Detected no-kprobe hook, use no-kprobe patch."
-          elif [[ "${{ env.KERNEL_VERSION }}" == "5.4" ]]; then
-            cp /tmp/Patches/Patch/susfs_upgrade_to_158_5.4_kprobe.patch ./
-            patch -p1 < susfs_upgrade_to_158_5.4_kprobe.patch || true
-            echo "Cannot detected no-kprobe hook in kernel 5.4, use kprobe patch."
-          else
-            echo "kernel version<5.4 cannot use kprobe patch."
-          fi
-          ## Fixed ZYGOTE_ISO error
-          sed -i '/#define CMD_SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS 0x55561/a \#define CMD_SUSFS_UMOUNT_FOR_ZYGOTE_ISO_SERVICE 0x55562' include/linux/susfs_def.h
-
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
@@ -560,7 +530,7 @@ jobs:
 
       - name: Build Kernel
         run: |
-          MERGE_CONFIG_FILES=("vendor/xiaomi_QGKI.config" "vendor/star_QGKI.config" "vendor/debugfs.config")
+          MERGE_CONFIG_FILES=("vendor/xiaomi_QGKI.config" "vendor/star_QGKI.config")
           export PATH=$GITHUB_WORKSPACE/clang-custom/bin:$PATH
           cd $GITHUB_WORKSPACE/device_kernel/
           if [ -z "${{ env.GCC_32 }}" ] && [ -z "${{ env.GCC_64 }}" ]; then

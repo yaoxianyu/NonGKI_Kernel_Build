@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 42**
+    - 重制 红米8 4.19 Older YAML 以及 ENV文件
+    - 撤回 小米11 Ultra YAML 以及 ENV文件 至 commit-223938c54b1121a1ee47c2817b49b1688227d949
+
 - **Ver.1.5 Fixed 41**
     - 移植 红米8 4.19 SuSFS 1.5.8 补丁步骤逻辑
     - 修正 红米8 4.19 额外的syscall补丁执行

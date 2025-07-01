@@ -571,7 +571,7 @@ jobs:
           fi
 
           # Fixed Patches
-          cp cp NonGKI_Kernel_Patches/redmi_8_419/rekernel_fixed.patch ./
+          cp NonGKI_Kernel_Patches/redmi_8_419/rekernel_fixed.patch ./
 
           patch -p1 < rekernel_fixed.patch
 

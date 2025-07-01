@@ -3,6 +3,7 @@ name: Build Controller
 permissions:
   contents: write # Allow writing to repository contents (for pushing tags)
   actions: write # Allows triggering actions
+  workflows: write
 
 on:
   workflow_dispatch:
@@ -149,9 +150,6 @@ jobs:
 
       # Get the Latest Tag from GitHub
       - name: Generate and Create New Tag
-        permissions:
-          contents: write
-          workflows: write
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

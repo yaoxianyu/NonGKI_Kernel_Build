@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 41**
+    - 移植 红米8 4.19 SuSFS 1.5.8 补丁步骤逻辑
+    - 修正 红米8 4.19 额外的syscall补丁执行
+
 - **Ver.1.5 Fixed 40**
     - 切换 小米11 Ultra HOOK_METHOD为none
 

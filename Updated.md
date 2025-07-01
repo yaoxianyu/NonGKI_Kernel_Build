@@ -1,4 +1,11 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 39**
+    - 增加 示例YAML文件 有关ZYGOTE_ISO_SERVICE编译错误修复方式
+    - 修正 小米11 Ultra 有关ZYGOTE_ISO_SERVICE编译错误修复方式
+    - 修正 小米Mix2s 有关ZYGOTE_ISO_SERVICE编译错误修复方式
+    - 修正 小米平板4(Plus) 有关ZYGOTE_ISO_SERVICE编译错误修复方式
+    - 修正 红米8 4.19 有关ZYGOTE_ISO_SERVICE编译错误修复方式
+
 - **Ver.1.5 Fixed 38**
     - 切换 小米11 Ultra HOOK_METHOD为syscall
     - 修正 支持列表 小米11 Ultra 部分参数

@@ -594,6 +594,21 @@ jobs:
 
           patch -p1 < susfs_upgrade_to_157.patch || true
 
+          # Upgrade 1.5.8
+          if grep -q "CONFIG_KSU" "fs/exec.c"; then
+            cp /tmp/Patches/Patch/susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch ./
+            patch -p1 < susfs_upgrade_to_158_${{ env.KERNEL_VERSION }}.patch || true
+            echo "Detected no-kprobe hook, use no-kprobe patch."
+          elif [[ "${{ env.KERNEL_VERSION }}" == "5.4" ]]; then
+            cp /tmp/Patches/Patch/susfs_upgrade_to_158_5.4_kprobe.patch ./
+            patch -p1 < susfs_upgrade_to_158_5.4_kprobe.patch || true
+            echo "Cannot detected no-kprobe hook in kernel 5.4, use kprobe patch."
+          else
+            echo "kernel version<5.4 cannot use kprobe patch."
+          fi
+          ## Fixed ZYGOTE_ISO error
+          sed -i '/#define CMD_SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS 0x55561/a \#define CMD_SUSFS_UMOUNT_FOR_ZYGOTE_ISO_SERVICE 0x55562' include/linux/susfs_def.h
+
           # Extra SUSFS Patch
           # cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./
 

@@ -550,6 +550,8 @@ jobs:
           else
             echo "kernel version<5.4 cannot use kprobe patch."
           fi
+          ## Fixed ZYGOTE_ISO error
+          sed -i '/#define CMD_SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS 0x55561/a \#define CMD_SUSFS_UMOUNT_FOR_ZYGOTE_ISO_SERVICE 0x55562' include/linux/susfs_def.h
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2

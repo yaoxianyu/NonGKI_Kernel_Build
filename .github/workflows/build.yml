@@ -3,7 +3,6 @@ name: Build Controller
 permissions:
   contents: write # Allow writing to repository contents (for pushing tags)
   actions: write # Allows triggering actions
-  workflows: write
 
 on:
   workflow_dispatch:
@@ -150,8 +149,6 @@ jobs:
 
       # Get the Latest Tag from GitHub
       - name: Generate and Create New Tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Fetch the latest tag from GitHub (this is the latest tag based on the GitHub API)
           LATEST_TAG=$(gh api repos/$REPO_OWNER/$REPO_NAME/tags --jq '.[0].name')

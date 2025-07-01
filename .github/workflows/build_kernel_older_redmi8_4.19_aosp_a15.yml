@@ -861,6 +861,11 @@ jobs:
           fi
 
           cp -rp ./Anykernel3/* tmp
+          cd tmp
+          7za a -mx9 tmp.zip *
+          cd ..
+          cp -fp tmp/tmp.zip ${{ env.DEVICE_CODENAME }}-${{ env.ROM_TEXT }}-$TIME-${{ env.PACK_METHOD }}${{ env.LXC_STATUS }}.zip
+          rm -rf tmp
 
           echo "PACK_NAME=${{ env.DEVICE_CODENAME }}-${{ env.ROM_TEXT }}-$TIME-${{ env.PACK_METHOD }}${{ env.LXC_STATUS }}.zip" >> $GITHUB_ENV
 

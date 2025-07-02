@@ -9,7 +9,7 @@ env:
   PATCHES_SOURCE: "JackA1ltman/NonGKI_Kernel_Patches" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
   PATCHES_BRANCH: "mi_kernel" # [your_branch] -> main
   HOOK_METHOD: "syscall" # manual hook method,can choice syscall and normal.
-  HOOK_OLDER: "true" # contain backport older patch and syscall older patch.
+  HOOK_OLDER: "false" # contain backport older patch and syscall older patch.
   PROFILE_NAME: "olive_older_4.19_aosp_a15.env" # your profile name.
   KERNELSU_SUS_PATCH: "false" # if u need manual susfs patch to kernelsu.
   KPM_ENABLE: "true" # Only use it for SukiSU-Ultra.
@@ -446,11 +446,11 @@ jobs:
                    else
                      echo "your kernel needn't backport patch."
                    fi
-               elif [[ -f "/tmp/Patches/syscall_hook_patches.sh" ]]; then
-                   cp /tmp/Patches/syscall_hook_patches.sh device_kernel/
+               elif [[ -f "/tmp/Patches/syscall_hook_patches_v1_4.sh" ]]; then
+                   cp /tmp/Patches/syscall_hook_patches_v1_4.sh device_kernel/
                    cd device_kernel
-                   bash syscall_hook_patches.sh
-                   echo "execuated syscall patch successfully."
+                   bash syscall_hook_patches_v1_4.sh
+                   echo "execuated syscall patch v1.4 successfully."
                    if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
                      cp /tmp/Patches/backport_patches.sh ./
                      bash backport_patches.sh
@@ -462,7 +462,7 @@ jobs:
                      echo "execuated backport patch successfully."
                    fi
                 else
-                   echo "Cannot found syscall_hook_patches.sh in build project , please check u file existed in build project !"
+                   echo "Cannot found syscall_hook_patches_v1_4.sh in build project , please check u file existed in build project !"
                    false
                fi
             else

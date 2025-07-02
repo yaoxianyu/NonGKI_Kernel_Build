@@ -157,18 +157,24 @@ Below is an introduction to the patches included in the Patches directory:
         - If there are instances where syscall wasn't updated in time, you can submit an issue or a pull request.
     - Reference: https://github.com/backslashxx/KernelSU/issues/5
     
-- **syscall_hook_patches_older.sh**
-    - Variable: HOOK_METHOD -> syscall AND HOOK_OLDER -> true
+- **syscall_hook_patches_early.sh**
+    - Variable: None
     - This is the original version of the syscall patch, intended for situations where you need syscall functionality but the latest version fails to execute.
     - Reference: https://github.com/backslashxx/KernelSU/issues/5
 
+- **syscall_hook_patches_older.sh**
+    - Variable: HOOK_METHOD -> syscall AND HOOK_OLDER -> true
+    - Used for the latest minimized manual patching (Syscall) feature implemented by backslashxx. Compatibility with older compilers isn't great. But it's been adapted to support devices with kernel versions ≤ 3.18 (ARMV7A), so it's compatible with all kernels. This will automatically execute for older kernel versions (kernel version ≤ 4.9) that lack SELinux-related permissions.
+        - Version 1.4
+    - Reference: https://github.com/backslashxx/KernelSU/issues/5
+    
 - **backport_patches.sh**
     - Executes automatically based on kernel version.
     - Used for backporting features to Non-GKI kernels. While KernelSU-Next and SukiSU-Ultra can automatically handle backporting, other branches cannot.
     - Reference: https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
     
-- **backport_patches_older.sh**
-    - Variable: HOOK_OLDER -> true
+- **backport_patches_early.sh**
+    - Automatic execution
     - This refers to the older backport solution, which is used for both the normal patch and the older version of the syscall patch.
     - Reference: https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
 

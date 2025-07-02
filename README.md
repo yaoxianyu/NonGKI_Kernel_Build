@@ -158,6 +158,12 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   
 - **syscall_hook_patches_older.sh**
   - 变量：HOOK_METHOD -> syscall 和 HOOK_OLDER -> true
+  - 用于执行backslashxx大佬最新实现的最小化手动修补(Syscall)功能，对旧版本编译器兼容性不是很好，但适配支持了内核版本≤3.18（ARMV7A）设备，会自动执行对缺少SELinux相关权限的旧版本内核（内核版本≤4.9），因此全内核可用
+    - 版本：1.4
+  - 参考：https://github.com/backslashxx/KernelSU/issues/5
+  
+- **syscall_hook_patches_early.sh**
+  - 暂无执行方式
   - syscall的最初版本，适用于需要syscall但执行最新版失败的情况
   - 参考：https://github.com/backslashxx/KernelSU/issues/5
   
@@ -166,8 +172,8 @@ Github放弃了Ubuntu 20.04，若你有需求，或者使用Clang Proton，请�
   - 用于执行对Non-GKI内核的反向移植，除了KernelSU-Next和SukiSU-Ultra可以实现自动反向移植外，其他的分支均无法实现
   - 参考：https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
   
-- **backport_patches_older.sh** 
-  - 变量：HOOK_OLDER -> true
+- **backport_patches_early.sh** 
+  - 自动执行
   - 旧版向后移植方案，用于normal patch和syscall旧版
   - 参考：https://github.com/backslashxx/KernelSU/issues/4#issue-2818274642
 

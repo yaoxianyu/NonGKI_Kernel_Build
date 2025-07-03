@@ -262,7 +262,7 @@ jobs:
                   echo "execuated patch successfully."
                   if [[ "${{ env.KERNELSU_NAME }}" != "KernelSU-Next" ]]; then
                         cp /tmp/Patches/backport_patches_early.sh ./
-                        bash backport_patches_older.sh
+                        bash backport_patches_early.sh
                         echo "execuated backport patch early successfully. "
                   else
                       echo "your kernel needn't backport patch."

@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 45**
+    - 增加 Arch Linux YAML aarch64-linux-gnu-glibc 和 arm-none-eabi-newlib 包安装
+    - 增加 Ubuntu YAML libtinfo5 包安装
+
 - **Ver.1.5 Fixed 44**
     - 修正 found_gcc.sh 检测逻辑
     - 增加 红米 Note 10 Pro MIUI A13 设备

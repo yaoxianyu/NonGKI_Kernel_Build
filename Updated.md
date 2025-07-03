@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 46**
+    - 移植 红米 K40 Gaming HyperOS A13 SuSFS 1.5.8 补丁步骤逻辑
+    - 修正 红米 K40 Gaming HyperOS A13 SuSFS开关
+    - 修正 支持列表 部分设备状态
+
 - **Ver.1.5 Fixed 45**
     - 增加 Arch Linux YAML aarch64-linux-gnu-glibc 和 arm-none-eabi-newlib 包安装
     - 增加 Ubuntu YAML libtinfo5 包安装

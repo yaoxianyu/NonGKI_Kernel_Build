@@ -27,7 +27,7 @@
 | 红米 Note8 Pro | All | begonia | 4.14/Nova-Kernels/Nova-miui | MIUI 12.5 | 11 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | OPPO K10 活力版 | CN | PERM10 | 5.4/fangkuaixiaoqia/官方内核 | ColorOS 14 | 14 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 K40 Gaming | All | ares | 4.14/Tkpointz/aresin | MIUI 13 | 12 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
-| 红米 K40 Gaming | All | ares | 4.14/AbzRaider/(Nothing) | HyperOS | 13 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
+| 红米 K40 Gaming | All | ares | 4.14/AbzRaider/(Nothing) | HyperOS | 13 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 Note 12 Pro 5G | CN | ruby | 4.19/qiangua2460/AlphaDroid | AlphaDroid 15.1 | 15 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  
 | 红米 8 | All | olive | 4.19/yu13140/mi439 | Based-AOSP | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ✅ | ✅ | ✅ | Stable | 
 | 红米 Note 10 Pro | CN | chopin | 4.14/ChopinKernels/chopin_android_T | MIUI 13 | 13 | AnyKernel3 | rsuntk | ❌ | ❌ | ❌ | ❌ | ❌ | Suspend |  

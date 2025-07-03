@@ -580,7 +580,14 @@ jobs:
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
+          cp NonGKI_Kernel_Patches/k40g_hyper/susfs_155_fixed.patch ./
 
+          patch -p1 < susfs_155_fixed.patch || true
+
+      - name: Updated SUSFS Version
+        if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel/
           # Upgrade 1.5.7
           cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
 
@@ -605,19 +612,6 @@ jobs:
           cp NonGKI_Kernel_Patches/k40g_hyper/susfs_158_fixed.patch ./
 
           patch -p1 < susfs_158_fixed.patch || true
-
-      - name: Updated SUSFS Version
-        if: env.SUSFS_ENABLE == 'true' && env.SUSFS_UPDATE == 'true'
-        run: |
-          cd $GITHUB_WORKSPACE/device_kernel/
-          cp /tmp/Patches/Patch/susfs_upgrade_to_157.patch ./
-
-          patch -p1 < susfs_upgrade_to_157.patch || true
-
-          # Extra SUSFS Patch
-          # cp NonGKI_Kernel_Patches/[patch_folder]/[patch_file].patch ./
-
-          # patch -p1 < [patch_file].patch || true
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2

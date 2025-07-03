@@ -1,4 +1,8 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 44**
+    - 修正 found_gcc.sh 检测逻辑
+    - 增加 红米 Note 10 Pro MIUI A13 设备
+
 - **Ver.1.5 Fixed 43**
     - 重命名 syscall_hook_patches_older.sh syscall_hook_patches_early.sh
     - 重命名 backport_patches_older.sh backport_patches_early.sh

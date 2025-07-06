@@ -610,10 +610,8 @@ jobs:
 
           # Extra SUSFS Patch
           cp NonGKI_Kernel_Patches/k40g_miui13/susfs_158_fixed.patch ./
-          cp NonGKI_Kernel_Patches/k40g_miui13/fdinfo_fixed.patch ./
 
           patch -p1 < susfs_158_fixed.patch || true
-          patch -p1 < fdinfo_fixed.patch || true
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2

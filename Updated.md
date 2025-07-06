@@ -1,4 +1,7 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 49**
+    - 增加 部分YAML文件 SuSFS 1.5.9 补丁步骤逻辑
+
 - **Ver.1.5 Fixed 48**
     - 增加 Patch/susfs_upgrade_to_159.patch
     - 增加 说明文件 susfs_upgrade_to_159 对应词条

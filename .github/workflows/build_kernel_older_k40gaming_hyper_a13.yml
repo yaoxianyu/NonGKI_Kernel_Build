@@ -610,7 +610,6 @@ jobs:
 
           # Extra SUSFS Patch
           cp NonGKI_Kernel_Patches/k40g_hyper/susfs_158_fixed.patch ./
-          cp NonGKI_Kernel_Patches/k40g_hyper/fdinfo_fixed.patch ./
 
           patch -p1 < susfs_158_fixed.patch || true
           patch -p1 < fdinfo_fixed.patch || true

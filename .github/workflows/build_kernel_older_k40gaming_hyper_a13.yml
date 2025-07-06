@@ -1,4 +1,4 @@
-name: Build Kernel Older Redmi K40 Gaming (MIUI13 A12) with KSU
+name: Build Kernel Older Redmi K40 Gaming (MIUI13 A12) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:

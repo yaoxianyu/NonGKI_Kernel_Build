@@ -1,4 +1,4 @@
-name: Build Kernel Older Redmi Note 10Pro (MIUI A13) with KSU
+name: Build Kernel Older Redmi Note 10Pro (MIUI A13) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:

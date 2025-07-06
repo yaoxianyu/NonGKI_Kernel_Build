@@ -1,5 +1,11 @@
 ## 项目更新日志
-- **Ver.1.5 Fixed 46**
+- **Ver.1.5 Fixed 48**
+    - 增加 Patch/susfs_upgrade_to_159.patch
+    - 增加 说明文件 susfs_upgrade_to_159 对应词条
+    - 增加 示例YAML文件 SuSFS 1.5.9 补丁步骤逻辑
+    - 修正 红米 K40 Gaming MIUI13 A12 编译错误
+
+- **Ver.1.5 Fixed 47**
     - 命名交换 红米 K40 Gaming MIUI13 A12 和 红米 K40 Gaming HyperOS A13
     - 移植 红米 Note 10 Pro MIUI A13 SuSFS 1.5.8 补丁步骤逻辑
     - 移植 红米 K40 Gaming HyperOS A13 SuSFS 1.5.8 补丁步骤逻辑

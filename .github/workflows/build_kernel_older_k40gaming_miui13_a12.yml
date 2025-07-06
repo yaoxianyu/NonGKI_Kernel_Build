@@ -580,7 +580,7 @@ jobs:
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/device_kernel/
-          cp NonGKI_Kernel_Patches/k40g_hyper/susfs_155_fixed.patch ./
+          cp NonGKI_Kernel_Patches/k40g_miui13/susfs_155_fixed.patch ./
 
           patch -p1 < susfs_155_fixed.patch || true
 
@@ -609,8 +609,8 @@ jobs:
           sed -i '/#define CMD_SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS 0x55561/a \#define CMD_SUSFS_UMOUNT_FOR_ZYGOTE_ISO_SERVICE 0x55562' include/linux/susfs_def.h
 
           # Extra SUSFS Patch
-          cp NonGKI_Kernel_Patches/k40g_hyper/susfs_158_fixed.patch ./
-          cp NonGKI_Kernel_Patches/k40g_hyper/fdinfo_fixed.patch ./
+          cp NonGKI_Kernel_Patches/k40g_miui13/susfs_158_fixed.patch ./
+          cp NonGKI_Kernel_Patches/k40g_miui13/fdinfo_fixed.patch ./
 
           patch -p1 < susfs_158_fixed.patch || true
           patch -p1 < fdinfo_fixed.patch || true

@@ -1,5 +1,15 @@
 ## 项目更新日志
 - **Ver.1.5 Fixed 46**
+    - 命名交换 红米 K40 Gaming MIUI13 A12 和 红米 K40 Gaming HyperOS A13
+    - 移植 红米 Note 10 Pro MIUI A13 SuSFS 1.5.8 补丁步骤逻辑
+    - 移植 红米 K40 Gaming HyperOS A13 SuSFS 1.5.8 补丁步骤逻辑
+    - 修正 红米 Note 10 Pro MIUI A13 模块安装失败问题
+    - 修正 红米 Note 10 Pro MIUI A13 SuSFS开关
+    - 修正 红米 K40 Gaming HyperOS A13 编译错误
+    - 修正 红米 K40 Gaming MIUI13 A12 编译错误
+    - 修正 支持列表 部分设备状态
+
+- **Ver.1.5 Fixed 46**
     - 移植 红米 K40 Gaming HyperOS A13 SuSFS 1.5.8 补丁步骤逻辑
     - 修正 红米 K40 Gaming HyperOS A13 SuSFS开关
     - 修正 支持列表 部分设备状态

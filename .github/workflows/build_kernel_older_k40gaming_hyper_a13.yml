@@ -1,4 +1,4 @@
-name: Build Kernel Older Redmi K40 Gaming (MIUI13 A12) with KSU and SUSFS
+name: Build Kernel Older Redmi K40 Gaming (MIUI13 A12) with KSU
 on:
   workflow_call:
   workflow_dispatch:
@@ -610,8 +610,10 @@ jobs:
 
           # Extra SUSFS Patch
           cp NonGKI_Kernel_Patches/k40g_hyper/susfs_158_fixed.patch ./
+          cp NonGKI_Kernel_Patches/k40g_hyper/fdinfo_fixed.patch ./
 
           patch -p1 < susfs_158_fixed.patch || true
+          patch -p1 < fdinfo_fixed.patch || true
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2

@@ -172,3 +172,12 @@ index 3fcd878..597279e 100644
 +}
 +
  #endif // #ifndef KSU_SUSFS_DEF_H
+diff --git a/susfs4ksu/.git/config b/susfs4ksu/.git/config
+index 0700237..a5fd2e5 100644
+--- a/susfs4ksu/.git/config
++++ b/susfs4ksu/.git/config
+@@ -9,3 +9,4 @@
+ [branch "kernel-4.14"]
+ 	remote = origin
+ 	merge = refs/heads/kernel-4.14
++	vscode-merge-base = origin/master

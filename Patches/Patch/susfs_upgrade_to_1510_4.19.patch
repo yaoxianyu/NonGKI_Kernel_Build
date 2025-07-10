@@ -1,7 +1,7 @@
-diff --git a/oos_a13_op8_bak/fs/namei.c b/oos_a13_op8/fs/namei.c
+diff --git a/fs/namei.c b/fs/namei.c
 index a63f34e..08d96e2 100644
---- a/oos_a13_op8_bak/fs/namei.c
-+++ b/oos_a13_op8/fs/namei.c
+--- a/fs/namei.c
++++ b/fs/namei.c
 @@ -1024,7 +1024,7 @@ static inline int may_follow_link(struct nameidata *nd)
  	kuid_t puid;
  
@@ -151,10 +151,10 @@ index a63f34e..08d96e2 100644
  				dput(dentry);
  				return -ENOENT;
  			}
-diff --git a/oos_a13_op8_bak/fs/notify/fdinfo.c b/oos_a13_op8/fs/notify/fdinfo.c
+diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
 index d6a1eab..f233b1c 100644
---- a/oos_a13_op8_bak/fs/notify/fdinfo.c
-+++ b/oos_a13_op8/fs/notify/fdinfo.c
+--- a/fs/notify/fdinfo.c
++++ b/fs/notify/fdinfo.c
 @@ -102,7 +102,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
  	inode = igrab(fsnotify_conn_inode(mark->connector));
  	if (inode) {
@@ -164,10 +164,10 @@ index d6a1eab..f233b1c 100644
  				unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  			struct path path;
  			char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/oos_a13_op8_bak/fs/proc/fd.c b/oos_a13_op8/fs/proc/fd.c
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
 index 3cbe85f..63c897d 100644
---- a/oos_a13_op8_bak/fs/proc/fd.c
-+++ b/oos_a13_op8/fs/proc/fd.c
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
 @@ -61,7 +61,7 @@ static int seq_show(struct seq_file *m, void *v)
  
  #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
@@ -177,10 +177,10 @@ index 3cbe85f..63c897d 100644
  			mnt->mnt_id >= DEFAULT_SUS_MNT_ID) {
  		for (; mnt->mnt_id >= DEFAULT_SUS_MNT_ID; mnt = mnt->mnt_parent) { }
  	}
-diff --git a/oos_a13_op8_bak/fs/stat.c b/oos_a13_op8/fs/stat.c
+diff --git a/fs/stat.c b/fs/stat.c
 index 0d160f2..52f387d 100644
---- a/oos_a13_op8_bak/fs/stat.c
-+++ b/oos_a13_op8/fs/stat.c
+--- a/fs/stat.c
++++ b/fs/stat.c
 @@ -40,7 +40,7 @@ extern void susfs_sus_ino_for_generic_fillattr(unsigned long ino, struct kstat *
  void generic_fillattr(struct inode *inode, struct kstat *stat)
  {
@@ -190,10 +190,10 @@ index 0d160f2..52f387d 100644
  			unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  		susfs_sus_ino_for_generic_fillattr(inode->i_ino, stat);
  		stat->mode = inode->i_mode;
-diff --git a/oos_a13_op8_bak/fs/statfs.c b/oos_a13_op8/fs/statfs.c
+diff --git a/fs/statfs.c b/fs/statfs.c
 index a14a896..8311dcd 100644
---- a/oos_a13_op8_bak/fs/statfs.c
-+++ b/oos_a13_op8/fs/statfs.c
+--- a/fs/statfs.c
++++ b/fs/statfs.c
 @@ -78,7 +78,7 @@ int vfs_statfs(const struct path *path, struct kstatfs *buf)
  	struct mount *mnt;
  
@@ -203,10 +203,10 @@ index a14a896..8311dcd 100644
  		for (; mnt->mnt_id >= DEFAULT_SUS_MNT_ID; mnt = mnt->mnt_parent) {}
  	}
  	error = statfs_by_dentry(mnt->mnt.mnt_root, buf);
-diff --git a/oos_a13_op8_bak/fs/susfs.c b/oos_a13_op8/fs/susfs.c
+diff --git a/fs/susfs.c b/fs/susfs.c
 index 9b92d50..2e69096 100644
---- a/oos_a13_op8_bak/fs/susfs.c
-+++ b/oos_a13_op8/fs/susfs.c
+--- a/fs/susfs.c
++++ b/fs/susfs.c
 @@ -39,7 +39,7 @@ static LIST_HEAD(LH_SUS_PATH_ANDROID_DATA);
  static LIST_HEAD(LH_SUS_PATH_SDCARD);
  static struct st_android_data_path android_data_path = {0};
@@ -243,10 +243,10 @@ index 9b92d50..2e69096 100644
  }
  
  bool susfs_is_base_dentry_android_data_dir(struct dentry* base) {
-diff --git a/oos_a13_op8_bak/include/linux/sched.h b/oos_a13_op8/include/linux/sched.h
+diff --git a/include/linux/sched.h b/include/linux/sched.h
 index c39c314..629ebba 100644
---- a/oos_a13_op8_bak/include/linux/sched.h
-+++ b/oos_a13_op8/include/linux/sched.h
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
 @@ -1625,15 +1625,8 @@ struct task_struct {
  	ANDROID_KABI_RESERVE(3);
  	ANDROID_KABI_RESERVE(4);
@@ -273,10 +273,10 @@ index c39c314..629ebba 100644
  #if defined(CONFIG_KSU_SUSFS) && !defined(ANDROID_KABI_RESERVE)
  	u64 susfs_last_fake_mnt_id;
  #endif
-diff --git a/oos_a13_op8_bak/include/linux/susfs_def.h b/oos_a13_op8/include/linux/susfs_def.h
+diff --git a/include/linux/susfs_def.h b/include/linux/susfs_def.h
 index 3fcd878..597279e 100644
---- a/oos_a13_op8_bak/include/linux/susfs_def.h
-+++ b/oos_a13_op8/include/linux/susfs_def.h
+--- a/include/linux/susfs_def.h
++++ b/include/linux/susfs_def.h
 @@ -46,7 +46,7 @@
  #define INODE_STATE_SUS_KSTAT BIT(26)
  #define INODE_STATE_OPEN_REDIRECT BIT(27)

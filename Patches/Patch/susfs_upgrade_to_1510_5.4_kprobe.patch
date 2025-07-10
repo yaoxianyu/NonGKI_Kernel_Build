@@ -1,7 +1,7 @@
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/devpts/inode.c b/miui_a14_mi11u_kprobe/fs/devpts/inode.c
+diff --git a/fs/devpts/inode.c b/fs/devpts/inode.c
 index 2938aa2..2683cfd 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/devpts/inode.c
-+++ b/miui_a14_mi11u_kprobe/fs/devpts/inode.c
+--- a/fs/devpts/inode.c
++++ b/fs/devpts/inode.c
 @@ -24,6 +24,9 @@
  #include <linux/parser.h>
  #include <linux/fsnotify.h>
@@ -26,10 +26,10 @@ index 2938aa2..2683cfd 100644
  #endif
  
  	if (dentry->d_sb->s_magic != DEVPTS_SUPER_MAGIC)
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/exec.c b/miui_a14_mi11u_kprobe/fs/exec.c
+diff --git a/fs/exec.c b/fs/exec.c
 index d4f0d14..12c64b3 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/exec.c
-+++ b/miui_a14_mi11u_kprobe/fs/exec.c
+--- a/fs/exec.c
++++ b/fs/exec.c
 @@ -65,6 +65,9 @@
  #include <linux/vmalloc.h>
  
@@ -65,10 +65,10 @@ index d4f0d14..12c64b3 100644
  #endif
  	return __do_execve_file(fd, filename, argv, envp, flags, NULL);
  }
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/namei.c b/miui_a14_mi11u_kprobe/fs/namei.c
+diff --git a/fs/namei.c b/fs/namei.c
 index 05bffae..f133ab1 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/namei.c
-+++ b/miui_a14_mi11u_kprobe/fs/namei.c
+--- a/fs/namei.c
++++ b/fs/namei.c
 @@ -1007,7 +1007,7 @@ static inline int may_follow_link(struct nameidata *nd)
  	kuid_t puid;
  
@@ -216,10 +216,10 @@ index 05bffae..f133ab1 100644
  				dput(dentry);
  				return -ENOENT;
  			}
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/notify/fdinfo.c b/miui_a14_mi11u_kprobe/fs/notify/fdinfo.c
+diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
 index 4df5381..93cffac 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/notify/fdinfo.c
-+++ b/miui_a14_mi11u_kprobe/fs/notify/fdinfo.c
+--- a/fs/notify/fdinfo.c
++++ b/fs/notify/fdinfo.c
 @@ -103,7 +103,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
  	inode = igrab(fsnotify_conn_inode(mark->connector));
  	if (inode) {
@@ -229,10 +229,10 @@ index 4df5381..93cffac 100644
  				unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  			struct path path;
  			char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/open.c b/miui_a14_mi11u_kprobe/fs/open.c
+diff --git a/fs/open.c b/fs/open.c
 index 2fd9ace..a3cb963 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/open.c
-+++ b/miui_a14_mi11u_kprobe/fs/open.c
+--- a/fs/open.c
++++ b/fs/open.c
 @@ -32,6 +32,9 @@
  #include <linux/ima.h>
  #include <linux/dnotify.h>
@@ -268,10 +268,10 @@ index 2fd9ace..a3cb963 100644
  #endif
  
  	if (mode & ~S_IRWXO)	/* where's F_OK, X_OK, W_OK, R_OK? */
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/proc/fd.c b/miui_a14_mi11u_kprobe/fs/proc/fd.c
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
 index 622ff08..4a74eb2 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/proc/fd.c
-+++ b/miui_a14_mi11u_kprobe/fs/proc/fd.c
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
 @@ -60,7 +60,7 @@ static int seq_show(struct seq_file *m, void *v)
  		return ret;
  #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
@@ -281,10 +281,10 @@ index 622ff08..4a74eb2 100644
  			mnt->mnt_id >= DEFAULT_SUS_MNT_ID) {
  		struct path path;
  		char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/proc/fd.c.rej b/miui_a14_mi11u_kprobe/fs/proc/fd.c.rej
+diff --git a/fs/proc/fd.c.rej b/fs/proc/fd.c.rej
 index 473c170..6e8f548 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/proc/fd.c.rej
-+++ b/miui_a14_mi11u_kprobe/fs/proc/fd.c.rej
+--- a/fs/proc/fd.c.rej
++++ b/fs/proc/fd.c.rej
 @@ -6,7 +6,7 @@
   
  +#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
@@ -294,10 +294,10 @@ index 473c170..6e8f548 100644
  +			mnt->mnt_id >= DEFAULT_SUS_MNT_ID) {
  +		struct path path;
  +		char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/stat.c b/miui_a14_mi11u_kprobe/fs/stat.c
+diff --git a/fs/stat.c b/fs/stat.c
 index 9ca1a80..2348ac6 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/stat.c
-+++ b/miui_a14_mi11u_kprobe/fs/stat.c
+--- a/fs/stat.c
++++ b/fs/stat.c
 @@ -17,7 +17,7 @@
  #include <linux/syscalls.h>
  #include <linux/pagemap.h>
@@ -341,10 +341,10 @@ index 9ca1a80..2348ac6 100644
  #endif
  
  	if ((flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/statfs.c b/miui_a14_mi11u_kprobe/fs/statfs.c
+diff --git a/fs/statfs.c b/fs/statfs.c
 index df3de23..74a7437 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/statfs.c
-+++ b/miui_a14_mi11u_kprobe/fs/statfs.c
+--- a/fs/statfs.c
++++ b/fs/statfs.c
 @@ -92,7 +92,7 @@ int vfs_statfs(const struct path *path, struct kstatfs *buf)
  	struct mount *mnt;
  
@@ -354,10 +354,10 @@ index df3de23..74a7437 100644
  		for (; mnt->mnt_id >= DEFAULT_SUS_MNT_ID; mnt = mnt->mnt_parent) {}
  	}
  	error = statfs_by_dentry(mnt->mnt.mnt_root, buf);
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/susfs.c b/miui_a14_mi11u_kprobe/fs/susfs.c
+diff --git a/fs/susfs.c b/fs/susfs.c
 index c6b4239..6ee7c87 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/susfs.c
-+++ b/miui_a14_mi11u_kprobe/fs/susfs.c
+--- a/fs/susfs.c
++++ b/fs/susfs.c
 @@ -39,7 +39,7 @@ static LIST_HEAD(LH_SUS_PATH_ANDROID_DATA);
  static LIST_HEAD(LH_SUS_PATH_SDCARD);
  static struct st_android_data_path android_data_path = {0};
@@ -394,10 +394,10 @@ index c6b4239..6ee7c87 100644
  }
  
  bool susfs_is_base_dentry_android_data_dir(struct dentry* base) {
-diff --git a/miui_a14_mi11u_kprobe_bak/fs/susfs.c.orig b/miui_a14_mi11u_kprobe/fs/susfs.c.orig
+diff --git a/fs/susfs.c.orig b/fs/susfs.c.orig
 index 5c6ba87..d0fa48c 100644
---- a/miui_a14_mi11u_kprobe_bak/fs/susfs.c.orig
-+++ b/miui_a14_mi11u_kprobe/fs/susfs.c.orig
+--- a/fs/susfs.c.orig
++++ b/fs/susfs.c.orig
 @@ -241,18 +241,18 @@ out_path_put_path:
  static inline bool is_i_uid_in_android_data_not_allowed(uid_t i_uid) {
  	uid_t cur_uid = current_uid().val;
@@ -420,10 +420,10 @@ index 5c6ba87..d0fa48c 100644
  							(unlikely(cur_uid != i_uid)));
  }
  
-diff --git a/miui_a14_mi11u_kprobe_bak/include/linux/sched.h b/miui_a14_mi11u_kprobe/include/linux/sched.h
+diff --git a/include/linux/sched.h b/include/linux/sched.h
 index c28533c..e3d3990 100644
---- a/miui_a14_mi11u_kprobe_bak/include/linux/sched.h
-+++ b/miui_a14_mi11u_kprobe/include/linux/sched.h
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
 @@ -1469,11 +1469,7 @@ struct task_struct {
  	ANDROID_KABI_RESERVE(4);
  	ANDROID_KABI_RESERVE(5);
@@ -436,10 +436,10 @@ index c28533c..e3d3990 100644
  #ifdef CONFIG_KSU_SUSFS
  	ANDROID_KABI_USE(8, u64 susfs_last_fake_mnt_id);
  #else
-diff --git a/miui_a14_mi11u_kprobe_bak/include/linux/susfs_def.h b/miui_a14_mi11u_kprobe/include/linux/susfs_def.h
+diff --git a/include/linux/susfs_def.h b/include/linux/susfs_def.h
 index 212e688..efc7f30 100644
---- a/miui_a14_mi11u_kprobe_bak/include/linux/susfs_def.h
-+++ b/miui_a14_mi11u_kprobe/include/linux/susfs_def.h
+--- a/include/linux/susfs_def.h
++++ b/include/linux/susfs_def.h
 @@ -53,7 +53,9 @@
  #define INODE_STATE_SUS_KSTAT BIT(26)
  #define INODE_STATE_OPEN_REDIRECT BIT(27)

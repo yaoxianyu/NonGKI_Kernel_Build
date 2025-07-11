@@ -1,4 +1,9 @@
 ## 项目更新日志
+- **Ver.1.5 Fixed 51**
+    - 增加 发布列表 红米 Note 10 Pro MIUI A13 设备
+    - 增加 发布列表 红米 K40 Gaming HyperOS A13 设备
+    - 修正 支持列表 部分设备状态
+
 - **Ver.1.5 Fixed 50**
     - 移植 部分示例YAML文件 SuSFS 1.5.10 补丁步骤逻辑
     - 增加 Patch/susfs_upgrade_to_1510_X_X.patch

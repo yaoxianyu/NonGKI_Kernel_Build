@@ -52,6 +52,16 @@ on:
         required: true
         type: boolean
         default: true
+      build_kernel_k40gaming_hyper_a13:
+        description: "Build Kernel Redmi K40 Gaming (HyperOS A13)?"
+        required: true
+        type: boolean
+        default: true
+      build_kernel_note10pro_miui_a13:
+        description: "Build Kernel Redmi Note 10 Pro (MIUI A13)?"
+        required: true
+        type: boolean
+        default: true
       make_release:
         description: "Do you want to create a release?"
         required: true
@@ -95,6 +105,14 @@ jobs:
     uses: ./.github/workflows/build_kernel_older_redmi8_4.19_aosp_a15.yml
     secrets: inherit
     if: ${{ inputs.build_kernel_redmi8_4_19_aosp_a15 }}
+  build_kernel_k40gaming_hyper_a13:
+    uses: ./.github/workflows/build_kernel_older_k40gaming_hyper_a13.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_k40gaming_hyper_a13 }}
+  build_kernel_note10pro_miui_a13:
+    uses: ./.github/workflows/build_kernel_older_note10pro_miui_a13.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_note10pro_miui_a13 }}
 
   trigger-release:
     runs-on: ubuntu-latest
@@ -108,6 +126,8 @@ jobs:
       - build_kernel_s20_oneui5_a13
       - build_kernel_mipad4p_lineage_a15
       - build_kernel_redmi8_4_19_aosp_a15
+      - build_kernel_k40gaming_hyper_a13
+      - build_kernel_note10pro_miui_a13
     if: ${{ inputs.make_release }}
     env:
       REPO_OWNER: JackA1ltman
@@ -128,11 +148,15 @@ jobs:
         | Samsung S20 5G | x1q | 4.19 | OneUI 5.1/6.1 | 13/14 | Boot Image | rsuntk | ❌ | ❌ | ❌ |
         | Xiaomi Pad 4(Plus) | clover | 4.19 | LineageOS 22.1 | 15 | AnyKernel3 | SukiSU(U) | ✅ | ❌ | ❌ |
         | Redmi 8 | olive | 4.19 | Based-AOSP | 15 | AnyKernel3 | SukiSU(U) | ✅ | ✅ | ✅ |
+        | Redmi K40 Gaming | ares | 4.14 | HyperOS | 13 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
+        | Redmi Note 10 Pro | chopin | 4.14 | MIUI 13 | 13 | AnyKernel3 | rsuntk | ✅ | ❌ | ❌ |
 
         - OnePlus 8 (CN) has been tested and can be used on the OnePlus 9R. Theoretically, it should also work on the OnePlus 8T/8Pro.
         - The Black Shark 4 cannot patch SuSFS due to a kernel defect (missing ANDROID_KABI). To enhance stealth and security, it is the first device to switch from the regular manual hook to [Syscall Hook](https://github.com/backslashxx/KernelSU/issues/5).
         - Samsung S20 5G supported **Snapdragon** only，Exynos doesn't try flash it.
         - Xiaomi Mi Mix 2S has been backported to Cgroup V2, but Cgroup Freezer requires additional system steps to be used and the actual execution of the freezing process is abnormal. It is recommended to use Cgroup UID.
+        - The kernel for the Redmi K40 Gaming is compatible with the Poco F3 GT.
+        - The kernel for the Redmi Note 10 Pro is compatible with the Poco X3 GT.
         - The KernelSU version is for reference only. It is normal for the KernelSU version embedded in SUSFS to be lower.
         - [Re:Kernel](https://github.com/Sakion-Team/Re-Kernel) is a module used for quickly executing temporary unfreezing of processes during Binder transactions, but it may not necessarily work on all devices.
 

@@ -21,47 +21,47 @@ jobs:
   build_kernel_op8_oos131_a13:
     uses: ./.github/workflows/build_kernel_op8_oos13.1_a13.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_op8_oos131_a13 }}
+    if: "contains(inputs.kernels_to_build, 'op8_oos131_a13') || inputs.kernels_to_build == 'all'"
   build_kernel_k20p_aosp_a15:
     uses: ./.github/workflows/build_kernel_k20p_aosp_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_k20p_aosp_a15 }}
+    if: "contains(inputs.kernels_to_build, 'k20p_aosp_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_mix2s_evox_a15:
     uses: ./.github/workflows/build_kernel_mix2s_evox_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_mix2s_evox_a15 }}
+    if: "contains(inputs.kernels_to_build, 'mix2s_evox_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_blackshark4_miui_a11:
     uses: ./.github/workflows/build_kernel_blackshark4_miui_a11.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_blackshark4_miui_a11 }}
+    if: "contains(inputs.kernels_to_build, 'blackshark4_miui_a11') || inputs.kernels_to_build == 'all'"
   build_kernel_mi10s_aosp_a15:
     uses: ./.github/workflows/build_kernel_mi10s_aosp_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_mi10s_aosp_a15 }}
+    if: "contains(inputs.kernels_to_build, 'mi10s_aosp_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_op8_nameless15_a15:
     uses: ./.github/workflows/build_kernel_op8_nameless15_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_op8_nameless15_a15 }}
+    if: "contains(inputs.kernels_to_build, 'op8_nameless15_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_s20_oneui5_a13:
     uses: ./.github/workflows/build_kernel_s20_oneui5.1_a13.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_s20_oneui5_a13 }}
+    if: "contains(inputs.kernels_to_build, 's20_oneui5_a13') || inputs.kernels_to_build == 'all'"
   build_kernel_mipad4p_lineage_a15:
     uses: ./.github/workflows/build_kernel_mipad4p_lineage_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_mipad4p_lineage_a15 }}
+    if: "contains(inputs.kernels_to_build, 'mipad4p_lineage_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_redmi8_4_19_aosp_a15:
     uses: ./.github/workflows/build_kernel_older_redmi8_4.19_aosp_a15.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_redmi8_4_19_aosp_a15 }}
+    if: "contains(inputs.kernels_to_build, 'redmi8_4_19_aosp_a15') || inputs.kernels_to_build == 'all'"
   build_kernel_k40gaming_hyper_a13:
     uses: ./.github/workflows/build_kernel_older_k40gaming_hyper_a13.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_k40gaming_hyper_a13 }}
+    if: "contains(inputs.kernels_to_build, 'k40gaming_hyper_a13') || inputs.kernels_to_build == 'all'"
   build_kernel_note10pro_miui_a13:
     uses: ./.github/workflows/build_kernel_older_note10pro_miui_a13.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_note10pro_miui_a13 }}
+    if: "contains(inputs.kernels_to_build, 'note10pro_miui_a13') || inputs.kernels_to_build == 'all'"
 
   trigger-release:
     runs-on: ubuntu-latest

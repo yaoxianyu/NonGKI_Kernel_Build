@@ -7,11 +7,10 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
-      build_kernel:
-        description: "Build kernel to release?"
+      kernels_to_build:
+        description: "Input need to build kernel name."
         required: true
-        type: boolean
-        default: true
+        default: "op8_oos131_a13 k20p_aosp_a15 mix2s_evox_a15 blackshark4_miui_a11 mi10s_aosp_a15 op8_nameless15_a15 s20_oneui5_a13 mipad4p_lineage_a15 redmi8_4_19_aosp_a15 k40gaming_hyper_a13 note10pro_miui_a13"
       make_release:
         description: "Do you want to create a release?"
         required: true
@@ -19,15 +18,65 @@ on:
         default: true
 
 jobs:
-  build_kernel:
+  build_kernel_op8_oos131_a13:
     uses: ./.github/workflows/build_kernel_op8_oos13.1_a13.yml
     secrets: inherit
-    if: ${{ inputs.build_kernel_op8_oos131_a13 }} && ${{ inputs.build_kernel_k20p_aosp_a15 }} && ${{ inputs.build_kernel_mix2s_evox_a15 }} && ${{ inputs.build_kernel_blackshark4_miui_a11 }} && ${{ inputs.build_kernel_mi10s_aosp_a15 }} && ${{ inputs.build_kernel_op8_nameless15_a15 }} && ${{ inputs.build_kernel_s20_oneui5_a13 }} && ${{ inputs.build_kernel_mipad4p_lineage_a15 }} && ${{ inputs.build_kernel_redmi8_4_19_aosp_a15 }} && ${{ inputs.build_kernel_k40gaming_hyper_a13 }} && ${{ inputs.build_kernel_note10pro_miui_a13 }}
+    if: ${{ inputs.build_kernel_op8_oos131_a13 }}
+  build_kernel_k20p_aosp_a15:
+    uses: ./.github/workflows/build_kernel_k20p_aosp_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_k20p_aosp_a15 }}
+  build_kernel_mix2s_evox_a15:
+    uses: ./.github/workflows/build_kernel_mix2s_evox_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_mix2s_evox_a15 }}
+  build_kernel_blackshark4_miui_a11:
+    uses: ./.github/workflows/build_kernel_blackshark4_miui_a11.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_blackshark4_miui_a11 }}
+  build_kernel_mi10s_aosp_a15:
+    uses: ./.github/workflows/build_kernel_mi10s_aosp_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_mi10s_aosp_a15 }}
+  build_kernel_op8_nameless15_a15:
+    uses: ./.github/workflows/build_kernel_op8_nameless15_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_op8_nameless15_a15 }}
+  build_kernel_s20_oneui5_a13:
+    uses: ./.github/workflows/build_kernel_s20_oneui5.1_a13.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_s20_oneui5_a13 }}
+  build_kernel_mipad4p_lineage_a15:
+    uses: ./.github/workflows/build_kernel_mipad4p_lineage_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_mipad4p_lineage_a15 }}
+  build_kernel_redmi8_4_19_aosp_a15:
+    uses: ./.github/workflows/build_kernel_older_redmi8_4.19_aosp_a15.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_redmi8_4_19_aosp_a15 }}
+  build_kernel_k40gaming_hyper_a13:
+    uses: ./.github/workflows/build_kernel_older_k40gaming_hyper_a13.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_k40gaming_hyper_a13 }}
+  build_kernel_note10pro_miui_a13:
+    uses: ./.github/workflows/build_kernel_older_note10pro_miui_a13.yml
+    secrets: inherit
+    if: ${{ inputs.build_kernel_note10pro_miui_a13 }}
 
   trigger-release:
     runs-on: ubuntu-latest
     needs:
-      - build_kernel
+      - build_kernel_op8_oos131_a13
+      - build_kernel_k20p_aosp_a15
+      - build_kernel_mix2s_evox_a15
+      - build_kernel_blackshark4_miui_a11
+      - build_kernel_mi10s_aosp_a15
+      - build_kernel_op8_nameless15_a15
+      - build_kernel_s20_oneui5_a13
+      - build_kernel_mipad4p_lineage_a15
+      - build_kernel_redmi8_4_19_aosp_a15
+      - build_kernel_k40gaming_hyper_a13
+      - build_kernel_note10pro_miui_a13
     if: ${{ inputs.make_release }}
     env:
       REPO_OWNER: JackA1ltman

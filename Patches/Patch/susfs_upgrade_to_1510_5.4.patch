@@ -1,13 +1,13 @@
-diff --git a/miui_a14_mi11u_bak/fs/namei.c b/miui_a14_mi11u/fs/namei.c
-index 05bffae..f133ab1 100644
---- a/miui_a14_mi11u_bak/fs/namei.c
-+++ b/miui_a14_mi11u/fs/namei.c
+diff --git a/fs/namei.c b/fs/namei.c
+index 05bffae..1d14d8c 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
 @@ -1007,7 +1007,7 @@ static inline int may_follow_link(struct nameidata *nd)
  	kuid_t puid;
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -16,7 +16,7 @@ index 05bffae..f133ab1 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (inode && unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (inode && unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (inode && unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -25,7 +25,7 @@ index 05bffae..f133ab1 100644
  {
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -74,7 +74,7 @@ index 05bffae..f133ab1 100644
  	restore_nameidata();
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		putname(name);
  		return -ENOENT;
  	}
@@ -83,7 +83,7 @@ index 05bffae..f133ab1 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -92,7 +92,7 @@ index 05bffae..f133ab1 100644
  	audit_inode_child(dir, child, AUDIT_TYPE_CHILD_CREATE);
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		error = inode_permission(dir, MAY_WRITE | MAY_EXEC);
  		if (error) {
  			return error;
@@ -101,7 +101,7 @@ index 05bffae..f133ab1 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -110,7 +110,7 @@ index 05bffae..f133ab1 100644
  	int error;
  
 -	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		error = inode_permission(dir->dentry->d_inode, MAY_WRITE | MAY_EXEC);
  		if (error) {
  			return error;
@@ -127,7 +127,7 @@ index 05bffae..f133ab1 100644
  		/* Cached positive dentry: will open in f_op->open */
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  			dput(dentry);
  			return -ENOENT;
  		}
@@ -136,7 +136,7 @@ index 05bffae..f133ab1 100644
  			error = create_error;
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  			if (create_error) {
  				dput(dentry);
  				return create_error;
@@ -145,14 +145,14 @@ index 05bffae..f133ab1 100644
  			dentry = res;
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  				dput(dentry);
  				return -ENOENT;
  			}
-diff --git a/miui_a14_mi11u_bak/fs/notify/fdinfo.c b/miui_a14_mi11u/fs/notify/fdinfo.c
+diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
 index 4df5381..93cffac 100644
---- a/miui_a14_mi11u_bak/fs/notify/fdinfo.c
-+++ b/miui_a14_mi11u/fs/notify/fdinfo.c
+--- a/fs/notify/fdinfo.c
++++ b/fs/notify/fdinfo.c
 @@ -103,7 +103,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
  	inode = igrab(fsnotify_conn_inode(mark->connector));
  	if (inode) {
@@ -162,10 +162,10 @@ index 4df5381..93cffac 100644
  				unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  			struct path path;
  			char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_bak/fs/proc/fd.c b/miui_a14_mi11u/fs/proc/fd.c
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
 index 622ff08..4a74eb2 100644
---- a/miui_a14_mi11u_bak/fs/proc/fd.c
-+++ b/miui_a14_mi11u/fs/proc/fd.c
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
 @@ -60,7 +60,7 @@ static int seq_show(struct seq_file *m, void *v)
  		return ret;
  #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
@@ -175,10 +175,10 @@ index 622ff08..4a74eb2 100644
  			mnt->mnt_id >= DEFAULT_SUS_MNT_ID) {
  		struct path path;
  		char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_bak/fs/proc/fd.c.rej b/miui_a14_mi11u/fs/proc/fd.c.rej
+diff --git a/fs/proc/fd.c.rej b/fs/proc/fd.c.rej
 index 473c170..6e8f548 100644
---- a/miui_a14_mi11u_bak/fs/proc/fd.c.rej
-+++ b/miui_a14_mi11u/fs/proc/fd.c.rej
+--- a/fs/proc/fd.c.rej
++++ b/fs/proc/fd.c.rej
 @@ -6,7 +6,7 @@
   
  +#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
@@ -188,10 +188,10 @@ index 473c170..6e8f548 100644
  +			mnt->mnt_id >= DEFAULT_SUS_MNT_ID) {
  +		struct path path;
  +		char *pathname = kmalloc(PAGE_SIZE, GFP_KERNEL);
-diff --git a/miui_a14_mi11u_bak/fs/stat.c b/miui_a14_mi11u/fs/stat.c
+diff --git a/fs/stat.c b/fs/stat.c
 index 8bd32c4..0180644 100644
---- a/miui_a14_mi11u_bak/fs/stat.c
-+++ b/miui_a14_mi11u/fs/stat.c
+--- a/fs/stat.c
++++ b/fs/stat.c
 @@ -40,7 +40,7 @@ extern void susfs_sus_ino_for_generic_fillattr(unsigned long ino, struct kstat *
  void generic_fillattr(struct inode *inode, struct kstat *stat)
  {
@@ -201,10 +201,10 @@ index 8bd32c4..0180644 100644
  			unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  		susfs_sus_ino_for_generic_fillattr(inode->i_ino, stat);
  		stat->mode = inode->i_mode;
-diff --git a/miui_a14_mi11u_bak/fs/stat.c.orig b/miui_a14_mi11u/fs/stat.c.orig
+diff --git a/fs/stat.c.orig b/fs/stat.c.orig
 index 9ca1a80..4c2629a 100644
---- a/miui_a14_mi11u_bak/fs/stat.c.orig
-+++ b/miui_a14_mi11u/fs/stat.c.orig
+--- a/fs/stat.c.orig
++++ b/fs/stat.c.orig
 @@ -40,7 +40,7 @@ extern void susfs_sus_ino_for_generic_fillattr(unsigned long ino, struct kstat *
  void generic_fillattr(struct inode *inode, struct kstat *stat)
  {
@@ -214,10 +214,10 @@ index 9ca1a80..4c2629a 100644
  			unlikely(inode->i_state & INODE_STATE_SUS_KSTAT)) {
  		susfs_sus_ino_for_generic_fillattr(inode->i_ino, stat);
  		stat->mode = inode->i_mode;
-diff --git a/miui_a14_mi11u_bak/fs/statfs.c b/miui_a14_mi11u/fs/statfs.c
+diff --git a/fs/statfs.c b/fs/statfs.c
 index df3de23..74a7437 100644
---- a/miui_a14_mi11u_bak/fs/statfs.c
-+++ b/miui_a14_mi11u/fs/statfs.c
+--- a/fs/statfs.c
++++ b/fs/statfs.c
 @@ -92,7 +92,7 @@ int vfs_statfs(const struct path *path, struct kstatfs *buf)
  	struct mount *mnt;
  
@@ -227,10 +227,10 @@ index df3de23..74a7437 100644
  		for (; mnt->mnt_id >= DEFAULT_SUS_MNT_ID; mnt = mnt->mnt_parent) {}
  	}
  	error = statfs_by_dentry(mnt->mnt.mnt_root, buf);
-diff --git a/miui_a14_mi11u_bak/fs/susfs.c b/miui_a14_mi11u/fs/susfs.c
+diff --git a/fs/susfs.c b/fs/susfs.c
 index 9b92d50..2e69096 100644
---- a/miui_a14_mi11u_bak/fs/susfs.c
-+++ b/miui_a14_mi11u/fs/susfs.c
+--- a/fs/susfs.c
++++ b/fs/susfs.c
 @@ -39,7 +39,7 @@ static LIST_HEAD(LH_SUS_PATH_ANDROID_DATA);
  static LIST_HEAD(LH_SUS_PATH_SDCARD);
  static struct st_android_data_path android_data_path = {0};
@@ -267,10 +267,10 @@ index 9b92d50..2e69096 100644
  }
  
  bool susfs_is_base_dentry_android_data_dir(struct dentry* base) {
-diff --git a/miui_a14_mi11u_bak/include/linux/sched.h b/miui_a14_mi11u/include/linux/sched.h
+diff --git a/include/linux/sched.h b/include/linux/sched.h
 index c28533c..e3d3990 100644
---- a/miui_a14_mi11u_bak/include/linux/sched.h
-+++ b/miui_a14_mi11u/include/linux/sched.h
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
 @@ -1469,11 +1469,7 @@ struct task_struct {
  	ANDROID_KABI_RESERVE(4);
  	ANDROID_KABI_RESERVE(5);
@@ -283,10 +283,10 @@ index c28533c..e3d3990 100644
  #ifdef CONFIG_KSU_SUSFS
  	ANDROID_KABI_USE(8, u64 susfs_last_fake_mnt_id);
  #else
-diff --git a/miui_a14_mi11u_bak/include/linux/susfs_def.h b/miui_a14_mi11u/include/linux/susfs_def.h
+diff --git a/include/linux/susfs_def.h b/include/linux/susfs_def.h
 index 3fcd878..597279e 100644
---- a/miui_a14_mi11u_bak/include/linux/susfs_def.h
-+++ b/miui_a14_mi11u/include/linux/susfs_def.h
+--- a/include/linux/susfs_def.h
++++ b/include/linux/susfs_def.h
 @@ -46,7 +46,7 @@
  #define INODE_STATE_SUS_KSTAT BIT(26)
  #define INODE_STATE_OPEN_REDIRECT BIT(27)

@@ -1,5 +1,5 @@
 diff --git a/fs/namei.c b/fs/namei.c
-index a63f34e..08d96e2 100644
+index a63f34e..b2f62fe 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -1024,7 +1024,7 @@ static inline int may_follow_link(struct nameidata *nd)
@@ -7,7 +7,7 @@ index a63f34e..08d96e2 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (nd->inode && unlikely(nd->inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -16,7 +16,7 @@ index a63f34e..08d96e2 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (link->dentry->d_inode && unlikely(link->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (link->dentry->d_inode && unlikely(link->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (link->dentry->d_inode && unlikely(link->dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -25,7 +25,7 @@ index a63f34e..08d96e2 100644
  {
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -76,7 +76,7 @@ index a63f34e..08d96e2 100644
  	restore_nameidata();
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (!retval && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		putname(name);
  		return -ENOENT;
  	}
@@ -85,7 +85,7 @@ index a63f34e..08d96e2 100644
  		return -EPERM;
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -94,7 +94,7 @@ index a63f34e..08d96e2 100644
  	audit_inode_child(dir, child, AUDIT_TYPE_CHILD_CREATE);
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (child->d_inode && unlikely(child->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		error = inode_permission(dir, MAY_WRITE | MAY_EXEC);
  		if (error) {
  			return error;
@@ -103,7 +103,7 @@ index a63f34e..08d96e2 100644
  
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (unlikely(inode->i_state & INODE_STATE_SUS_PATH)) {
  		return -ENOENT;
  	}
  #endif
@@ -112,7 +112,7 @@ index a63f34e..08d96e2 100644
  	int error;
  
 -	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++	if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  		error = inode_permission(dir->dentry->d_inode, MAY_WRITE | MAY_EXEC);
  		if (error) {
  			return error;
@@ -129,7 +129,7 @@ index a63f34e..08d96e2 100644
  		/* Cached positive dentry: will open in f_op->open */
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++		if (unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  			dput(dentry);
  			return -ENOENT;
  		}
@@ -138,7 +138,7 @@ index a63f34e..08d96e2 100644
  			error = create_error;
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++		if (!IS_ERR(dentry) && dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  			if (create_error) {
  				dput(dentry);
  				return create_error;
@@ -147,7 +147,7 @@ index a63f34e..08d96e2 100644
  			dentry = res;
  #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 -			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-+			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH) && likely(current->susfs_task_state)) {
++			if (dentry->d_inode && unlikely(dentry->d_inode->i_state & INODE_STATE_SUS_PATH)) {
  				dput(dentry);
  				return -ENOENT;
  			}

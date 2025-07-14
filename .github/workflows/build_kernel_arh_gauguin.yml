@@ -7,7 +7,7 @@ env:
   PACK_METHOD: "Anykernel3" # Anykernel3 need SOURCE and BRANCH, MKBOOTIMG needn't it.
   KERNELSU_METHOD: "shell" # shell, manual and only.
   PATCHES_SOURCE: "SukiSU-Ultra/SukiSU_KernelPatch_patch/releases/download/0.12.0/patch_linux" # [your_name]/[your_patch] -> gooder123/NonGKI_Patcher
-  PATCHES_BRANCH: "main" # [your_branch] 
+  PATCHES_BRANCH: false # [your_branch] 
   HOOK_METHOD: "normal" # manual hook method,can choice syscall and normal.
   PROFILE_NAME: "gaugin_los22.env" # your profile name.
   KERNELSU_SUS_PATCH: "true" # if u need manual susfs patch to kernelsu.
@@ -359,7 +359,7 @@ jobs:
                 echo "Please do not set a full URL in PATCH_SOURCE!"
                 false
               else
-                git clone https://github.com/${{ env.PATCHES_SOURCE }}.git -b ${{ env.PATCHES_BRANCH }} NonGKI_Kernel_Patches --depth=1 # It's not necessary.
+                wget https://github.com/${{ env.PATCHES_SOURCE }}  NonGKI_Kernel_Patches  # It's not necessary.
               fi
             fi
             git clone $SUSFS_SOURCE -b $SUSFS_BRANCH susfs4ksu --depth=1

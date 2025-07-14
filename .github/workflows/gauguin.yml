@@ -210,12 +210,6 @@ jobs:
           else
             echo "You needn't clang!"
           fi
-      - name: Validate Kernel Source URL
-        run: |
-         if [[ ! "${{ env.KERNEL_SOURCE }}" =~ ^https://.*\.git$ ]]; then
-          echo "::error::Invalid KERNEL_SOURCE: ${{ env.KERNEL_SOURCE }}"
-         exit 1
-         fi
       - name: Get Kernel Source
         run: |
           cd $GITHUB_WORKSPACE

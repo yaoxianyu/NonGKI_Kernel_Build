@@ -279,7 +279,19 @@ jobs:
            echo "CONFIG_VHOST_NET=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
            echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
-
+      - name: Disable LTO in defconfig
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel
+          if [[ -d "arch/arm64/configs" ]]; then
+            ARCH=arm64
+          else
+            ARCH=arm
+          fi
+          CONFIG_FILE=./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
+          sed -i '/CONFIG_LTO/d' $CONFIG_FILE
+          sed -i '/CONFIG_THINLTO/d' $CONFIG_FILE
+          echo "# CONFIG_LTO is not set" >> $CONFIG_FILE
+          echo "# CONFIG_LTO_CLANG_THIN is not set" >> $CONFIG_FILE
       - name: Set Pack Method and KernelSU and SUSFS
         run: |
           # Variable

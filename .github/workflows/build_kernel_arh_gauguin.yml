@@ -20,7 +20,6 @@ env:
 
 
 
-
 jobs:
   build:
     name: Build Kernel by ${{ github.actor }} in Arch Linux
@@ -93,8 +92,6 @@ jobs:
 
           # Update Rust Toolchain
           rustup default stable
-
-
       - name: 安装依赖
         run: |
          if [ -f /etc/arch-release ]; then
@@ -117,7 +114,6 @@ jobs:
             echo "You needn't gcc powered by system."
           fi
 
-          
       - name: Set Compile Environment
         run: |
           cd $GITHUB_WORKSPACE
@@ -279,19 +275,7 @@ jobs:
            echo "CONFIG_VHOST_NET=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
            echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> ./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
           fi
-      - name: Disable LTO in defconfig
-        run: |
-          cd $GITHUB_WORKSPACE/device_kernel
-          if [[ -d "arch/arm64/configs" ]]; then
-            ARCH=arm64
-          else
-            ARCH=arm
-          fi
-          CONFIG_FILE=./arch/$ARCH/configs/${{ env.DEFCONFIG_NAME }}
-          sed -i '/CONFIG_LTO/d' $CONFIG_FILE
-          sed -i '/CONFIG_THINLTO/d' $CONFIG_FILE
-          echo "# CONFIG_LTO is not set" >> $CONFIG_FILE
-          echo "# CONFIG_LTO_CLANG_THIN is not set" >> $CONFIG_FILE
+
       - name: Set Pack Method and KernelSU and SUSFS
         run: |
           # Variable
@@ -383,7 +367,7 @@ jobs:
                 echo "Please do not set a full URL in PATCH_SOURCE!"
                 false
               else
-                wget https://github.com/${{ env.PATCHES_SOURCE }}  NonGKI_Kernel_Patches  # It's not necessary.
+                git clone https://github.com/${{ env.PATCHES_SOURCE }}.git -b ${{ env.PATCHES_BRANCH }} NonGKI_Kernel_Patches --depth=1 # It's not necessary.
               fi
             fi
             git clone $SUSFS_SOURCE -b $SUSFS_BRANCH susfs4ksu --depth=1

@@ -239,6 +239,10 @@ jobs:
           echo "SECOND_VERSION=$(echo "$KERNEL_VERSION" | awk -F '.' '{print $2}')" >> $GITHUB_ENV
 
 
+           - name: 升级binutils
+            run: sudo apt-get update && sudo apt-get install -y binutils
+
+
       - name: 使用新版 ARM 工具链
         run: |
          wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-aarch64-none-elf.tar.xz

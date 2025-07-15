@@ -92,6 +92,10 @@ jobs:
 
           # Update Rust Toolchain
           rustup default stable
+      - name: Check binutils version
+        run: |
+          which as
+          as --version
       - name: 安装依赖
         run: |
          if [ -f /etc/arch-release ]; then

@@ -246,8 +246,7 @@ jobs:
          export PATH=$PWD/arm-gnu-toolchain-14.3.rel1-x86_64-aarch64-none-elf/bin:$PATH
           which as
           as --version
-          make clean
-          make mrproper
+        
 
 
       - name: Set KSU and SUSFS for DEFCONFIG

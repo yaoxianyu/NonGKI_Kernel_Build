@@ -1,4 +1,4 @@
-name: Build Kernel Arch Xiaomi Redmi Note 9 Pro 5G Series (Official A15) with KSU and SUSFS
+name: Xiaomi Redmi Note 9 Pro 5G Series (Official A15) with KSU and SUSFS
 on:
   workflow_call:
   workflow_dispatch:

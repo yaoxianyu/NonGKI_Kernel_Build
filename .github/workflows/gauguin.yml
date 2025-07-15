@@ -292,7 +292,7 @@ jobs:
 
           
       - name: 升级binutils
-        run: sudo apt-get update && sudo apt-get install -y binutils
+        run: sudo pacman -Sy --noconfirm binutils
 
       - name: Set Pack Method and KernelSU and SUSFS
         run: |

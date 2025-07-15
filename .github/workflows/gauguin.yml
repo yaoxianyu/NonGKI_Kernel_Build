@@ -101,11 +101,15 @@ jobs:
          if [ -f /etc/arch-release ]; then
          sudo pacman -Syyu --noconfirm
          sudo pacman -S cpio git base-devel systemd wget rustup curl patch ccache automake flex lzop bison gperf zip bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip zstd binutils gcc python3 which libxml2-legacy --noconfirm
+         
          else
          sudo apt-get update
          sudo apt-get install -y cpio git build-essential systemd wget curl patch ccache automake flex lzop bison gperf zip bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip zstd binutils gcc python3 which libxml2-utils
          fi
          rustup default stable
+
+      - name: 升级binutils
+        run: sudo pacman -Sy --noconfirm binutils
       - name: Install GNU GCC
         if: env.GCC_GNU == 'true'
         run: |
@@ -291,8 +295,7 @@ jobs:
           fi
 
           
-      - name: 升级binutils
-        run: sudo pacman -Sy --noconfirm binutils
+      
 
       - name: Set Pack Method and KernelSU and SUSFS
         run: |

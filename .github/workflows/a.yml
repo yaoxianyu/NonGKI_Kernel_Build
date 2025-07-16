@@ -37,6 +37,7 @@ jobs:
         run: |
           pacman -Syu --noconfirm
           pacman -S --noconfirm curl unzip base-devel bc bison flex openssl ncurses elfutils
+          
       - name: 直接下载 KernelSU 源码并放到 drivers/kernelsu
           mkdir -p drivers/kernelsu
           curl -L https://github.com/tiann/KernelSU/archive/refs/heads/main.zip -o kernelsu.zip

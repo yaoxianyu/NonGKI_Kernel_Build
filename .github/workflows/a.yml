@@ -300,13 +300,17 @@ jobs:
                 false
             else
                 curl -sSL ${{ env.KERNELSU_SOURCE }} | bash -s ${{ env.KERNELSU_BRANCH }}
+                # 挂载 kernelsu 模块到 drivers/kernelsu
+                if [[ ! -d "drivers/kernelsu" ]]; then
+                  ln -sf "$(realpath --relative-to="$GITHUB_WORKSPACE/device_kernel/drivers" "$GITHUB_WORKSPACE/device_kernel/${{ env.KERNELSU_NAME }}/kernel")" "kernelsu"
+                fi
             fi
           elif [[ ${{ env.KERNELSU_METHOD }} == "manual" ]]; then
             if [[ "${{ env.KERNELSU_SOURCE }}" != *".git" ]]; then
                 echo "You need to provide a link ending with .git, not one ending with .sh or any other extension !"
                 false
             else
-                rm -rf KernelSU && rm -rf KernelSU-Next
+                rm -rf ${{ env.KERNELSU_NAME }}
                 git clone ${{ env.KERNELSU_SOURCE }} -b ${{ env.KERNELSU_BRANCH }} ${{ env.KERNELSU_NAME }}
                 ln -sf "$(realpath --relative-to="$GITHUB_WORKSPACE/device_kernel/drivers" "$GITHUB_WORKSPACE/device_kernel/${{ env.KERNELSU_NAME }}/kernel")" "kernelsu"
                 grep -q "kernelsu" "$GITHUB_WORKSPACE/device_kernel/drivers/Makefile" || printf "\nobj-\$(CONFIG_KSU) += kernelsu/\n" >> $GITHUB_WORKSPACE/device_kernel/drivers/Makefile
@@ -366,8 +370,9 @@ jobs:
             cp susfs4ksu/kernel_patches/fs/* fs/
             cp susfs4ksu/kernel_patches/include/linux/* include/linux/
           else
-            echo "Disabled SUSFS !"
+           echo "Disabled SUSFS !"
           fi
+
       - name: Fix Error When Enabling KPM
         if: env.KPM_ENABLE == 'true' && env.KPM_FIX == 'true'
         run: |

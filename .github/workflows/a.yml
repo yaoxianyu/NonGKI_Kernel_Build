@@ -40,11 +40,7 @@ jobs:
         run: |
           pacman -Syu --noconfirm
           pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
-
-      # 2. 拉取主仓库 + 子模块
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
+          git submodule update --init --recursive
       - name: Prepare Configuration
         run: |
           CONFIG_ENV=$(grep -w "CONFIG_ENV" Profiles/${{ env.PROFILE_NAME }} | head -n 1 | cut -d "=" -f 2)

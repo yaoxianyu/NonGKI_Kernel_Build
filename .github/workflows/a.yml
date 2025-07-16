@@ -32,29 +32,17 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - uses: actions/checkout@v4
-
-
-
-      # 1. 更新并安装 git 等基础包
-      - name: Install build tools
+      
+      - name: 安装工具
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
-
-
-      # 1. 安装 git 与构建工具
-      - name: Install packages
-        run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
-
-      # 2. 拉取仓库 + 子模块（git 模式）
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
-
-
+          pacman -S --noconfirm curl unzip base-devel bc bison flex openssl ncurses elfutils
+      - name: 直接下载 KernelSU 源码并放到 drivers/kernelsu
+          mkdir -p drivers/kernelsu
+          curl -L https://github.com/tiann/KernelSU/archive/refs/heads/main.zip -o kernelsu.zip
+          unzip -q kernelsu.zip
+          rsync -a KernelSU-main/kernel/ drivers/kernelsu/
+          rm -rf KernelSU-main kernelsu.zip
 
       
       - name: Prepare Configuration

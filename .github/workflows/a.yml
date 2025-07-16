@@ -32,8 +32,14 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - uses: actions/checkout@v4
-      - name: Checkout submodules
-        run: git submodule update --init --recursive      
+
+
+      - name: Install git and submodules
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+          git submodule update --init --recursive
+
     
       - name: Prepare Configuration
         run: |

@@ -40,7 +40,23 @@ jobs:
         run: |
           pacman -Syu --noconfirm
           pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
-          git submodule update --init --recursive
+
+
+      # 1. 安装 git 与构建工具
+      - name: Install packages
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
+
+      # 2. 拉取仓库 + 子模块（git 模式）
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+
+
+      
       - name: Prepare Configuration
         run: |
           CONFIG_ENV=$(grep -w "CONFIG_ENV" Profiles/${{ env.PROFILE_NAME }} | head -n 1 | cut -d "=" -f 2)

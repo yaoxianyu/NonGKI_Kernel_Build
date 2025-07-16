@@ -32,8 +32,6 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
 
 

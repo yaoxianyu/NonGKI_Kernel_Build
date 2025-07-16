@@ -32,15 +32,6 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - uses: actions/checkout@v4
-
-
-      - name: Install git and submodules
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-          git submodule update --init --recursive
-
-    
       - name: Prepare Configuration
         run: |
           CONFIG_ENV=$(grep -w "CONFIG_ENV" Profiles/${{ env.PROFILE_NAME }} | head -n 1 | cut -d "=" -f 2)

@@ -35,6 +35,36 @@ jobs:
         with:
           submodules: recursive
 
+
+
+      # 1. 更新并安装 git 等基础包
+      - name: Install build tools
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm git base-devel bc bison flex openssl ncurses elfutils wget unzip curl
+
+      # 2. 拉取主仓库 + 子模块
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      # 3. 如果子模块不存在（第一次），自动添加并提交
+      - name: Ensure KernelSU submodule exists
+        run: |
+          if [ ! -f drivers/kernelsu/Kconfig ]; then
+            git config --global user.name  "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git submodule add --depth=1 https://github.com/tiann/KernelSU.git drivers/kernelsu || true
+            git submodule update --init --recursive
+            git commit -m "Add KernelSU submodule [CI]" || true
+            # 只在主分支且第一次时推送
+            if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+              git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
+            fi
+          fi
+
+
       - name: Prepare Configuration
         run: |
           CONFIG_ENV=$(grep -w "CONFIG_ENV" Profiles/${{ env.PROFILE_NAME }} | head -n 1 | cut -d "=" -f 2)

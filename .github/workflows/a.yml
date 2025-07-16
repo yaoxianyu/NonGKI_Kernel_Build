@@ -32,20 +32,6 @@ jobs:
       CCACHE_HARDLINK: "true"
     steps:
       - uses: actions/checkout@v4
-      
-      - name: 安装工具
-        run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm curl unzip base-devel bc bison flex openssl ncurses elfutils
-          
-      - name: 直接下载 KernelSU 源码并放到 drivers/kernelsu
-          mkdir -p drivers/kernelsu
-          curl -L https://github.com/tiann/KernelSU/archive/refs/heads/main.zip -o kernelsu.zip
-          unzip -q kernelsu.zip
-          rsync -a KernelSU-main/kernel/ drivers/kernelsu/
-          rm -rf KernelSU-main kernelsu.zip
-
-      
       - name: Prepare Configuration
         run: |
           CONFIG_ENV=$(grep -w "CONFIG_ENV" Profiles/${{ env.PROFILE_NAME }} | head -n 1 | cut -d "=" -f 2)
@@ -114,6 +100,16 @@ jobs:
          if [ -f /etc/arch-release ]; then
          sudo pacman -Syyu --noconfirm
          sudo pacman -S cpio git base-devel systemd wget rustup curl patch ccache automake flex lzop bison gperf zip bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip zstd binutils gcc python3 which libxml2-legacy --noconfirm
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm curl unzip base-devel bc bison flex openssl ncurses elfutils
+          
+      - name: 直接下载 KernelSU 源码并放到 drivers/kernelsu
+          mkdir -p drivers/kernelsu
+          curl -L https://github.com/tiann/KernelSU/archive/refs/heads/main.zip -o kernelsu.zip
+          unzip -q kernelsu.zip
+          rsync -a KernelSU-main/kernel/ drivers/kernelsu/
+          rm -rf KernelSU-main kernelsu.zip
+         
          else
          sudo apt-get update
          sudo apt-get install -y cpio git build-essential systemd wget curl patch ccache automake flex lzop bison gperf zip bzip2 squashfs-tools pngcrush schedtool make optipng maven pwgen minicom bc unzip zstd binutils gcc python3 which libxml2-utils
